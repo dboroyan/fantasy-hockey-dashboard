@@ -536,27 +536,27 @@ export default function Visualizations() {
                   <h4 className="text-lg font-semibold text-gray-900 mb-4">{manager.manager}</h4>
                   
                   {/* Key Stats Summary */}
-                  <div className="grid grid-cols-2 gap-4 mb-4 p-3 bg-white rounded-lg border">
+                  <div className="grid grid-cols-2 gap-2 sm:gap-4 mb-4 p-3 bg-white rounded-lg border">
                     <div className="text-center">
-                      <div className="text-2xl font-bold text-blue-600">
+                      <div className="text-lg sm:text-2xl font-bold text-blue-600">
                         {managerStats.find(m => m.manager === manager.manager)?.totalSeasons || 0}
                       </div>
                       <div className="text-xs text-gray-600">Total Seasons</div>
                     </div>
                     <div className="text-center">
-                      <div className="text-2xl font-bold text-green-600">
+                      <div className="text-lg sm:text-2xl font-bold text-green-600">
                         {managerStats.find(m => m.manager === manager.manager)?.runnerUps || 0}
                       </div>
                       <div className="text-xs text-gray-600">Runner-ups</div>
                     </div>
                     <div className="text-center">
-                      <div className="text-2xl font-bold text-purple-600">
+                      <div className="text-lg sm:text-2xl font-bold text-purple-600">
                         {managerStats.find(m => m.manager === manager.manager)?.playoffAppearances || 0}
                       </div>
                       <div className="text-xs text-gray-600">Playoff Apps</div>
                     </div>
                     <div className="text-center">
-                      <div className="text-2xl font-bold text-orange-600">
+                      <div className="text-lg sm:text-2xl font-bold text-orange-600">
                         {(managerStats.find(m => m.manager === manager.manager)?.averageFinish || 0).toFixed(1)}
                       </div>
                       <div className="text-xs text-gray-600">Avg Finish</div>
@@ -875,8 +875,8 @@ export default function Visualizations() {
           </h3>
           
           <div className="relative">
-            <div className="bg-gray-50 p-8 rounded-lg">
-              <div className="relative h-80 w-full">
+            <div className="bg-gray-50 p-4 sm:p-8 rounded-lg">
+              <div className="relative h-64 sm:h-80 w-full">
                 {/* Axes */}
                 <div className="absolute bottom-0 left-0 w-full h-px bg-gray-400"></div>
                 <div className="absolute bottom-0 left-0 w-px h-full bg-gray-400"></div>
@@ -923,7 +923,7 @@ export default function Visualizations() {
                       title={`${manager.manager}: ${manager.regularSeasonWinPct.toFixed(1)}% RS Win, ${manager.playoffSuccessRate.toFixed(1)}% Playoff Success, ${manager.championships} Championships`}
                     />
                     {/* Manager Name Label */}
-                    <div className="absolute top-8 left-1/2 transform -translate-x-1/2 text-xs font-medium text-gray-700 bg-white px-2 py-1 rounded shadow-sm border whitespace-nowrap">
+                    <div className="absolute top-6 sm:top-8 left-1/2 transform -translate-x-1/2 text-xs font-medium text-gray-700 bg-white px-1 sm:px-2 py-1 rounded shadow-sm border whitespace-nowrap">
                       {manager.manager}
                     </div>
                   </div>

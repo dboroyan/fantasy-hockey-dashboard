@@ -57,4 +57,28 @@ body {
   .table-cell {
     @apply px-6 py-4 whitespace-nowrap text-sm text-gray-900;
   }
+  
+  /* Mobile scrollbar hiding */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  
+  /* Mobile table optimizations */
+  .mobile-table {
+    @apply block overflow-x-auto whitespace-nowrap;
+  }
+  
+  .mobile-table table {
+    @apply min-w-full;
+  }
+  
+  /* Mobile card adjustments */
+  .mobile-card {
+    @apply p-4 sm:p-6;
+  }
 }

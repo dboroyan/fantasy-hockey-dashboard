@@ -177,7 +177,7 @@ export default function Managers() {
         {/* All Managers Table */}
         <div className="card">
           <h3 className="text-xl font-semibold text-gray-900 mb-4">All Managers Summary</h3>
-          <div className="overflow-x-auto">
+          <div className="mobile-table">
             <table className="table-auto">
               <thead className="bg-gray-50">
                 <tr>
