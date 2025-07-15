@@ -903,21 +903,30 @@ export default function Visualizations() {
                   Good Regular Season<br/>Low Playoff Success
                 </div>
                 
-                {/* Data Points */}
+                {/* Data Points with Labels */}
                 {scatterPlotData.map((manager, index) => (
                   <div
                     key={manager.manager}
-                    className={`absolute transform -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-white shadow-lg cursor-pointer hover:scale-110 transition-transform ${
-                      manager.championships > 2 ? 'w-6 h-6 bg-green-500' :
-                      manager.championships > 0 ? 'w-5 h-5 bg-blue-500' :
-                      'w-4 h-4 bg-gray-400'
-                    }`}
+                    className="absolute transform -translate-x-1/2 -translate-y-1/2"
                     style={{
                       left: `${Math.min(95, Math.max(5, (manager.regularSeasonWinPct - 30) * 2))}%`,
                       bottom: `${Math.min(95, Math.max(5, manager.playoffSuccessRate * 1.2))}%`
                     }}
-                    title={`${manager.manager}: ${manager.regularSeasonWinPct.toFixed(1)}% RS Win, ${manager.playoffSuccessRate.toFixed(1)}% Playoff Success, ${manager.championships} Championships`}
-                  />
+                  >
+                    {/* Data Point */}
+                    <div
+                      className={`rounded-full border-2 border-white shadow-lg cursor-pointer hover:scale-110 transition-transform ${
+                        manager.championships > 2 ? 'w-6 h-6 bg-green-500' :
+                        manager.championships > 0 ? 'w-5 h-5 bg-blue-500' :
+                        'w-4 h-4 bg-gray-400'
+                      }`}
+                      title={`${manager.manager}: ${manager.regularSeasonWinPct.toFixed(1)}% RS Win, ${manager.playoffSuccessRate.toFixed(1)}% Playoff Success, ${manager.championships} Championships`}
+                    />
+                    {/* Manager Name Label */}
+                    <div className="absolute top-8 left-1/2 transform -translate-x-1/2 text-xs font-medium text-gray-700 bg-white px-2 py-1 rounded shadow-sm border whitespace-nowrap">
+                      {manager.manager}
+                    </div>
+                  </div>
                 ))}
                 
                 {/* Reference Lines */}
