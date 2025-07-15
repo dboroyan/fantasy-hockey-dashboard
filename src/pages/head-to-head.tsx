@@ -48,9 +48,8 @@ export default function HeadToHead() {
           ...(season.playoffResults.quarterfinals || []),
           ...(season.playoffResults.semifinals || []),
           ...(season.playoffResults.finals ? [season.playoffResults.finals] : []),
-          ...(season.playoffResults.thirdPlace ? [season.playoffResults.thirdPlace] : []),
           ...(season.playoffResults.fifthPlace ? [season.playoffResults.fifthPlace] : [])
-          // Exclude seventhPlace and ninthPlace as these are consolation games for non-playoff teams
+          // Exclude thirdPlace, seventhPlace and ninthPlace as these are consolation games
         ];
 
         for (const matchup of allPlayoffRounds) {
@@ -80,6 +79,20 @@ export default function HeadToHead() {
           }
         }
       }
+    }
+
+    // Manual correction for missing Dave vs Sam matchup (uncounted season)
+    const daveVsSamKey = 'Dave' < 'Sammy' ? 'Dave-Sammy' : 'Sammy-Dave';
+    if (records.has(daveVsSamKey)) {
+      const record = records.get(daveVsSamKey)!;
+      // Add the missing Dave win from uncounted season
+      record.playoffMeetings++;
+      if (record.manager1 === 'Dave') {
+        record.manager1Wins++;
+      } else {
+        record.manager2Wins++;
+      }
+      record.matchups.push('Missing Season Playoffs: Dave def. Sammy');
     }
 
     return records;

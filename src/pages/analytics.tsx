@@ -88,11 +88,12 @@ export default function Analytics() {
           const wins = parseInt(match[1]);
           const losses = parseInt(match[2]);
           const winPct = wins / (wins + losses);
-          return { ...entry, winPct };
+          return { ...entry, winPct, wins, losses };
         }
         return null;
       })
       .filter(entry => entry !== null)
+      .filter(entry => entry!.winPct < 0.60) // Only show records with < 60% win rate
       .sort((a, b) => {
         if (a!.winPct !== b!.winPct) {
           return a!.winPct - b!.winPct;
@@ -385,25 +386,36 @@ export default function Analytics() {
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
-                {analytics.worstChampionRecords.map((champion, index) => (
-                  <tr key={`${champion.year}-${champion.manager}`} className={index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
-                    <td className="table-cell font-semibold text-hockey-primary">#{index + 1}</td>
-                    <td className="table-cell font-semibold">{champion.year}</td>
-                    <td className="table-cell font-semibold">{champion.manager}</td>
-                    <td className="table-cell text-center font-bold text-red-600">{champion.record}</td>
-                    <td className="table-cell text-center">{champion.position}</td>
-                    <td className="table-cell text-center">
-                      <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                        champion.position > 4 ? 'bg-red-100 text-red-800' :
-                        champion.position > 2 ? 'bg-yellow-100 text-yellow-800' :
-                        'bg-green-100 text-green-800'
-                      }`}>
-                        {champion.position > 4 ? 'Major Upset' :
-                         champion.position > 2 ? 'Upset' : 'Expected'}
-                      </span>
-                    </td>
-                  </tr>
-                ))}
+                {analytics.worstChampionRecords.map((champion, index) => {
+                  const isWorstRecord = (champion.record === '9-11-1' && champion.manager === 'Sammy') || 
+                                       (champion.record === '9-11-0' && champion.manager === 'Colon');
+                  
+                  return (
+                    <tr key={`${champion.year}-${champion.manager}`} className={
+                      isWorstRecord ? 'bg-red-50 border-l-4 border-red-500' :
+                      index % 2 === 0 ? 'bg-white' : 'bg-gray-50'
+                    }>
+                      <td className="table-cell font-semibold text-hockey-primary">#{index + 1}</td>
+                      <td className="table-cell font-semibold">{champion.year}</td>
+                      <td className="table-cell font-semibold">{champion.manager}</td>
+                      <td className={`table-cell text-center font-bold ${isWorstRecord ? 'text-red-800' : 'text-red-600'}`}>
+                        {champion.record}
+                        {isWorstRecord && <span className="ml-2 text-xs bg-red-600 text-white px-2 py-1 rounded">WORST EVER</span>}
+                      </td>
+                      <td className="table-cell text-center">{champion.position}</td>
+                      <td className="table-cell text-center">
+                        <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                          champion.position > 4 ? 'bg-red-100 text-red-800' :
+                          champion.position > 2 ? 'bg-yellow-100 text-yellow-800' :
+                          'bg-green-100 text-green-800'
+                        }`}>
+                          {champion.position > 4 ? 'Major Upset' :
+                           champion.position > 2 ? 'Upset' : 'Expected'}
+                        </span>
+                      </td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           </div>
