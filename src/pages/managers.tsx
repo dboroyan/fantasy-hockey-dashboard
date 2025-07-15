@@ -23,13 +23,13 @@ export default function Managers() {
               id="manager-select"
               value={selectedManager}
               onChange={(e) => setSelectedManager(e.target.value)}
-              className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-hockey-primary"
+              className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-hockey-primary text-blue-600"
             >
-              <option value="">-- Select a Manager --</option>
+              <option value="" className="text-blue-600">-- Select a Manager --</option>
               {managerStats
                 .sort((a, b) => a.manager.localeCompare(b.manager))
                 .map(manager => (
-                  <option key={manager.manager} value={manager.manager}>
+                  <option key={manager.manager} value={manager.manager} className="text-blue-600">
                     {manager.manager}
                   </option>
                 ))}

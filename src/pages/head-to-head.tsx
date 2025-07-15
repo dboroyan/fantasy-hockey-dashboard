@@ -115,11 +115,11 @@ export default function HeadToHead() {
                 id="manager1-select"
                 value={manager1}
                 onChange={(e) => setManager1(e.target.value)}
-                className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-hockey-primary"
+                className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-hockey-primary text-blue-600"
               >
-                <option value="">-- Select Manager 1 --</option>
+                <option value="" className="text-blue-600">-- Select Manager 1 --</option>
                 {allManagers.map(manager => (
-                  <option key={manager} value={manager}>
+                  <option key={manager} value={manager} className="text-blue-600">
                     {manager}
                   </option>
                 ))}
@@ -133,11 +133,11 @@ export default function HeadToHead() {
                 id="manager2-select"
                 value={manager2}
                 onChange={(e) => setManager2(e.target.value)}
-                className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-hockey-primary"
+                className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-hockey-primary text-blue-600"
               >
-                <option value="">-- Select Manager 2 --</option>
+                <option value="" className="text-blue-600">-- Select Manager 2 --</option>
                 {allManagers.filter(m => m !== manager1).map(manager => (
-                  <option key={manager} value={manager}>
+                  <option key={manager} value={manager} className="text-blue-600">
                     {manager}
                   </option>
                 ))}

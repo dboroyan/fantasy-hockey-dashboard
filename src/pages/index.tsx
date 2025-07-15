@@ -22,10 +22,10 @@ export default function Home() {
               id="season-select"
               value={selectedSeason}
               onChange={(e) => setSelectedSeason(parseInt(e.target.value))}
-              className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-hockey-primary"
+              className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-hockey-primary text-blue-600"
             >
               {seasons.map(season => (
-                <option key={season.year} value={season.year}>
+                <option key={season.year} value={season.year} className="text-blue-600">
                   {season.year} Season
                 </option>
               ))}
