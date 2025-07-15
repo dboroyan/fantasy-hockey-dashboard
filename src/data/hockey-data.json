@@ -1,0 +1,1567 @@
+{
+  "seasons": [
+    {
+      "year": 2011,
+      "managers": [
+        {
+          "manager": "Dave",
+          "team": "HIV-DAWGS",
+          "regularSeasonPosition": 1,
+          "regularSeasonRecord": "-",
+          "playoffRecord": "3-0",
+          "finalPosition": 1,
+          "isChampion": true
+        },
+        {
+          "manager": "Al",
+          "team": "Vinney Is Super Gay",
+          "regularSeasonPosition": 2,
+          "regularSeasonRecord": "-",
+          "playoffRecord": "2-1",
+          "finalPosition": 2,
+          "isChampion": false
+        },
+        {
+          "manager": "Gwendi",
+          "team": "ThEyCallMeGwEnDi",
+          "regularSeasonPosition": 3,
+          "regularSeasonRecord": "-",
+          "playoffRecord": "1-1",
+          "finalPosition": 3,
+          "isChampion": false
+        },
+        {
+          "manager": "swagger up",
+          "team": "swager up",
+          "regularSeasonPosition": 4,
+          "regularSeasonRecord": "-",
+          "playoffRecord": "1-1",
+          "finalPosition": 4,
+          "isChampion": false
+        },
+        {
+          "manager": "I wish I was anto",
+          "team": "I wish i was anto",
+          "regularSeasonPosition": 5,
+          "regularSeasonRecord": "-",
+          "playoffRecord": "0-1",
+          "finalPosition": 0,
+          "isChampion": false
+        },
+        {
+          "manager": "anto",
+          "team": "lick my dick vinney",
+          "regularSeasonPosition": 6,
+          "regularSeasonRecord": "-",
+          "playoffRecord": "0-1",
+          "finalPosition": 0,
+          "isChampion": false
+        },
+        {
+          "manager": "johnny",
+          "team": "Sgt. Johnson",
+          "regularSeasonPosition": 7,
+          "regularSeasonRecord": "-",
+          "playoffRecord": "0-1",
+          "finalPosition": 0,
+          "isChampion": false
+        },
+        {
+          "manager": "tony",
+          "team": "The Jagoffs",
+          "regularSeasonPosition": 8,
+          "regularSeasonRecord": "-",
+          "playoffRecord": "0-1",
+          "finalPosition": 0,
+          "isChampion": false
+        }
+      ]
+    },
+    {
+      "year": 2012,
+      "managers": [
+        {
+          "manager": "Dave",
+          "team": "DINGLEBARRYS",
+          "regularSeasonPosition": 1,
+          "regularSeasonRecord": "-",
+          "playoffRecord": "3-0",
+          "finalPosition": 1,
+          "isChampion": true
+        },
+        {
+          "manager": "Gwendi",
+          "team": "ThEyCallMeGwEnDi",
+          "regularSeasonPosition": 2,
+          "regularSeasonRecord": "-",
+          "playoffRecord": "2-1",
+          "finalPosition": 2,
+          "isChampion": false
+        },
+        {
+          "manager": "Vin",
+          "team": "T-BAG BOYS",
+          "regularSeasonPosition": 3,
+          "regularSeasonRecord": "-",
+          "playoffRecord": "1-1",
+          "finalPosition": 3,
+          "isChampion": false
+        },
+        {
+          "manager": "Skinner",
+          "team": "Monkeyknuckles",
+          "regularSeasonPosition": 4,
+          "regularSeasonRecord": "-",
+          "playoffRecord": "1-1",
+          "finalPosition": 4,
+          "isChampion": false
+        },
+        {
+          "manager": "Al",
+          "team": "Where's Waldo?",
+          "regularSeasonPosition": 5,
+          "regularSeasonRecord": "-",
+          "playoffRecord": "0-1",
+          "finalPosition": 0,
+          "isChampion": false
+        },
+        {
+          "manager": "Johnny",
+          "team": "Sgt. Johnson",
+          "regularSeasonPosition": 6,
+          "regularSeasonRecord": "-",
+          "playoffRecord": "0-1",
+          "finalPosition": 0,
+          "isChampion": false
+        },
+        {
+          "manager": "Marlene",
+          "team": "The Blizzard",
+          "regularSeasonPosition": 7,
+          "regularSeasonRecord": "-",
+          "playoffRecord": "0-1",
+          "finalPosition": 0,
+          "isChampion": false
+        },
+        {
+          "manager": "I wish I was anto",
+          "team": "ORANGUTAN NIPPLES",
+          "regularSeasonPosition": 8,
+          "regularSeasonRecord": "-",
+          "playoffRecord": "0-1",
+          "finalPosition": 0,
+          "isChampion": false
+        }
+      ],
+      "playoffResults": {
+        "quarterfinals": [
+          "Dave (DINGLEBARRYS) def. Marlene (The Blizzard)",
+          "Skinner (Monkeyknuckles) def. Al (Where's Waldo?)",
+          "Gwendi (ThEyCallMeGwEnDi) def. Johnny (Sgt. Johnson)",
+          "Vin (T-BAG BOYS) def. I wish I was anto (ORANGUTAN NIPPLES)"
+        ],
+        "semifinals": [
+          "Dave (DINGLEBARRYS) def. Skinner (Monkeyknuckles)",
+          "Gwendi (ThEyCallMeGwEnDi) def. Vin (T-BAG BOYS)"
+        ],
+        "finals": "**Dave (DINGLEBARRYS)** def. Gwendi (ThEyCallMeGwEnDi)",
+        "thirdPlace": "Vin (T-BAG BOYS) def. Skinner (Monkeyknuckles)"
+      }
+    },
+    {
+      "year": 2013,
+      "managers": [
+        {
+          "manager": "Dave",
+          "team": "DINGLEBARRYS",
+          "regularSeasonPosition": 1,
+          "regularSeasonRecord": "14-7-0",
+          "playoffRecord": "3-0",
+          "finalPosition": 1,
+          "isChampion": true
+        },
+        {
+          "manager": "Al",
+          "team": "America",
+          "regularSeasonPosition": 2,
+          "regularSeasonRecord": "7-14-0",
+          "playoffRecord": "2-1",
+          "finalPosition": 2,
+          "isChampion": false
+        },
+        {
+          "manager": "Dan",
+          "team": "DirtyDanDunDirtCheap",
+          "regularSeasonPosition": 3,
+          "regularSeasonRecord": "8-11-2",
+          "playoffRecord": "1-1",
+          "finalPosition": 3,
+          "isChampion": false
+        },
+        {
+          "manager": "Johnny",
+          "team": "Sgt. Johnson",
+          "regularSeasonPosition": 4,
+          "regularSeasonRecord": "14-5-2",
+          "playoffRecord": "1-1",
+          "finalPosition": 4,
+          "isChampion": false
+        },
+        {
+          "manager": "Skinner",
+          "team": "Bergy's Brass Knuts",
+          "regularSeasonPosition": 5,
+          "regularSeasonRecord": "13-8-0",
+          "playoffRecord": "0-1",
+          "finalPosition": 0,
+          "isChampion": false
+        },
+        {
+          "manager": "unknown",
+          "team": "Don't Toews Me Bro",
+          "regularSeasonPosition": 6,
+          "regularSeasonRecord": "6-15-0",
+          "playoffRecord": "0-1",
+          "finalPosition": 0,
+          "isChampion": false
+        },
+        {
+          "manager": "anto",
+          "team": "Pimpin' Ain't Parise",
+          "regularSeasonPosition": 7,
+          "regularSeasonRecord": "6-14-1",
+          "playoffRecord": "0-1",
+          "finalPosition": 0,
+          "isChampion": false
+        },
+        {
+          "manager": "shant",
+          "team": "ALEX'S BEARD GNOME",
+          "regularSeasonPosition": 8,
+          "regularSeasonRecord": "13-7-1",
+          "playoffRecord": "0-1",
+          "finalPosition": 0,
+          "isChampion": false
+        }
+      ]
+    },
+    {
+      "year": 2014,
+      "managers": [
+        {
+          "manager": "Dave",
+          "team": "Rinneborhood Watch",
+          "regularSeasonPosition": 2,
+          "regularSeasonRecord": "13-8-0",
+          "playoffRecord": "2-1",
+          "finalPosition": 1,
+          "isChampion": true
+        },
+        {
+          "manager": "Vin",
+          "team": "Orpik Your Poison",
+          "regularSeasonPosition": 1,
+          "regularSeasonRecord": "15-3-3",
+          "playoffRecord": "3-0",
+          "finalPosition": 2,
+          "isChampion": false
+        },
+        {
+          "manager": "Skinner",
+          "team": "George Belongs to Me",
+          "regularSeasonPosition": 3,
+          "regularSeasonRecord": "8-10-3",
+          "playoffRecord": "1-1",
+          "finalPosition": 3,
+          "isChampion": false
+        },
+        {
+          "manager": "Mish",
+          "team": "Dick Dragons",
+          "regularSeasonPosition": 4,
+          "regularSeasonRecord": "9-12-0",
+          "playoffRecord": "1-1",
+          "finalPosition": 4,
+          "isChampion": false
+        },
+        {
+          "manager": "unknown",
+          "team": "Vins not Streit",
+          "regularSeasonPosition": 5,
+          "regularSeasonRecord": "11-6-4",
+          "playoffRecord": "0-1",
+          "finalPosition": 0,
+          "isChampion": false
+        },
+        {
+          "manager": "anto",
+          "team": "Pimpin' Ain't Parise",
+          "regularSeasonPosition": 6,
+          "regularSeasonRecord": "5-16-0",
+          "playoffRecord": "0-1",
+          "finalPosition": 0,
+          "isChampion": false
+        },
+        {
+          "manager": "Ben",
+          "team": "KimmoTherapy",
+          "regularSeasonPosition": 7,
+          "regularSeasonRecord": "9-9-3",
+          "playoffRecord": "0-1",
+          "finalPosition": 0,
+          "isChampion": false
+        },
+        {
+          "manager": "Al",
+          "team": "Josi&the Pussycats",
+          "regularSeasonPosition": 8,
+          "regularSeasonRecord": "7-13-1",
+          "playoffRecord": "0-1",
+          "finalPosition": 0,
+          "isChampion": false
+        }
+      ],
+      "playoffResults": {
+        "quarterfinals": [
+          "Vin (Orpik Your Poison) def. anto (Pimpin' Ain't Parise)",
+          "Ben (KimmoTherapy) def. Skinner (George Belongs to Me)",
+          "unknown (Vins not Streit) def. Mish (Dick Dragons)",
+          "Dave (Rinneborhood Watch) def. Al (Josi&the Pussycats)"
+        ],
+        "semifinals": [
+          "Vin (Orpik Your Poison) def. Skinner (George Belongs to Me)",
+          "Mish (Dick Dragons) def. Dave (Rinneborhood Watch)"
+        ],
+        "finals": "**Dave (Rinneborhood Watch)** def. Vin (Orpik Your Poison) (tie decided by regular season head-to-head)",
+        "thirdPlace": "Skinner (George Belongs to Me) def. Mish (Dick Dragons)"
+      }
+    },
+    {
+      "year": 2015,
+      "managers": [
+        {
+          "manager": "Dave",
+          "team": "Hi Mong",
+          "regularSeasonPosition": 1,
+          "regularSeasonRecord": "18-2-1",
+          "playoffRecord": "3-0",
+          "finalPosition": 1,
+          "isChampion": true
+        },
+        {
+          "manager": "Mish",
+          "team": "Dick Dragons",
+          "regularSeasonPosition": 2,
+          "regularSeasonRecord": "15-3-3",
+          "playoffRecord": "2-1",
+          "finalPosition": 2,
+          "isChampion": false
+        },
+        {
+          "manager": "Johnny",
+          "team": "Team Get Great Again",
+          "regularSeasonPosition": 3,
+          "regularSeasonRecord": "10-11-0",
+          "playoffRecord": "1-1",
+          "finalPosition": 3,
+          "isChampion": false
+        },
+        {
+          "manager": "Ben",
+          "team": "KimmoTherapy",
+          "regularSeasonPosition": 4,
+          "regularSeasonRecord": "11-9-1",
+          "playoffRecord": "1-1",
+          "finalPosition": 4,
+          "isChampion": false
+        },
+        {
+          "manager": "Al",
+          "team": "TheFuckIsThisShit?",
+          "regularSeasonPosition": 5,
+          "regularSeasonRecord": "8-10-3",
+          "playoffRecord": "0-1",
+          "finalPosition": 0,
+          "isChampion": false
+        },
+        {
+          "manager": "unknown",
+          "team": "Charlie's Team",
+          "regularSeasonPosition": 6,
+          "regularSeasonRecord": "8-11-2",
+          "playoffRecord": "0-1",
+          "finalPosition": 0,
+          "isChampion": false
+        },
+        {
+          "manager": "unknown",
+          "team": "Kane raped",
+          "regularSeasonPosition": 7,
+          "regularSeasonRecord": "4-14-3",
+          "finalPosition": 0,
+          "isChampion": false
+        },
+        {
+          "manager": "anto",
+          "team": "Pimpin' Ain't Parise",
+          "regularSeasonPosition": 8,
+          "regularSeasonRecord": "3-17-1",
+          "finalPosition": 0,
+          "isChampion": false
+        }
+      ],
+      "playoffResults": {
+        "quarterfinals": [
+          "Dave (Hi Mong) (bye)",
+          "Johnny (Team Get Great Again) def. Al (TheFuckIsThisShit?)",
+          "Ben (KimmoTherapy) def. unknown (Charlie's Team)",
+          "Mish (Dick Dragons) (bye)"
+        ],
+        "semifinals": [
+          "Dave (Hi Mong) def. Johnny (Team Get Great Again)",
+          "Mish (Dick Dragons) def. Ben (KimmoTherapy)"
+        ],
+        "finals": "**Dave (Hi Mong)** def. Mish (Dick Dragons)",
+        "thirdPlace": "Johnny (Team Get Great Again) def. Ben (KimmoTherapy)",
+        "fifthPlace": "Al (TheFuckIsThisShit?) def. unknown (Charlie's Team)"
+      }
+    },
+    {
+      "year": 2017,
+      "managers": [
+        {
+          "manager": "Colon",
+          "team": "George's Killer",
+          "regularSeasonPosition": 2,
+          "regularSeasonRecord": "9-11-0",
+          "playoffRecord": "3-0",
+          "finalPosition": 1,
+          "isChampion": true
+        },
+        {
+          "manager": "Al",
+          "team": "R U My Dadonov?",
+          "regularSeasonPosition": 1,
+          "regularSeasonRecord": "17-3-0",
+          "playoffRecord": "2-1",
+          "finalPosition": 2,
+          "isChampion": false
+        },
+        {
+          "manager": "Ben",
+          "team": "Holy Girouxsalem",
+          "regularSeasonPosition": 3,
+          "regularSeasonRecord": "16-4-0",
+          "playoffRecord": "1-1",
+          "finalPosition": 3,
+          "isChampion": false
+        },
+        {
+          "manager": "Mish",
+          "team": "Dick Dragons",
+          "regularSeasonPosition": 4,
+          "regularSeasonRecord": "10-10-0",
+          "playoffRecord": "1-1",
+          "finalPosition": 4,
+          "isChampion": false
+        },
+        {
+          "manager": "Dave",
+          "team": "All my friends r ded",
+          "regularSeasonPosition": 5,
+          "regularSeasonRecord": "11-9-0",
+          "playoffRecord": "0-1",
+          "finalPosition": 5,
+          "isChampion": false
+        },
+        {
+          "manager": "Vin",
+          "team": "Meet Your Makar",
+          "regularSeasonPosition": 6,
+          "regularSeasonRecord": "10-10-0",
+          "playoffRecord": "0-1",
+          "finalPosition": 6,
+          "isChampion": false
+        },
+        {
+          "manager": "Gwendi",
+          "team": "Craig's Cool Team",
+          "regularSeasonPosition": 7,
+          "regularSeasonRecord": "2-18-0",
+          "finalPosition": 7,
+          "isChampion": false
+        },
+        {
+          "manager": "unknown",
+          "team": "6 Afraid Of Sven",
+          "regularSeasonPosition": 8,
+          "regularSeasonRecord": "5-15-0",
+          "finalPosition": 8,
+          "isChampion": false
+        }
+      ],
+      "playoffResults": {
+        "quarterfinals": [
+          "Al (R U My Dadonov?) (bye)",
+          "Mish (Dick Dragons) def. Vin (Meet Your Makar)",
+          "Colon (George's Killer) def. Dave (All my friends r ded)",
+          "Ben (Holy Girouxsalem) (bye)"
+        ],
+        "semifinals": [
+          "Al (R U My Dadonov?) def. Mish (Dick Dragons)",
+          "Colon (George's Killer) def. Ben (Holy Girouxsalem)"
+        ],
+        "finals": "**Colon (George's Killer)** def. Al (R U My Dadonov?)",
+        "thirdPlace": "Ben (Holy Girouxsalem) def. Mish (Dick Dragons)",
+        "fifthPlace": "Dave (All my friends r ded) def. Vin (Meet Your Makar)"
+      }
+    },
+    {
+      "year": 2018,
+      "managers": [
+        {
+          "manager": "Dave",
+          "team": "Dinglebarrys",
+          "regularSeasonPosition": 1,
+          "regularSeasonRecord": "10-9-1",
+          "playoffRecord": "3-0",
+          "finalPosition": 1,
+          "isChampion": true
+        },
+        {
+          "manager": "Al",
+          "team": "Sad Marchand",
+          "regularSeasonPosition": 2,
+          "regularSeasonRecord": "11-8-1",
+          "playoffRecord": "2-1",
+          "finalPosition": 2,
+          "isChampion": false
+        },
+        {
+          "manager": "Mish",
+          "team": "Dick Dragons",
+          "regularSeasonPosition": 3,
+          "regularSeasonRecord": "12-8-0",
+          "playoffRecord": "1-1",
+          "finalPosition": 3,
+          "isChampion": false
+        },
+        {
+          "manager": "Vin",
+          "team": "Alaskan Bullworms",
+          "regularSeasonPosition": 4,
+          "regularSeasonRecord": "14-3-3",
+          "playoffRecord": "1-1",
+          "finalPosition": 4,
+          "isChampion": false
+        },
+        {
+          "manager": "Colon",
+          "team": "Charlie's Home Alone",
+          "regularSeasonPosition": 5,
+          "regularSeasonRecord": "7-11-2",
+          "playoffRecord": "0-1",
+          "finalPosition": 5,
+          "isChampion": false
+        },
+        {
+          "manager": "MST",
+          "team": "Uncle Hank?",
+          "regularSeasonPosition": 6,
+          "regularSeasonRecord": "8-11-1",
+          "playoffRecord": "0-1",
+          "finalPosition": 6,
+          "isChampion": false
+        },
+        {
+          "manager": "Sammy",
+          "team": "Bill Crosby",
+          "regularSeasonPosition": 7,
+          "regularSeasonRecord": "7-13-0",
+          "finalPosition": 7,
+          "isChampion": false
+        },
+        {
+          "manager": "Ben",
+          "team": "Holy Girouxsalem",
+          "regularSeasonPosition": 8,
+          "regularSeasonRecord": "7-13-0",
+          "finalPosition": 8,
+          "isChampion": false
+        }
+      ],
+      "playoffResults": {
+        "quarterfinals": [
+          "Vin (Alaskan Bullworms) (bye)",
+          "Dave (Dinglebarrys) def. MST (Uncle Hank?)",
+          "Al (Sad Marchand) def. Colon (Charlie's Home Alone)",
+          "Mish (Dick Dragons) (bye)"
+        ],
+        "semifinals": [
+          "Dave (Dinglebarrys) def. Vin (Alaskan Bullworms)",
+          "Al (Sad Marchand) def. Mish (Dick Dragons)"
+        ],
+        "finals": "**Dave (Dinglebarrys)** def. Al (Sad Marchand)",
+        "thirdPlace": "Mish (Dick Dragons) def. Vin (Alaskan Bullworms)",
+        "fifthPlace": "Colon (Charlie's Home Alone) def. MST (Uncle Hank?)"
+      }
+    },
+    {
+      "year": 2019,
+      "managers": [],
+      "notes": "Season cancelled before playoffs due to COVID-19 pandemic."
+    },
+    {
+      "year": 2020,
+      "managers": [
+        {
+          "manager": "Dave",
+          "team": "DinkusOrellius",
+          "regularSeasonPosition": 1,
+          "regularSeasonRecord": "7-2-3",
+          "playoffRecord": "3-0",
+          "finalPosition": 1,
+          "isChampion": true
+        },
+        {
+          "manager": "MST",
+          "team": "Uncle Hank?",
+          "regularSeasonPosition": 2,
+          "regularSeasonRecord": "7-2-3",
+          "playoffRecord": "2-1",
+          "finalPosition": 2,
+          "isChampion": false
+        },
+        {
+          "manager": "Mish",
+          "team": "Thank u Sam",
+          "regularSeasonPosition": 3,
+          "regularSeasonRecord": "6-4-2",
+          "playoffRecord": "1-1",
+          "finalPosition": 3,
+          "isChampion": false
+        },
+        {
+          "manager": "Al",
+          "team": "Motte-ly Crue",
+          "regularSeasonPosition": 4,
+          "regularSeasonRecord": "5-5-2",
+          "playoffRecord": "1-1",
+          "finalPosition": 4,
+          "isChampion": false
+        },
+        {
+          "manager": "Ben",
+          "team": "Holy Girouxsalem",
+          "regularSeasonPosition": 5,
+          "regularSeasonRecord": "7-3-2",
+          "playoffRecord": "0-1",
+          "finalPosition": 5,
+          "isChampion": false
+        },
+        {
+          "manager": "Jack",
+          "team": "Penny-Wise",
+          "regularSeasonPosition": 6,
+          "regularSeasonRecord": "6-6-0",
+          "playoffRecord": "0-1",
+          "finalPosition": 6,
+          "isChampion": false
+        },
+        {
+          "manager": "Sammy",
+          "team": "Wilhelm Cosbito",
+          "regularSeasonPosition": 7,
+          "regularSeasonRecord": "4-7-1",
+          "playoffRecord": "0-1",
+          "finalPosition": 7,
+          "isChampion": false
+        },
+        {
+          "manager": "Vin",
+          "team": "Postponed",
+          "regularSeasonPosition": 8,
+          "regularSeasonRecord": "3-6-3",
+          "playoffRecord": "0-1",
+          "finalPosition": 8,
+          "isChampion": false
+        },
+        {
+          "manager": "Colon",
+          "team": "Kill George",
+          "regularSeasonPosition": 9,
+          "regularSeasonRecord": "2-7-3",
+          "finalPosition": 9,
+          "isChampion": false
+        },
+        {
+          "manager": "coach keo",
+          "team": "Prophecy Fulfilled",
+          "regularSeasonPosition": 10,
+          "regularSeasonRecord": "2-7-3",
+          "finalPosition": 10,
+          "isChampion": false
+        }
+      ],
+      "playoffResults": {
+        "quarterfinals": [
+          "MST (Uncle Hank?) def. Vin (Postponed)",
+          "Mish (Thank u Sam) def. Jack (Penny-Wise)",
+          "Ben (Holy Girouxsalem) def. Al (Motte-ly Crue)",
+          "Dave (DinkusOrellius) def. Sammy (Wilhelm Cosbito)"
+        ],
+        "semifinals": [
+          "MST (Uncle Hank?) def. Mish (Thank u Sam)",
+          "Dave (DinkusOrellius) def. Ben (Holy Girouxsalem)"
+        ],
+        "finals": "**Dave (DinkusOrellius)** def. MST (Uncle Hank?)",
+        "thirdPlace": "Mish (Thank u Sam) def. Ben (Holy Girouxsalem)",
+        "fifthPlace": "Jack (Penny-Wise) def. Al (Motte-ly Crue)",
+        "seventhPlace": "Sammy (Wilhelm Cosbito) def. Vin (Postponed)"
+      }
+    },
+    {
+      "year": 2021,
+      "managers": [
+        {
+          "manager": "Sammy",
+          "team": "Bill Crosby",
+          "regularSeasonPosition": 1,
+          "regularSeasonRecord": "9-11-1",
+          "playoffRecord": "3-0",
+          "finalPosition": 1,
+          "isChampion": true
+        },
+        {
+          "manager": "Al",
+          "team": "#SavedEichel",
+          "regularSeasonPosition": 2,
+          "regularSeasonRecord": "15-6-0",
+          "playoffRecord": "2-1",
+          "finalPosition": 2,
+          "isChampion": false
+        },
+        {
+          "manager": "Dave",
+          "team": "This is anto's team now",
+          "regularSeasonPosition": 3,
+          "regularSeasonRecord": "17-3-1",
+          "playoffRecord": "1-1",
+          "finalPosition": 3,
+          "isChampion": false
+        },
+        {
+          "manager": "Vin",
+          "team": "Beachfront Property",
+          "regularSeasonPosition": 4,
+          "regularSeasonRecord": "11-7-3",
+          "playoffRecord": "1-1",
+          "finalPosition": 4,
+          "isChampion": false
+        },
+        {
+          "manager": "Mish",
+          "team": "Solid White Albacore",
+          "regularSeasonPosition": 5,
+          "regularSeasonRecord": "9-9-3",
+          "playoffRecord": "0-1",
+          "finalPosition": 5,
+          "isChampion": false
+        },
+        {
+          "manager": "Ben",
+          "team": "Holy Girouxsalem",
+          "regularSeasonPosition": 6,
+          "regularSeasonRecord": "7-10-4",
+          "playoffRecord": "0-1",
+          "finalPosition": 6,
+          "isChampion": false
+        },
+        {
+          "manager": "coach keo",
+          "team": "Somebody Loves Raymond",
+          "regularSeasonPosition": 7,
+          "regularSeasonRecord": "6-12-3",
+          "playoffRecord": "0-1",
+          "finalPosition": 7,
+          "isChampion": false
+        },
+        {
+          "manager": "Jack",
+          "team": "Fake Vaxx-i",
+          "regularSeasonPosition": 8,
+          "regularSeasonRecord": "9-11-1",
+          "playoffRecord": "0-1",
+          "finalPosition": 8,
+          "isChampion": false
+        },
+        {
+          "manager": "Colon",
+          "team": "Auto Draft Team",
+          "regularSeasonPosition": 9,
+          "regularSeasonRecord": "6-13-2",
+          "finalPosition": 9,
+          "isChampion": false
+        },
+        {
+          "manager": "MST",
+          "team": "Uncle Sam?",
+          "regularSeasonPosition": 10,
+          "regularSeasonRecord": "5-12-4",
+          "finalPosition": 10,
+          "isChampion": false
+        }
+      ],
+      "playoffResults": {
+        "quarterfinals": [
+          "Dave (This is anto's team now) def. coach keo (Somebody Loves Raymond)",
+          "Sammy (Bill Crosby) def. Mish (Solid White Albacore)",
+          "Vin (Beachfront Property) def. Jack (Fake Vaxx-i)",
+          "Al (#SavedEichel) def. Ben (Holy Girouxsalem)"
+        ],
+        "semifinals": [
+          "Sammy (Bill Crosby) def. Dave (This is anto's team now)",
+          "Al (#SavedEichel) def. Vin (Beachfront Property)"
+        ],
+        "finals": "**Sammy (Bill Crosby)** def. Al (#SavedEichel)",
+        "thirdPlace": "Dave (This is anto's team now) def. Vin (Beachfront Property)",
+        "fifthPlace": "Mish (Solid White Albacore) def. Ben (Holy Girouxsalem)",
+        "seventhPlace": "coach keo (Somebody Loves Raymond) def. Jack (Fake Vaxx-i)"
+      }
+    },
+    {
+      "year": 2022,
+      "managers": [
+        {
+          "manager": "Vin",
+          "team": "Beachfront Property",
+          "regularSeasonPosition": 1,
+          "regularSeasonRecord": "10-6-3",
+          "playoffRecord": "3-0",
+          "finalPosition": 1,
+          "isChampion": true
+        },
+        {
+          "manager": "Ben",
+          "team": "Holy Girouxsalem",
+          "regularSeasonPosition": 2,
+          "regularSeasonRecord": "12-6-1",
+          "playoffRecord": "2-1",
+          "finalPosition": 2,
+          "isChampion": false
+        },
+        {
+          "manager": "Sammy",
+          "team": "Bill Crosby",
+          "regularSeasonPosition": 3,
+          "regularSeasonRecord": "8-9-2",
+          "playoffRecord": "1-1",
+          "finalPosition": 3,
+          "isChampion": false
+        },
+        {
+          "manager": "Dave",
+          "team": "This is anto's team now",
+          "regularSeasonPosition": 4,
+          "regularSeasonRecord": "15-4-0",
+          "playoffRecord": "1-1",
+          "finalPosition": 4,
+          "isChampion": false
+        },
+        {
+          "manager": "Mish",
+          "team": "Putins Goon-Squad",
+          "regularSeasonPosition": 5,
+          "regularSeasonRecord": "8-8-3",
+          "playoffRecord": "0-1",
+          "finalPosition": 5,
+          "isChampion": false
+        },
+        {
+          "manager": "Al",
+          "team": "Ilya Self",
+          "regularSeasonPosition": 6,
+          "regularSeasonRecord": "10-5-4",
+          "playoffRecord": "0-1",
+          "finalPosition": 6,
+          "isChampion": false
+        },
+        {
+          "manager": "Colon",
+          "team": "Filip's Foreskin",
+          "regularSeasonPosition": 7,
+          "regularSeasonRecord": "5-11-3",
+          "finalPosition": 7,
+          "isChampion": false
+        },
+        {
+          "manager": "Jack",
+          "team": "Roman Snipes",
+          "regularSeasonPosition": 8,
+          "regularSeasonRecord": "6-10-3",
+          "finalPosition": 8,
+          "isChampion": false
+        },
+        {
+          "manager": "coach keo",
+          "team": "Patiently Waiting",
+          "regularSeasonPosition": 9,
+          "regularSeasonRecord": "5-10-4",
+          "finalPosition": 9,
+          "isChampion": false
+        },
+        {
+          "manager": "MST",
+          "team": "0-8",
+          "regularSeasonPosition": 10,
+          "regularSeasonRecord": "2-12-5",
+          "finalPosition": 10,
+          "isChampion": false
+        }
+      ],
+      "playoffResults": {
+        "quarterfinals": [
+          "Dave (This is anto's team now) (bye)",
+          "Vin (Beachfront Property) def. Mish (Putins Goon-Squad)",
+          "Al (Ilya Self) def. Sammy (Bill Crosby)",
+          "Ben (Holy Girouxsalem) (bye)"
+        ],
+        "semifinals": [
+          "Vin (Beachfront Property) def. Dave (This is anto's team now)",
+          "Ben (Holy Girouxsalem) def. Al (Ilya Self)"
+        ],
+        "finals": "**Vin (Beachfront Property)** def. Ben (Holy Girouxsalem)",
+        "thirdPlace": "Sammy (Bill Crosby) def. Dave (This is anto's team now)",
+        "fifthPlace": "Mish (Putins Goon-Squad) def. Al (Ilya Self)",
+        "seventhPlace": "Colon (Filip's Foreskin) def. Jack (Roman Snipes)",
+        "ninthPlace": "coach keo (Patiently Waiting) def. MST (0-8)"
+      }
+    },
+    {
+      "year": 2023,
+      "managers": [
+        {
+          "manager": "Sammy",
+          "team": "Bill Crosby",
+          "regularSeasonPosition": 1,
+          "regularSeasonRecord": "11-7-4",
+          "playoffRecord": "3-0",
+          "finalPosition": 1,
+          "isChampion": true
+        },
+        {
+          "manager": "Dave",
+          "team": "Seyla's Patients",
+          "regularSeasonPosition": 2,
+          "regularSeasonRecord": "15-6-1",
+          "playoffRecord": "2-1",
+          "finalPosition": 2,
+          "isChampion": false
+        },
+        {
+          "manager": "Mish",
+          "team": "Mel Gibson",
+          "regularSeasonPosition": 3,
+          "regularSeasonRecord": "12-9-1",
+          "playoffRecord": "1-1",
+          "finalPosition": 3,
+          "isChampion": false
+        },
+        {
+          "manager": "Ben",
+          "team": "Holy Girouxsalem",
+          "regularSeasonPosition": 4,
+          "regularSeasonRecord": "14-7-1",
+          "playoffRecord": "1-1",
+          "finalPosition": 4,
+          "isChampion": false
+        },
+        {
+          "manager": "Vin",
+          "team": "Beachfront Property",
+          "regularSeasonPosition": 5,
+          "regularSeasonRecord": "11-10-1",
+          "playoffRecord": "0-1",
+          "finalPosition": 5,
+          "isChampion": false
+        },
+        {
+          "manager": "Colon",
+          "team": "What Is GoiNg 0n",
+          "regularSeasonPosition": 6,
+          "regularSeasonRecord": "11-11-0",
+          "playoffRecord": "0-1",
+          "finalPosition": 6,
+          "isChampion": false
+        },
+        {
+          "manager": "Al",
+          "team": "This Year™",
+          "regularSeasonPosition": 7,
+          "regularSeasonRecord": "7-13-2",
+          "finalPosition": 7,
+          "isChampion": false
+        },
+        {
+          "manager": "Jack",
+          "team": "Roman Snipes",
+          "regularSeasonPosition": 8,
+          "regularSeasonRecord": "3-17-2",
+          "finalPosition": 8,
+          "isChampion": false
+        },
+        {
+          "manager": "coach keo",
+          "team": "Tyronn Forrest Spoelstra",
+          "regularSeasonPosition": 9,
+          "regularSeasonRecord": "9-9-4",
+          "finalPosition": 9,
+          "isChampion": false
+        },
+        {
+          "manager": "MST",
+          "team": "2-8",
+          "regularSeasonPosition": 10,
+          "regularSeasonRecord": "9-13-0",
+          "finalPosition": 10,
+          "isChampion": false
+        }
+      ],
+      "playoffResults": {
+        "quarterfinals": [
+          "Dave (Seyla's Patients) (bye)",
+          "Mish (Mel Gibson) def. Vin (Beachfront Property)",
+          "Sammy (Bill Crosby) def. Colon (What Is GoiNg 0n)",
+          "Ben (Holy Girouxsalem) (bye)"
+        ],
+        "semifinals": [
+          "Dave (Seyla's Patients) def. Mish (Mel Gibson)",
+          "Sammy (Bill Crosby) def. Ben (Holy Girouxsalem)"
+        ],
+        "finals": "**Sammy (Bill Crosby)** def. Dave (Seyla's Patients)",
+        "thirdPlace": "Mish (Mel Gibson) def. Ben (Holy Girouxsalem)",
+        "fifthPlace": "Vin (Beachfront Property) def. Colon (What Is GoiNg 0n)",
+        "seventhPlace": "Al (This Year™) def. Jack (Roman Snipes)",
+        "ninthPlace": "coach keo (Tyronn Forrest Spoelstra) def. MST (2-8)"
+      }
+    },
+    {
+      "year": 2024,
+      "managers": [
+        {
+          "manager": "Dave",
+          "team": "dinkusoreilius",
+          "regularSeasonPosition": 1,
+          "regularSeasonRecord": "12-6-1",
+          "playoffRecord": "3-0",
+          "finalPosition": 1,
+          "isChampion": true
+        },
+        {
+          "manager": "MST",
+          "team": "no goalies no big deal",
+          "regularSeasonPosition": 2,
+          "regularSeasonRecord": "9-5-5",
+          "playoffRecord": "2-1",
+          "finalPosition": 2,
+          "isChampion": false
+        },
+        {
+          "manager": "Al",
+          "team": "Kirill Yaself",
+          "regularSeasonPosition": 3,
+          "regularSeasonRecord": "10-6-3",
+          "playoffRecord": "1-1",
+          "finalPosition": 3,
+          "isChampion": false
+        },
+        {
+          "manager": "Vin",
+          "team": "Beachfront Property",
+          "regularSeasonPosition": 4,
+          "regularSeasonRecord": "9-6-4",
+          "playoffRecord": "1-1",
+          "finalPosition": 4,
+          "isChampion": false
+        },
+        {
+          "manager": "coach keo",
+          "team": "It's morphin Time",
+          "regularSeasonPosition": 5,
+          "regularSeasonRecord": "10-4-5",
+          "playoffRecord": "0-1",
+          "finalPosition": 5,
+          "isChampion": false
+        },
+        {
+          "manager": "Mish",
+          "team": "Russki Kuchi",
+          "regularSeasonPosition": 6,
+          "regularSeasonRecord": "9-9-1",
+          "playoffRecord": "0-1",
+          "finalPosition": 6,
+          "isChampion": false
+        },
+        {
+          "manager": "Sammy",
+          "team": "bill crosby",
+          "regularSeasonPosition": 7,
+          "regularSeasonRecord": "8-10-1",
+          "finalPosition": 7,
+          "isChampion": false
+        },
+        {
+          "manager": "Jack",
+          "team": "jackie bedard",
+          "regularSeasonPosition": 8,
+          "regularSeasonRecord": "7-10-2",
+          "finalPosition": 8,
+          "isChampion": false
+        },
+        {
+          "manager": "Ben",
+          "team": "holy girouxsalem",
+          "regularSeasonPosition": 9,
+          "regularSeasonRecord": "6-12-1",
+          "finalPosition": 9,
+          "isChampion": false
+        },
+        {
+          "manager": "Mehmet",
+          "team": "bustin hyman",
+          "regularSeasonPosition": 10,
+          "regularSeasonRecord": "3-15-1",
+          "finalPosition": 10,
+          "isChampion": false
+        }
+      ],
+      "playoffResults": {
+        "quarterfinals": [
+          "Dave (dinkusoreilius) (bye)",
+          "coach keo (It's morphin Time) (bye)",
+          "Al (Kirill Yaself) def. Mish (Russki Kuchi)",
+          "MST (no goalies no big deal) def. Vin (Beachfront Property)"
+        ],
+        "semifinals": [
+          "Dave (dinkusoreilius) def. Al (Kirill Yaself)",
+          "MST (no goalies no big deal) def. coach keo (It's morphin Time)"
+        ],
+        "finals": "**Dave (dinkusoreilius)** def. MST (no goalies no big deal)",
+        "thirdPlace": "Al (Kirill Yaself) def. coach keo (It's morphin Time)",
+        "fifthPlace": "Mish (Russki Kuchi) def. Vin (Beachfront Property)",
+        "seventhPlace": "Sammy (bill crosby) def. Jack (jackie bedard)",
+        "ninthPlace": "Ben (holy girouxsalem) def. Mehmet (bustin hyman)"
+      }
+    }
+  ],
+  "managerStats": [
+    {
+      "manager": "Al",
+      "totalSeasons": 12,
+      "championships": 0,
+      "runnerUps": 5,
+      "playoffAppearances": 11,
+      "averageFinish": 2.5,
+      "regularSeasonRecord": {
+        "wins": 97,
+        "losses": 83,
+        "ties": 16
+      },
+      "playoffRecord": {
+        "wins": 12,
+        "losses": 11
+      },
+      "seasonsPlayed": [
+        2011,
+        2012,
+        2013,
+        2014,
+        2015,
+        2017,
+        2018,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024
+      ]
+    },
+    {
+      "manager": "anto",
+      "totalSeasons": 4,
+      "championships": 0,
+      "runnerUps": 0,
+      "playoffAppearances": 3,
+      "averageFinish": 0,
+      "regularSeasonRecord": {
+        "wins": 14,
+        "losses": 47,
+        "ties": 2
+      },
+      "playoffRecord": {
+        "wins": 0,
+        "losses": 3
+      },
+      "seasonsPlayed": [
+        2011,
+        2013,
+        2014,
+        2015
+      ]
+    },
+    {
+      "manager": "Ben",
+      "totalSeasons": 9,
+      "championships": 0,
+      "runnerUps": 1,
+      "playoffAppearances": 7,
+      "averageFinish": 4.555555555555555,
+      "regularSeasonRecord": {
+        "wins": 89,
+        "losses": 73,
+        "ties": 13
+      },
+      "playoffRecord": {
+        "wins": 5,
+        "losses": 7
+      },
+      "seasonsPlayed": [
+        2014,
+        2015,
+        2017,
+        2018,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024
+      ]
+    },
+    {
+      "manager": "Colon",
+      "totalSeasons": 6,
+      "championships": 1,
+      "runnerUps": 0,
+      "playoffAppearances": 3,
+      "averageFinish": 6.166666666666667,
+      "regularSeasonRecord": {
+        "wins": 40,
+        "losses": 64,
+        "ties": 10
+      },
+      "playoffRecord": {
+        "wins": 3,
+        "losses": 2
+      },
+      "seasonsPlayed": [
+        2017,
+        2018,
+        2020,
+        2021,
+        2022,
+        2023
+      ]
+    },
+    {
+      "manager": "Dave",
+      "totalSeasons": 12,
+      "championships": 7,
+      "runnerUps": 1,
+      "playoffAppearances": 12,
+      "averageFinish": 1.9166666666666667,
+      "regularSeasonRecord": {
+        "wins": 132,
+        "losses": 56,
+        "ties": 8
+      },
+      "playoffRecord": {
+        "wins": 27,
+        "losses": 5
+      },
+      "seasonsPlayed": [
+        2011,
+        2012,
+        2013,
+        2014,
+        2015,
+        2017,
+        2018,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024
+      ]
+    },
+    {
+      "manager": "Gwendi",
+      "totalSeasons": 3,
+      "championships": 0,
+      "runnerUps": 1,
+      "playoffAppearances": 2,
+      "averageFinish": 4,
+      "regularSeasonRecord": {
+        "wins": 2,
+        "losses": 18,
+        "ties": 0
+      },
+      "playoffRecord": {
+        "wins": 3,
+        "losses": 2
+      },
+      "seasonsPlayed": [
+        2011,
+        2012,
+        2017
+      ]
+    },
+    {
+      "manager": "I wish I was anto",
+      "totalSeasons": 2,
+      "championships": 0,
+      "runnerUps": 0,
+      "playoffAppearances": 2,
+      "averageFinish": 0,
+      "regularSeasonRecord": {
+        "wins": 0,
+        "losses": 0,
+        "ties": 0
+      },
+      "playoffRecord": {
+        "wins": 0,
+        "losses": 2
+      },
+      "seasonsPlayed": [
+        2011,
+        2012
+      ]
+    },
+    {
+      "manager": "Jack",
+      "totalSeasons": 5,
+      "championships": 0,
+      "runnerUps": 0,
+      "playoffAppearances": 2,
+      "averageFinish": 7.6,
+      "regularSeasonRecord": {
+        "wins": 31,
+        "losses": 54,
+        "ties": 8
+      },
+      "playoffRecord": {
+        "wins": 0,
+        "losses": 2
+      },
+      "seasonsPlayed": [
+        2020,
+        2021,
+        2022,
+        2023,
+        2024
+      ]
+    },
+    {
+      "manager": "Johnny",
+      "totalSeasons": 3,
+      "championships": 0,
+      "runnerUps": 0,
+      "playoffAppearances": 3,
+      "averageFinish": 2.3333333333333335,
+      "regularSeasonRecord": {
+        "wins": 24,
+        "losses": 16,
+        "ties": 2
+      },
+      "playoffRecord": {
+        "wins": 2,
+        "losses": 3
+      },
+      "seasonsPlayed": [
+        2012,
+        2013,
+        2015
+      ]
+    },
+    {
+      "manager": "coach keo",
+      "totalSeasons": 5,
+      "championships": 0,
+      "runnerUps": 0,
+      "playoffAppearances": 2,
+      "averageFinish": 8,
+      "regularSeasonRecord": {
+        "wins": 32,
+        "losses": 42,
+        "ties": 19
+      },
+      "playoffRecord": {
+        "wins": 0,
+        "losses": 2
+      },
+      "seasonsPlayed": [
+        2020,
+        2021,
+        2022,
+        2023,
+        2024
+      ]
+    },
+    {
+      "manager": "Mish",
+      "totalSeasons": 9,
+      "championships": 0,
+      "runnerUps": 1,
+      "playoffAppearances": 9,
+      "averageFinish": 3.888888888888889,
+      "regularSeasonRecord": {
+        "wins": 90,
+        "losses": 72,
+        "ties": 13
+      },
+      "playoffRecord": {
+        "wins": 7,
+        "losses": 9
+      },
+      "seasonsPlayed": [
+        2014,
+        2015,
+        2017,
+        2018,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024
+      ]
+    },
+    {
+      "manager": "MST",
+      "totalSeasons": 6,
+      "championships": 0,
+      "runnerUps": 2,
+      "playoffAppearances": 3,
+      "averageFinish": 6.666666666666667,
+      "regularSeasonRecord": {
+        "wins": 40,
+        "losses": 55,
+        "ties": 18
+      },
+      "playoffRecord": {
+        "wins": 4,
+        "losses": 3
+      },
+      "seasonsPlayed": [
+        2018,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024
+      ]
+    },
+    {
+      "manager": "Sammy",
+      "totalSeasons": 6,
+      "championships": 2,
+      "runnerUps": 0,
+      "playoffAppearances": 4,
+      "averageFinish": 4.333333333333333,
+      "regularSeasonRecord": {
+        "wins": 47,
+        "losses": 57,
+        "ties": 9
+      },
+      "playoffRecord": {
+        "wins": 7,
+        "losses": 2
+      },
+      "seasonsPlayed": [
+        2018,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024
+      ]
+    },
+    {
+      "manager": "Skinner",
+      "totalSeasons": 3,
+      "championships": 0,
+      "runnerUps": 0,
+      "playoffAppearances": 3,
+      "averageFinish": 2.3333333333333335,
+      "regularSeasonRecord": {
+        "wins": 21,
+        "losses": 18,
+        "ties": 3
+      },
+      "playoffRecord": {
+        "wins": 2,
+        "losses": 3
+      },
+      "seasonsPlayed": [
+        2012,
+        2013,
+        2014
+      ]
+    },
+    {
+      "manager": "unknown",
+      "totalSeasons": 5,
+      "championships": 0,
+      "runnerUps": 0,
+      "playoffAppearances": 3,
+      "averageFinish": 1.6,
+      "regularSeasonRecord": {
+        "wins": 34,
+        "losses": 61,
+        "ties": 9
+      },
+      "playoffRecord": {
+        "wins": 0,
+        "losses": 3
+      },
+      "seasonsPlayed": [
+        2013,
+        2014,
+        2015,
+        2015,
+        2017
+      ]
+    },
+    {
+      "manager": "Vin",
+      "totalSeasons": 9,
+      "championships": 1,
+      "runnerUps": 1,
+      "playoffAppearances": 9,
+      "averageFinish": 4,
+      "regularSeasonRecord": {
+        "wins": 83,
+        "losses": 51,
+        "ties": 20
+      },
+      "playoffRecord": {
+        "wins": 10,
+        "losses": 7
+      },
+      "seasonsPlayed": [
+        2012,
+        2014,
+        2017,
+        2018,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024
+      ]
+    }
+  ],
+  "metadata": {
+    "totalSeasons": 13,
+    "yearRange": "2011-2024",
+    "generatedAt": "2025-07-11T17:47:20.651Z"
+  }
+}

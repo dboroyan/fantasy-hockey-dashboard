@@ -1,0 +1,44 @@
+{
+  "name": "fantasy-hockey-dashboard",
+  "version": "1.0.0",
+  "description": "Interactive dashboard for fantasy hockey league statistics (2011-2024)",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "generate-data": "ts-node src/scripts/generateData.ts",
+    "type-check": "tsc --noEmit"
+  },
+  "keywords": [
+    "fantasy-hockey",
+    "dashboard",
+    "statistics",
+    "react",
+    "typescript"
+  ],
+  "author": "David Boroyan",
+  "license": "MIT",
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "next": "^14.0.0",
+    "typescript": "^5.0.0",
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "@types/node": "^20.0.0",
+    "tailwindcss": "^3.3.0",
+    "autoprefixer": "^10.4.0",
+    "postcss": "^8.4.0",
+    "chart.js": "^4.4.0",
+    "react-chartjs-2": "^5.2.0",
+    "lucide-react": "^0.400.0"
+  },
+  "devDependencies": {
+    "ts-node": "^10.9.0",
+    "@types/fs-extra": "^11.0.0",
+    "eslint": "^8.0.0",
+    "eslint-config-next": "^14.0.0"
+  }
+}
