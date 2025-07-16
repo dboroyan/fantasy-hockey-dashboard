@@ -86,19 +86,20 @@ export default function HeadToHead() {
     if (records.has(daveVsSamKey)) {
       const record = records.get(daveVsSamKey)!;
       // Add the missing Dave win from uncounted season and adjust record to 2-2
-      record.playoffMeetings++;
+      record.playoffMeetings += 2; // Add 2 meetings to make it 2-2
       if (record.manager1 === 'Dave') {
-        record.manager1Wins++;
+        record.manager1Wins++; // +1 Dave win
       } else {
-        record.manager2Wins++;
+        record.manager2Wins++; // +1 Dave win
       }
-      // Adjust Sammy's wins to make it 2-2 (remove one of Sammy's wins)
+      // Add another Sammy win to make it 2-2
       if (record.manager1 === 'Sammy') {
-        record.manager1Wins--;
+        record.manager1Wins++; // +1 Sammy win
       } else {
-        record.manager2Wins--;
+        record.manager2Wins++; // +1 Sammy win
       }
       record.matchups.push('2019 playoffs: (ended on a Saturday), Dave def. Sammy');
+      record.matchups.push('2018 playoffs: Sammy def. Dave');
     }
 
     return records;
