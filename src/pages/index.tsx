@@ -73,6 +73,39 @@ export default function Home() {
               </div>
             </div>
 
+            {/* 2024 Season Notable Points */}
+            {selectedSeason === 2024 && (
+              <div className="card">
+                <h3 className="text-xl font-semibold text-gray-900 mb-4">2024 Season Notable Points</h3>
+                <div className="space-y-3">
+                  <div className="flex items-start space-x-3">
+                    <div className="flex-shrink-0 w-6 h-6 bg-hockey-primary text-white rounded-full flex items-center justify-center text-sm font-bold">
+                      1
+                    </div>
+                    <p className="text-gray-700">
+                      This was the first year where a defending champion has missed the playoffs in their title defense season (Sammy).
+                    </p>
+                  </div>
+                  <div className="flex items-start space-x-3">
+                    <div className="flex-shrink-0 w-6 h-6 bg-hockey-primary text-white rounded-full flex items-center justify-center text-sm font-bold">
+                      2
+                    </div>
+                    <p className="text-gray-700">
+                      MST finished the season 1st in Goals, Assists, PPP, SOG, and 2nd in SV% in total overall statistics over the course of the full season and playoffs.
+                    </p>
+                  </div>
+                  <div className="flex items-start space-x-3">
+                    <div className="flex-shrink-0 w-6 h-6 bg-hockey-primary text-white rounded-full flex items-center justify-center text-sm font-bold">
+                      3
+                    </div>
+                    <p className="text-gray-700">
+                      This was Dave and MST's second time meeting in the finals.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            )}
+
             {/* Standings Table */}
             <div className="card">
               <h3 className="text-xl font-semibold text-gray-900 mb-4">Final Standings</h3>
