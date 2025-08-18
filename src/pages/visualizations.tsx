@@ -172,17 +172,6 @@ export default function Visualizations() {
       }
     });
 
-    // Manual correction for missing Dave vs Sammy matchup (uncounted season)
-    const daveVsSammyKey = 'Dave-Sammy';
-    if (rivalries.has(daveVsSammyKey)) {
-      const rivalry = rivalries.get(daveVsSammyKey)!;
-      // Add the missing Dave win from uncounted season and adjust record to 2-2
-      rivalry.meetings += 2; // Add 2 meetings to make it 2-2
-      rivalry.manager1Wins++; // +1 Dave win
-      rivalry.manager2Wins++; // +1 Sammy win
-      rivalry.matchups.push('2019: Dave def. Sammy');
-      rivalry.matchups.push('2018: Sammy def. Dave');
-    }
 
     return Array.from(rivalries.values())
       .filter(r => r.meetings > 0)
