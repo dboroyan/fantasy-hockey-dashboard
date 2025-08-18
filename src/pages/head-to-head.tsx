@@ -81,25 +81,25 @@ export default function HeadToHead() {
       }
     }
 
-    // Manual correction for missing Dave vs Sam matchup (uncounted season)
+    // Manual correction for Dave vs Sammy playoff record
     const daveVsSamKey = 'Dave' < 'Sammy' ? 'Dave-Sammy' : 'Sammy-Dave';
     if (records.has(daveVsSamKey)) {
       const record = records.get(daveVsSamKey)!;
-      // Add the missing Dave win from uncounted season and adjust record to 2-2
-      record.playoffMeetings += 2; // Add 2 meetings to make it 2-2
+      // Set correct 2-2 playoff record with accurate years
+      record.playoffMeetings = 4;
       if (record.manager1 === 'Dave') {
-        record.manager1Wins++; // +1 Dave win
+        record.manager1Wins = 2; // Dave wins: 2018, 2020
+        record.manager2Wins = 2; // Sammy wins: 2021, 2023
       } else {
-        record.manager2Wins++; // +1 Dave win
+        record.manager1Wins = 2; // Sammy wins: 2021, 2023
+        record.manager2Wins = 2; // Dave wins: 2018, 2020
       }
-      // Add another Sammy win to make it 2-2
-      if (record.manager1 === 'Sammy') {
-        record.manager1Wins++; // +1 Sammy win
-      } else {
-        record.manager2Wins++; // +1 Sammy win
-      }
-      record.matchups.push('2019 playoffs: (ended on a Saturday), Dave def. Sammy');
-      record.matchups.push('2018 playoffs: Sammy def. Dave');
+      record.matchups = [
+        '2018 Playoffs: Dave def. Sammy',
+        '2020 Playoffs: Dave def. Sammy',
+        '2021 Playoffs: Sammy def. Dave',
+        '2023 Playoffs: Sammy def. Dave'
+      ];
     }
 
     return records;
@@ -112,12 +112,22 @@ export default function HeadToHead() {
     return headToHeadData.get(key) || null;
   }, [manager1, manager2, headToHeadData]);
 
-  // Get most frequent playoff matchups
+  // Get specific playoff rivalries
   const topMatchups = useMemo(() => {
+    const allowedRivalries = [
+      'Al-Mish',
+      'Dave-Vin', 
+      'Mish-Vin',
+      'Al-Dave',
+      'Dave-MST'
+    ];
+    
     return Array.from(headToHeadData.values())
-      .filter(record => record.playoffMeetings > 0)
-      .sort((a, b) => b.playoffMeetings - a.playoffMeetings)
-      .slice(0, 10);
+      .filter(record => {
+        const key = `${record.manager1}-${record.manager2}`;
+        return allowedRivalries.includes(key) && record.playoffMeetings > 0;
+      })
+      .sort((a, b) => b.playoffMeetings - a.playoffMeetings);
   }, [headToHeadData]);
 
   return (
@@ -269,54 +279,6 @@ export default function HeadToHead() {
           </div>
         </div>
 
-        {/* Playoff Matchup Matrix */}
-        <div className="card">
-          <h3 className="text-xl font-semibold text-gray-900 mb-4">Playoff Matchup Matrix</h3>
-          <div className="overflow-x-auto">
-            <table className="min-w-full">
-              <thead>
-                <tr>
-                  <th className="table-header">Manager</th>
-                  {allManagers.slice(0, 10).map(manager => (
-                    <th key={manager} className="table-header text-center text-xs">
-                      {manager.length > 8 ? manager.substring(0, 8) + '...' : manager}
-                    </th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
-                {allManagers.slice(0, 10).map(manager1 => (
-                  <tr key={manager1}>
-                    <td className="table-cell font-semibold text-hockey-primary">
-                      {manager1.length > 12 ? manager1.substring(0, 12) + '...' : manager1}
-                    </td>
-                    {allManagers.slice(0, 10).map(manager2 => {
-                      if (manager1 === manager2) {
-                        return <td key={manager2} className="table-cell text-center text-gray-400">-</td>;
-                      }
-                      
-                      const key = manager1 < manager2 ? `${manager1}-${manager2}` : `${manager2}-${manager1}`;
-                      const record = headToHeadData.get(key);
-                      
-                      return (
-                        <td key={manager2} className="table-cell text-center">
-                          <span className={`text-sm font-medium ${
-                            record && record.playoffMeetings > 0 ? 'text-hockey-primary' : 'text-gray-400'
-                          }`}>
-                            {record ? record.playoffMeetings : 0}
-                          </span>
-                        </td>
-                      );
-                    })}
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-          <p className="text-sm text-gray-600 mt-2">
-            Numbers represent playoff meetings between managers across all seasons
-          </p>
-        </div>
       </div>
     </Layout>
   );

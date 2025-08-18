@@ -115,68 +115,6 @@ export default function Visualizations() {
     });
   }, [championshipTimeline, current2024Managers]);
 
-  // Playoff Rivalry Network Data
-  const playoffRivalries = useMemo(() => {
-    const rivalries = new Map<string, {
-      manager1: string;
-      manager2: string;
-      meetings: number;
-      manager1Wins: number;
-      manager2Wins: number;
-      matchups: string[];
-    }>();
-
-    seasons.forEach(season => {
-      if (season.playoffResults) {
-        const allPlayoffRounds = [
-          ...(season.playoffResults.quarterfinals || []),
-          ...(season.playoffResults.semifinals || []),
-          ...(season.playoffResults.finals ? [season.playoffResults.finals] : []),
-          ...(season.playoffResults.thirdPlace ? [season.playoffResults.thirdPlace] : []),
-          ...(season.playoffResults.fifthPlace ? [season.playoffResults.fifthPlace] : [])
-        ];
-
-        allPlayoffRounds.forEach(matchup => {
-          if (typeof matchup === 'string' && matchup.includes(' def. ')) {
-            const cleanMatchup = matchup.replace(/\*\*/g, '');
-            const parts = cleanMatchup.split(' def. ');
-            if (parts.length === 2) {
-              const winner = parts[0].split(' (')[0].trim();
-              const loser = parts[1].split(' (')[0].trim();
-              const key = winner < loser ? `${winner}-${loser}` : `${loser}-${winner}`;
-              
-              if (!rivalries.has(key)) {
-                rivalries.set(key, {
-                  manager1: winner < loser ? winner : loser,
-                  manager2: winner < loser ? loser : winner,
-                  meetings: 0,
-                  manager1Wins: 0,
-                  manager2Wins: 0,
-                  matchups: []
-                });
-              }
-              
-              const rivalry = rivalries.get(key)!;
-              rivalry.meetings++;
-              
-              if (rivalry.manager1 === winner) {
-                rivalry.manager1Wins++;
-              } else {
-                rivalry.manager2Wins++;
-              }
-              
-              rivalry.matchups.push(`${season.year}: ${winner} def. ${loser}`);
-            }
-          }
-        });
-      }
-    });
-
-
-    return Array.from(rivalries.values())
-      .filter(r => r.meetings > 0)
-      .sort((a, b) => b.meetings - a.meetings);
-  }, [seasons]);
 
   // Manager Performance Radar Data
   const radarData = useMemo(() => {
@@ -439,56 +377,6 @@ export default function Visualizations() {
           </div>
         </div>
 
-        {/* Playoff Rivalry Network */}
-        <div className="card">
-          <h3 className="text-2xl font-semibold text-gray-900 mb-6 flex items-center">
-            <Users className="h-8 w-8 mr-3 text-purple-500" />
-            Playoff Rivalry Network
-          </h3>
-          
-          <div className="space-y-4">
-            {playoffRivalries.slice(0, 8).map((rivalry, index) => (
-              <div key={`${rivalry.manager1}-${rivalry.manager2}`} 
-                   className="bg-gray-50 p-4 rounded-lg border-l-4 border-purple-400">
-                <div className="flex items-center justify-between mb-2">
-                  <h4 className="text-lg font-semibold text-gray-900">
-                    {rivalry.manager1} vs {rivalry.manager2}
-                  </h4>
-                  <div className="text-2xl font-bold text-purple-600">
-                    {rivalry.meetings}
-                  </div>
-                </div>
-                <div className="flex items-center justify-between text-sm">
-                  <div className="flex space-x-6">
-                    <div>
-                      <span className="text-gray-600">{rivalry.manager1}: </span>
-                      <span className="font-medium text-green-600">{rivalry.manager1Wins} wins</span>
-                    </div>
-                    <div>
-                      <span className="text-gray-600">{rivalry.manager2}: </span>
-                      <span className="font-medium text-red-600">{rivalry.manager2Wins} wins</span>
-                    </div>
-                  </div>
-                  <div className="text-gray-500">
-                    {rivalry.meetings} meeting{rivalry.meetings !== 1 ? 's' : ''}
-                  </div>
-                </div>
-                <div className="mt-2">
-                  <div className="flex w-full h-2 bg-gray-200 rounded-full overflow-hidden">
-                    <div 
-                      className="bg-green-500" 
-                      style={{ width: `${(rivalry.manager1Wins / rivalry.meetings) * 100}%` }}
-                    />
-                    <div 
-                      className="bg-red-500" 
-                      style={{ width: `${(rivalry.manager2Wins / rivalry.meetings) * 100}%` }}
-                    />
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
 
         {/* Manager Performance Radar */}
         <div className="card">
