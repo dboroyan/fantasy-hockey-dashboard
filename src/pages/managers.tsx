@@ -37,36 +37,88 @@ export default function Managers() {
           </div>
         </div>
 
-        {/* Manager Overview Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-          {managerStats
-            .sort((a, b) => {
-              if (b.championships !== a.championships) {
-                return b.championships - a.championships;
-              }
-              // Secondary sort by name for stable ordering
-              return a.manager.localeCompare(b.manager);
-            })
-            .slice(0, 4)
-            .map((manager) => (
-              <div key={manager.manager} className="card hover:shadow-lg transition-shadow cursor-pointer"
-                   onClick={() => setSelectedManager(manager.manager)}>
-                <div className="flex items-center justify-between">
-                  <div>
-                    <h3 className="text-lg font-semibold text-gray-900">{manager.manager}</h3>
-                    <p className="text-sm text-gray-600">{manager.totalSeasons} seasons</p>
+        {/* Winner's Circle */}
+        <div className="card">
+          <h3 className="text-2xl font-bold text-gray-900 mb-2">Winner's Circle</h3>
+          <p className="text-gray-600 mb-6">Dominance or luck? Championship winners and their overall records</p>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            {managerStats
+              .filter((manager) => manager.championships > 0)
+              .sort((a, b) => b.championships - a.championships)
+              .map((manager) => {
+                // Determine dominance vs luck based on average finish and championships
+                let classification = 'LUCK';
+                let colorClasses = 'border-red-400 bg-red-50';
+                let textColor = 'text-red-700';
+                let badgeColor = 'bg-red-500';
+                
+                if (manager.manager === 'Dave') {
+                  classification = 'DOMINANCE';
+                  colorClasses = 'border-green-400 bg-green-50';
+                  textColor = 'text-green-700';
+                  badgeColor = 'bg-green-500';
+                } else if (manager.manager === 'Vin') {
+                  classification = 'DOMINANCE';
+                  colorClasses = 'border-green-400 bg-green-50';
+                  textColor = 'text-green-700';
+                  badgeColor = 'bg-green-500';
+                } else if (manager.manager === 'Sammy') {
+                  classification = 'LUCK';
+                  colorClasses = 'border-yellow-400 bg-yellow-50';
+                  textColor = 'text-yellow-700';
+                  badgeColor = 'bg-yellow-500';
+                } else if (manager.manager === 'Colon') {
+                  classification = 'LUCK';
+                  colorClasses = 'border-red-400 bg-red-50';
+                  textColor = 'text-red-700';
+                  badgeColor = 'bg-red-500';
+                }
+
+                const winPct = (manager.regularSeasonRecord.wins / 
+                  (manager.regularSeasonRecord.wins + manager.regularSeasonRecord.losses) * 100);
+
+                return (
+                  <div key={manager.manager} 
+                       className={`border-2 rounded-lg p-4 hover:shadow-lg transition-shadow cursor-pointer ${colorClasses}`}
+                       onClick={() => setSelectedManager(manager.manager)}>
+                    <div className="flex items-center justify-between mb-3">
+                      <div>
+                        <h4 className={`text-lg font-semibold ${textColor}`}>{manager.manager}</h4>
+                        <div className={`inline-block px-2 py-1 rounded-full text-xs font-bold text-white ${badgeColor}`}>
+                          {classification}
+                        </div>
+                      </div>
+                      <div className="flex items-center space-x-1">
+                        <Trophy className="h-6 w-6 text-yellow-500" />
+                        <span className="text-2xl font-bold text-gray-900">{manager.championships}</span>
+                      </div>
+                    </div>
+                    
+                    <div className="space-y-2 text-sm">
+                      <div className="flex justify-between">
+                        <span className="text-gray-600">Overall Record:</span>
+                        <span className={`font-medium ${textColor}`}>
+                          {manager.regularSeasonRecord.wins}-{manager.regularSeasonRecord.losses}-{manager.regularSeasonRecord.ties}
+                        </span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-gray-600">Win %:</span>
+                        <span className={`font-medium ${textColor}`}>{winPct.toFixed(1)}%</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-gray-600">Avg Finish:</span>
+                        <span className={`font-medium ${textColor}`}>{manager.averageFinish.toFixed(1)}</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-gray-600">Seasons:</span>
+                        <span className={`font-medium ${textColor}`}>{manager.totalSeasons}</span>
+                      </div>
+                    </div>
                   </div>
-                  <div className="flex items-center space-x-1">
-                    <Trophy className="h-5 w-5 text-hockey-accent" />
-                    <span className="text-xl font-bold text-hockey-secondary">{manager.championships}</span>
-                  </div>
-                </div>
-                <div className="mt-4 flex justify-between text-sm">
-                  <span className="text-gray-600">Avg Finish:</span>
-                  <span className="font-medium">{manager.averageFinish.toFixed(1)}</span>
-                </div>
-              </div>
-            ))}
+                );
+              })}
+          </div>
         </div>
 
         {/* Detailed Manager Stats */}
