@@ -185,8 +185,8 @@ export default function Analytics() {
       return {
         name: era.name,
         seasons: eraSeasons.length,
-        dominantManager: dominantManager ? dominantManager[0] : 'None',
-        championships: dominantManager ? dominantManager[1] : 0,
+        dominantManager: era.name === 'Modern Era' ? 'TBD' : (dominantManager ? dominantManager[0] : 'None'),
+        championships: era.name === 'Modern Era' ? 0 : (dominantManager ? dominantManager[1] : 0),
         allChampions: Object.keys(championCounts).length
       };
     });
@@ -370,9 +370,9 @@ export default function Analytics() {
           </div>
         </div>
 
-        {/* Worst Championship Records */}
+        {/* Cinderella Stories */}
         <div className="card">
-          <h3 className="text-xl font-semibold text-gray-900 mb-4">Worst Regular Season Records to Win Championship</h3>
+          <h3 className="text-xl font-semibold text-gray-900 mb-4">Cinderella Stories</h3>
           <div className="overflow-x-auto">
             <table className="table-auto">
               <thead className="bg-gray-50">
@@ -381,7 +381,6 @@ export default function Analytics() {
                   <th className="table-header">Year</th>
                   <th className="table-header">Manager</th>
                   <th className="table-header">Record</th>
-                  <th className="table-header">Regular Season Position</th>
                   <th className="table-header">Cinderella Story</th>
                 </tr>
               </thead>
@@ -389,6 +388,19 @@ export default function Analytics() {
                 {analytics.worstChampionRecords.map((champion, index) => {
                   const isWorstRecord = (champion.record === '9-11-1' && champion.manager === 'Sammy') || 
                                        (champion.record === '9-11-0' && champion.manager === 'Colon');
+                  
+                  // Custom cinderella stories
+                  let cinderellaStory = '';
+                  if (champion.manager === 'Colon') {
+                    cinderellaStory = 'Expected, Colon scored the most points out of any team in every round of the playoffs';
+                  } else if (champion.manager === 'Sammy') {
+                    cinderellaStory = "Unexpected, but dominant. Sammy's team snuck in to the playoffs and had some luck involved in the semifinals, faced the lowest scoring teams in each of the 3 rounds, but had dominant performances from key players";
+                  } else if (champion.manager === 'Dave') {
+                    cinderellaStory = 'True cinderella story: Dave finished nearly .500 entering the playoffs, but was the highest scoring team in 2/3 rounds';
+                  } else {
+                    cinderellaStory = champion.position > 4 ? 'Major Upset' :
+                                     champion.position > 2 ? 'Upset' : 'Expected';
+                  }
                   
                   return (
                     <tr key={`${champion.year}-${champion.manager}`} className={
@@ -402,16 +414,8 @@ export default function Analytics() {
                         {champion.record}
                         {isWorstRecord && <span className="ml-2 text-xs bg-red-600 text-white px-2 py-1 rounded">WORST EVER</span>}
                       </td>
-                      <td className="table-cell text-center">{champion.position}</td>
-                      <td className="table-cell text-center">
-                        <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                          champion.position > 4 ? 'bg-red-100 text-red-800' :
-                          champion.position > 2 ? 'bg-yellow-100 text-yellow-800' :
-                          'bg-green-100 text-green-800'
-                        }`}>
-                          {champion.position > 4 ? 'Major Upset' :
-                           champion.position > 2 ? 'Upset' : 'Expected'}
-                        </span>
+                      <td className="table-cell text-sm max-w-xs">
+                        {cinderellaStory}
                       </td>
                     </tr>
                   );
