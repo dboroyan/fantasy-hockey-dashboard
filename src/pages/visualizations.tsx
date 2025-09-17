@@ -2,7 +2,7 @@ import React, { useState, useMemo } from 'react';
 import Layout from '@/components/Layout';
 import { SeasonData } from '@/data/parser';
 import hockeyData from '@/data/hockey-data.json';
-import { Trophy, TrendingUp, Users, Calendar, Zap, Target, Clock, BarChart3 } from 'lucide-react';
+import { Trophy, TrendingUp, Users, Calendar, Zap, Target, Clock, BarChart3, Flame, AlertTriangle, CheckCircle2, Crown } from 'lucide-react';
 
 interface ChampionshipTimelineItem {
   year: number;
@@ -184,9 +184,9 @@ export default function Visualizations() {
   // Era Dominance Stacked Bar Data
   const eraDominanceData = useMemo(() => {
     const eras = [
-      { name: 'Early Era', years: [2011, 2012, 2013, 2014, 2015, 2017], color: 'bg-blue-500' },
-      { name: 'Middle/Covid Era', years: [2018, 2020, 2021, 2022], color: 'bg-yellow-500' },
-      { name: 'Modern Era', years: [2023, 2024], color: 'bg-green-500' }
+      { name: 'Early Era', years: [2011, 2012, 2013, 2014, 2015, 2017], color: 'bg-indigo-500' },
+      { name: 'Middle/Covid Era', years: [2018, 2020, 2021, 2022], color: 'bg-teal-500' },
+      { name: 'Modern Era', years: [2023, 2024], color: 'bg-amber-500' }
     ];
 
     return eras.map(era => {
@@ -250,37 +250,35 @@ export default function Visualizations() {
       <div className="space-y-8">
         {/* Page Header */}
         <div className="card">
-          <h2 className="text-3xl font-bold text-gray-900 mb-2">League Visualizations</h2>
-          <p className="text-gray-600">Interactive charts and insights into league history and performance</p>
+          <h2 className="text-3xl font-semibold text-hockey-primary mb-2">League Visualizations</h2>
+          <p className="text-slate-600">Interactive charts and insights into league history and performance</p>
         </div>
 
         {/* Championship Timeline */}
         <div className="card">
-          <h3 className="text-2xl font-semibold text-gray-900 mb-6 flex items-center">
-            <Trophy className="h-8 w-8 mr-3 text-hockey-accent" />
+          <h3 className="text-2xl font-semibold text-hockey-primary mb-6 flex items-center">
+            <Trophy className="h-8 w-8 mr-3 text-hockey-secondary" />
             Championship Timeline
           </h3>
           
           <div className="relative">
             {/* Timeline */}
             <div className="flex items-center justify-between mb-8 relative">
-              <div className="absolute top-4 left-0 right-0 h-0.5 bg-gray-300"></div>
+              <div className="absolute top-4 left-0 right-0 h-0.5 bg-slate-300"></div>
               {championshipTimeline.map((item, index) => (
                 <div key={item.year} className="relative flex flex-col items-center">
                   <div 
                     className={`w-8 h-8 rounded-full border-4 cursor-pointer transition-all ${
                       item.isDynasty 
-                        ? 'bg-hockey-accent border-hockey-accent shadow-lg' 
-                        : 'bg-hockey-primary border-hockey-primary'
-                    } ${selectedYear === item.year ? 'ring-4 ring-blue-300' : ''}`}
+                        ? 'bg-white border-slate-400 shadow' 
+                        : 'bg-white border-slate-300'
+                    } ${selectedYear === item.year ? 'ring-4 ring-indigo-300' : ''}`}
                     onClick={() => setSelectedYear(selectedYear === item.year ? null : item.year)}
                   />
-                  <div className="mt-2 text-xs font-medium text-gray-700">{item.year}</div>
-                  <div className="text-xs text-gray-500 text-center max-w-16 truncate">{item.champion}</div>
+                  <div className="mt-2 text-xs font-medium text-slate-700">{item.year}</div>
+                  <div className="text-xs text-slate-500 text-center max-w-16 truncate">{item.champion}</div>
                   {item.isDynasty && (
-                    <div className="absolute -top-8 bg-hockey-accent text-white px-2 py-1 rounded text-xs">
-                      Dynasty
-                    </div>
+                    <Crown className="absolute -top-7 h-4 w-4 text-hockey-gold" />
                   )}
                 </div>
               ))}
@@ -288,33 +286,33 @@ export default function Visualizations() {
 
             {/* Selected Year Details */}
             {selectedYear && (
-              <div className="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-400">
+              <div className="bg-slate-50 p-6 rounded-lg border border-slate-200">
                 {(() => {
                   const yearData = championshipTimeline.find(item => item.year === selectedYear);
                   if (!yearData) return null;
                   
                   return (
                     <div>
-                      <h4 className="text-xl font-semibold text-blue-900 mb-4">
+                      <h4 className="text-xl font-semibold text-hockey-primary mb-4">
                         {yearData.year} Champion: {yearData.champion}
                       </h4>
                       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                         <div>
-                          <span className="text-sm text-blue-700">Team Name:</span>
-                          <div className="font-medium text-blue-900">{yearData.team}</div>
+                          <span className="text-sm text-slate-600">Team Name:</span>
+                          <div className="font-medium text-slate-900">{yearData.team}</div>
                         </div>
                         <div>
-                          <span className="text-sm text-blue-700">Regular Season:</span>
-                          <div className="font-medium text-blue-900">{yearData.regularSeasonRecord}</div>
+                          <span className="text-sm text-slate-600">Regular Season:</span>
+                          <div className="font-medium text-slate-900">{yearData.regularSeasonRecord}</div>
                         </div>
                         <div>
-                          <span className="text-sm text-blue-700">Playoff Record:</span>
-                          <div className="font-medium text-blue-900">{yearData.playoffRecord}</div>
+                          <span className="text-sm text-slate-600">Playoff Record:</span>
+                          <div className="font-medium text-slate-900">{yearData.playoffRecord}</div>
                         </div>
                       </div>
                       {yearData.note && (
-                        <div className="mt-4 p-3 bg-blue-100 rounded-md">
-                          <span className="text-sm font-medium text-blue-800">Note: {yearData.note}</span>
+                        <div className="mt-4 p-3 bg-white border border-slate-200 rounded-md">
+                          <span className="text-sm font-medium text-slate-800">Note: {yearData.note}</span>
                         </div>
                       )}
                     </div>
@@ -327,50 +325,41 @@ export default function Visualizations() {
 
         {/* Championship Drought Tracker */}
         <div className="card">
-          <h3 className="text-2xl font-semibold text-gray-900 mb-6 flex items-center">
-            <Clock className="h-8 w-8 mr-3 text-red-500" />
+          <h3 className="text-2xl font-semibold text-hockey-primary mb-6 flex items-center">
+            <Clock className="h-8 w-8 mr-3 text-hockey-secondary" />
             Championship Drought Tracker
           </h3>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {droughtTracker.map((drought, index) => (
-              <div key={drought.manager} className={`p-4 rounded-lg border-2 ${
-                drought.currentDrought >= 8 ? 'border-red-400 bg-red-50' :
-                drought.currentDrought >= 5 ? 'border-yellow-400 bg-yellow-50' :
-                'border-green-400 bg-green-50'
+              <div key={drought.manager} className={`p-4 rounded-lg border-l-4 ${
+                drought.currentDrought >= 8 ? 'border-l-rose-400 bg-rose-50' :
+                drought.currentDrought >= 5 ? 'border-l-amber-400 bg-amber-50' :
+                'border-l-emerald-400 bg-emerald-50'
               }`}>
                 <div className="flex items-center justify-between mb-2">
-                  <h4 className="font-semibold text-gray-900">{drought.manager}</h4>
+                  <h4 className="font-semibold text-slate-900">{drought.manager}</h4>
                   <div className="text-2xl">
-                    {drought.currentDrought >= 8 ? '🔥' : 
-                     drought.currentDrought >= 5 ? '⚠️' : 
-                     drought.totalChampionships > 0 ? '✅' : '❄️'}
+                    {drought.currentDrought >= 8 ? <Flame className="h-5 w-5 text-slate-600 inline" /> : 
+                     drought.currentDrought >= 5 ? <AlertTriangle className="h-5 w-5 text-slate-600 inline" /> : 
+                     drought.totalChampionships > 0 ? <CheckCircle2 className="h-5 w-5 text-slate-600 inline" /> : '—'}
                   </div>
                 </div>
                 <div className="space-y-1 text-sm">
                   <div className="flex justify-between">
-                    <span className="text-gray-600">Current Drought:</span>
-                    <span className={`font-medium ${
-                      drought.currentDrought >= 8 ? 'text-red-600' :
-                      drought.currentDrought >= 5 ? 'text-yellow-600' :
-                      'text-green-600'
-                    }`}>{drought.currentDrought} years</span>
+                    <span className="text-slate-600">Current Drought:</span>
+                    <span className={`font-medium text-slate-900`}>{drought.currentDrought} years</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-600">Championships:</span>
-                    <span className="font-medium text-blue-600">{drought.totalChampionships}</span>
+                    <span className="text-slate-600">Championships:</span>
+                    <span className="font-medium text-slate-900">{drought.totalChampionships}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-600">Last Title:</span>
-                    <span className="font-medium text-gray-700">
+                    <span className="text-slate-600">Last Title:</span>
+                    <span className="font-medium text-slate-800">
                       {drought.lastChampionship || 'Never'}
                     </span>
                   </div>
-                  {drought.manager === 'Al' && drought.totalChampionships === 0 && (
-                    <div className="mt-2 p-2 bg-red-100 rounded text-red-700 text-xs">
-                      🔥 HOT SEAT! Due for championship
-                    </div>
-                  )}
                 </div>
               </div>
             ))}
@@ -380,39 +369,39 @@ export default function Visualizations() {
 
         {/* Manager Performance Radar */}
         <div className="card">
-          <h3 className="text-2xl font-semibold text-gray-900 mb-6 flex items-center">
-            <BarChart3 className="h-8 w-8 mr-3 text-green-500" />
+          <h3 className="text-2xl font-semibold text-hockey-primary mb-6 flex items-center">
+            <BarChart3 className="h-8 w-8 mr-3 text-hockey-secondary" />
             Manager Performance Comparison
           </h3>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-medium text-slate-700 mb-2">
                 Manager 1:
               </label>
               <select
                 value={selectedManager1}
                 onChange={(e) => setSelectedManager1(e.target.value)}
-                className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500 text-blue-600"
+                className="w-full border border-slate-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-slate-400 text-slate-900"
               >
-                <option value="" className="text-blue-600">-- Select Manager 1 --</option>
+                <option value="" className="text-slate-900">-- Select Manager 1 --</option>
                 {allManagers.map(manager => (
-                  <option key={manager} value={manager} className="text-blue-600">{manager}</option>
+                  <option key={manager} value={manager} className="text-slate-900">{manager}</option>
                 ))}
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-medium text-slate-700 mb-2">
                 Manager 2:
               </label>
               <select
                 value={selectedManager2}
                 onChange={(e) => setSelectedManager2(e.target.value)}
-                className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500 text-blue-600"
+                className="w-full border border-slate-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-slate-400 text-slate-900"
               >
-                <option value="" className="text-blue-600">-- Select Manager 2 --</option>
+                <option value="" className="text-slate-900">-- Select Manager 2 --</option>
                 {allManagers.filter(m => m !== selectedManager1).map(manager => (
-                  <option key={manager} value={manager} className="text-blue-600">{manager}</option>
+                  <option key={manager} value={manager} className="text-slate-900">{manager}</option>
                 ))}
               </select>
             </div>
@@ -421,44 +410,44 @@ export default function Visualizations() {
           {selectedRadarData.length > 0 && (
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
               {selectedRadarData.map((manager, index) => (
-                <div key={manager.manager} className="bg-gray-50 p-6 rounded-lg">
-                  <h4 className="text-lg font-semibold text-gray-900 mb-4">{manager.manager}</h4>
+                <div key={manager.manager} className="bg-slate-50 p-6 rounded-lg">
+                  <h4 className="text-lg font-semibold text-hockey-primary mb-4">{manager.manager}</h4>
                   
                   {/* Key Stats Summary */}
                   <div className="grid grid-cols-2 gap-2 sm:gap-4 mb-4 p-3 bg-white rounded-lg border">
                     <div className="text-center">
-                      <div className="text-lg sm:text-2xl font-bold text-blue-600">
+                      <div className="text-lg sm:text-2xl font-semibold text-slate-900">
                         {managerStats.find(m => m.manager === manager.manager)?.totalSeasons || 0}
                       </div>
-                      <div className="text-xs text-gray-600">Total Seasons</div>
+                      <div className="text-xs text-slate-600">Total Seasons</div>
                     </div>
                     <div className="text-center">
-                      <div className="text-lg sm:text-2xl font-bold text-green-600">
+                      <div className="text-lg sm:text-2xl font-semibold text-slate-900">
                         {managerStats.find(m => m.manager === manager.manager)?.runnerUps || 0}
                       </div>
-                      <div className="text-xs text-gray-600">Runner-ups</div>
+                      <div className="text-xs text-slate-600">Runner-ups</div>
                     </div>
                     <div className="text-center">
-                      <div className="text-lg sm:text-2xl font-bold text-purple-600">
+                      <div className="text-lg sm:text-2xl font-semibold text-slate-900">
                         {managerStats.find(m => m.manager === manager.manager)?.playoffAppearances || 0}
                       </div>
-                      <div className="text-xs text-gray-600">Playoff Apps</div>
+                      <div className="text-xs text-slate-600">Playoff Apps</div>
                     </div>
                     <div className="text-center">
-                      <div className="text-lg sm:text-2xl font-bold text-orange-600">
+                      <div className="text-lg sm:text-2xl font-semibold text-slate-900">
                         {(managerStats.find(m => m.manager === manager.manager)?.averageFinish || 0).toFixed(1)}
                       </div>
-                      <div className="text-xs text-gray-600">Avg Finish</div>
+                      <div className="text-xs text-slate-600">Avg Finish</div>
                     </div>
                   </div>
                   
                   <div className="space-y-3">
                     <div className="flex items-center justify-between">
-                      <span className="text-sm text-gray-600">Championships:</span>
+                      <span className="text-sm text-slate-600">Championships:</span>
                       <div className="flex items-center">
-                        <div className="w-32 bg-gray-200 rounded-full h-2 mr-2">
+                        <div className="w-32 bg-slate-200 rounded-full h-2 mr-2">
                           <div 
-                            className="bg-green-500 h-2 rounded-full" 
+                            className="bg-hockey-secondary h-2 rounded-full" 
                             style={{ width: `${Math.min(100, (manager.championships / 5) * 100)}%` }}
                           />
                         </div>
@@ -466,11 +455,11 @@ export default function Visualizations() {
                       </div>
                     </div>
                     <div className="flex items-center justify-between">
-                      <span className="text-sm text-gray-600">Playoff Success:</span>
+                      <span className="text-sm text-slate-600">Playoff Success:</span>
                       <div className="flex items-center">
-                        <div className="w-32 bg-gray-200 rounded-full h-2 mr-2">
+                        <div className="w-32 bg-slate-200 rounded-full h-2 mr-2">
                           <div 
-                            className="bg-blue-500 h-2 rounded-full" 
+                            className="bg-hockey-accent h-2 rounded-full" 
                             style={{ width: `${(manager.playoffSuccess / 5) * 100}%` }}
                           />
                         </div>
@@ -478,11 +467,11 @@ export default function Visualizations() {
                       </div>
                     </div>
                     <div className="flex items-center justify-between">
-                      <span className="text-sm text-gray-600">Regular Season Win%:</span>
+                      <span className="text-sm text-slate-600">Regular Season Win%:</span>
                       <div className="flex items-center">
-                        <div className="w-32 bg-gray-200 rounded-full h-2 mr-2">
+                        <div className="w-32 bg-slate-200 rounded-full h-2 mr-2">
                           <div 
-                            className="bg-purple-500 h-2 rounded-full" 
+                            className="bg-hockey-secondary h-2 rounded-full" 
                             style={{ width: `${(manager.regularSeasonWinPct / 5) * 100}%` }}
                           />
                         </div>
@@ -490,11 +479,11 @@ export default function Visualizations() {
                       </div>
                     </div>
                     <div className="flex items-center justify-between">
-                      <span className="text-sm text-gray-600">Consistency:</span>
+                      <span className="text-sm text-slate-600">Consistency:</span>
                       <div className="flex items-center">
-                        <div className="w-32 bg-gray-200 rounded-full h-2 mr-2">
+                        <div className="w-32 bg-slate-200 rounded-full h-2 mr-2">
                           <div 
-                            className="bg-yellow-500 h-2 rounded-full" 
+                            className="bg-hockey-accent h-2 rounded-full" 
                             style={{ width: `${(manager.consistency / 5) * 100}%` }}
                           />
                         </div>
@@ -502,11 +491,11 @@ export default function Visualizations() {
                       </div>
                     </div>
                     <div className="flex items-center justify-between">
-                      <span className="text-sm text-gray-600">Longevity:</span>
+                      <span className="text-sm text-slate-600">Longevity:</span>
                       <div className="flex items-center">
-                        <div className="w-32 bg-gray-200 rounded-full h-2 mr-2">
+                        <div className="w-32 bg-slate-200 rounded-full h-2 mr-2">
                           <div 
-                            className="bg-red-500 h-2 rounded-full" 
+                            className="bg-hockey-secondary h-2 rounded-full" 
                             style={{ width: `${(manager.longevity / 5) * 100}%` }}
                           />
                         </div>
@@ -522,22 +511,22 @@ export default function Visualizations() {
 
         {/* Interactive Playoff Bracket Viewer */}
         <div className="card">
-          <h3 className="text-2xl font-semibold text-gray-900 mb-6 flex items-center">
-            <Target className="h-8 w-8 mr-3 text-orange-500" />
+          <h3 className="text-2xl font-semibold text-hockey-primary mb-6 flex items-center">
+            <Target className="h-8 w-8 mr-3 text-hockey-secondary" />
             Interactive Playoff Bracket Viewer
           </h3>
           
           <div className="mb-6">
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-slate-700 mb-2">
               Select Year:
             </label>
             <select
               value={selectedBracketYear}
               onChange={(e) => setSelectedBracketYear(Number(e.target.value))}
-              className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-500 text-blue-600"
+              className="border border-slate-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-slate-400 text-slate-900"
             >
               {seasons.filter(s => s.playoffResults && s.managers.length > 0).map(season => (
-                <option key={season.year} value={season.year} className="text-blue-600">{season.year}</option>
+                <option key={season.year} value={season.year} className="text-slate-900">{season.year}</option>
               ))}
             </select>
           </div>
@@ -545,15 +534,15 @@ export default function Visualizations() {
           {bracketData && (
             <div className="space-y-6">
               <div className="text-center">
-                <h4 className="text-xl font-semibold text-gray-900 mb-4">{bracketData.year} Playoff Bracket</h4>
+                <h4 className="text-xl font-semibold text-hockey-primary mb-4">{bracketData.year} Playoff Bracket</h4>
               </div>
               
               {/* Finals */}
               {bracketData.finals && (
                 <div className="text-center">
-                  <h5 className="text-lg font-semibold text-orange-600 mb-2">Championship</h5>
-                  <div className="bg-orange-50 p-4 rounded-lg border-2 border-orange-200 max-w-md mx-auto">
-                    <div className="font-medium text-orange-900" dangerouslySetInnerHTML={{ __html: formatMatchupWithBoldWinner(bracketData.finals) }}></div>
+                  <h5 className="text-lg font-semibold text-slate-800 mb-2">Championship</h5>
+                  <div className="bg-slate-50 p-4 rounded-lg border border-slate-200 max-w-md mx-auto">
+                    <div className="font-medium text-slate-900" dangerouslySetInnerHTML={{ __html: formatMatchupWithBoldWinner(bracketData.finals) }}></div>
                   </div>
                 </div>
               )}
@@ -561,11 +550,11 @@ export default function Visualizations() {
               {/* Semifinals */}
               {bracketData.semifinals.length > 0 && (
                 <div className="text-center">
-                  <h5 className="text-lg font-semibold text-blue-600 mb-2">Semifinals</h5>
+                  <h5 className="text-lg font-semibold text-slate-800 mb-2">Semifinals</h5>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-4xl mx-auto">
                     {bracketData.semifinals.map((matchup, index) => (
-                      <div key={index} className="bg-blue-50 p-3 rounded-lg border border-blue-200">
-                        <div className="text-sm font-medium text-blue-900" dangerouslySetInnerHTML={{ __html: formatMatchupWithBoldWinner(matchup) }}></div>
+                      <div key={index} className="bg-slate-50 p-3 rounded-lg border border-slate-200">
+                        <div className="text-sm font-medium text-slate-900" dangerouslySetInnerHTML={{ __html: formatMatchupWithBoldWinner(matchup) }}></div>
                       </div>
                     ))}
                   </div>
@@ -575,11 +564,11 @@ export default function Visualizations() {
               {/* Quarterfinals */}
               {bracketData.quarterfinals.length > 0 && (
                 <div className="text-center">
-                  <h5 className="text-lg font-semibold text-green-600 mb-2">Quarterfinals</h5>
+                  <h5 className="text-lg font-semibold text-slate-800 mb-2">Quarterfinals</h5>
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 max-w-6xl mx-auto">
                     {bracketData.quarterfinals.map((matchup, index) => (
-                      <div key={index} className="bg-green-50 p-3 rounded-lg border border-green-200">
-                        <div className="text-sm font-medium text-green-900" dangerouslySetInnerHTML={{ __html: formatMatchupWithBoldWinner(matchup) }}></div>
+                      <div key={index} className="bg-slate-50 p-3 rounded-lg border border-slate-200">
+                        <div className="text-sm font-medium text-slate-900" dangerouslySetInnerHTML={{ __html: formatMatchupWithBoldWinner(matchup) }}></div>
                       </div>
                     ))}
                   </div>
@@ -589,21 +578,21 @@ export default function Visualizations() {
               {/* Other Placement Games */}
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
                 {bracketData.thirdPlace && (
-                  <div className="bg-yellow-50 p-3 rounded-lg border border-yellow-200">
-                    <div className="text-sm font-medium text-yellow-700 mb-1">3rd Place</div>
-                    <div className="text-sm text-yellow-900" dangerouslySetInnerHTML={{ __html: formatMatchupWithBoldWinner(bracketData.thirdPlace) }}></div>
+                  <div className="bg-slate-50 p-3 rounded-lg border border-slate-200">
+                    <div className="text-sm font-medium text-slate-700 mb-1">3rd Place</div>
+                    <div className="text-sm text-slate-900" dangerouslySetInnerHTML={{ __html: formatMatchupWithBoldWinner(bracketData.thirdPlace) }}></div>
                   </div>
                 )}
                 {bracketData.fifthPlace && (
-                  <div className="bg-gray-50 p-3 rounded-lg border border-gray-200">
-                    <div className="text-sm font-medium text-gray-700 mb-1">5th Place</div>
-                    <div className="text-sm text-gray-900" dangerouslySetInnerHTML={{ __html: formatMatchupWithBoldWinner(bracketData.fifthPlace) }}></div>
+                  <div className="bg-slate-50 p-3 rounded-lg border border-slate-200">
+                    <div className="text-sm font-medium text-slate-700 mb-1">5th Place</div>
+                    <div className="text-sm text-slate-900" dangerouslySetInnerHTML={{ __html: formatMatchupWithBoldWinner(bracketData.fifthPlace) }}></div>
                   </div>
                 )}
                 {bracketData.seventhPlace && (
-                  <div className="bg-gray-50 p-3 rounded-lg border border-gray-200">
-                    <div className="text-sm font-medium text-gray-700 mb-1">7th Place</div>
-                    <div className="text-sm text-gray-900" dangerouslySetInnerHTML={{ __html: formatMatchupWithBoldWinner(bracketData.seventhPlace) }}></div>
+                  <div className="bg-slate-50 p-3 rounded-lg border border-slate-200">
+                    <div className="text-sm font-medium text-slate-700 mb-1">7th Place</div>
+                    <div className="text-sm text-slate-900" dangerouslySetInnerHTML={{ __html: formatMatchupWithBoldWinner(bracketData.seventhPlace) }}></div>
                   </div>
                 )}
               </div>
@@ -613,16 +602,16 @@ export default function Visualizations() {
 
         {/* Manager Consistency Map */}
         <div className="card">
-          <h3 className="text-2xl font-semibold text-gray-900 mb-6 flex items-center">
-            <Calendar className="h-8 w-8 mr-3 text-red-500" />
+          <h3 className="text-2xl font-semibold text-hockey-primary mb-6 flex items-center">
+            <Calendar className="h-8 w-8 mr-3 text-hockey-secondary" />
             Manager Performance Over Time
           </h3>
           
-          <div className="mb-6 p-4 bg-blue-50 rounded-lg">
-            <h4 className="text-lg font-semibold text-blue-900 mb-2">What this shows:</h4>
-            <p className="text-sm text-blue-800">
+          <div className="mb-6 p-4 bg-slate-50 rounded-lg border border-slate-200">
+            <h4 className="text-lg font-semibold text-hockey-primary mb-2">What this shows:</h4>
+            <p className="text-sm text-slate-700">
               This chart displays each manager's finishing position across all seasons they participated in. 
-              Green indicates championship wins, blue shows runner-up finishes, and warmer colors represent lower finishes.
+              Accents indicate notable finishes.
               Missing years (2016, 2019) were cancelled seasons.
             </p>
           </div>
@@ -640,20 +629,21 @@ export default function Visualizations() {
                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
                   {manager.data.map((yearData, index) => (
                     <div key={index} className="text-center">
-                      <div className="text-xs font-medium text-gray-600 mb-1">{yearData.year}</div>
+                      <div className="text-xs font-medium text-slate-600 mb-1">{yearData.year}</div>
                       {yearData.participated ? (
-                        <div className={`w-12 h-12 rounded-lg flex items-center justify-center text-sm font-bold border-2 ${
-                          yearData.position === 1 ? 'bg-green-500 text-white border-green-600 shadow-lg' :
-                          yearData.position === 2 ? 'bg-blue-500 text-white border-blue-600' :
-                          yearData.position === 3 ? 'bg-yellow-500 text-white border-yellow-600' :
-                          yearData.position === 4 ? 'bg-orange-500 text-white border-orange-600' :
-                          yearData.position && yearData.position <= 6 ? 'bg-red-400 text-white border-red-500' :
-                          'bg-red-600 text-white border-red-700'
+                        <div className={`w-12 h-12 rounded-lg flex items-center justify-center text-sm font-semibold border ${
+                          yearData.position === 1 ? 'bg-amber-400 text-white border-amber-500 ring-2 ring-amber-300' :
+                          yearData.position === 2 ? 'bg-indigo-500 text-white border-indigo-600' :
+                          yearData.position === 3 ? 'bg-emerald-500 text-white border-emerald-600' :
+                          yearData.position === 4 ? 'bg-sky-400 text-white border-sky-500' :
+                          yearData.position && yearData.position <= 6 ? 'bg-cyan-400 text-white border-cyan-500' :
+                          yearData.position && yearData.position <= 8 ? 'bg-orange-400 text-white border-orange-500' :
+                          'bg-rose-500 text-white border-rose-600'
                         }`}>
-                          {yearData.position === 1 ? '🏆' : yearData.position}
+                          {yearData.position === 1 ? <Crown className="h-4 w-4 text-white" aria-hidden /> : yearData.position}
                         </div>
                       ) : (
-                        <div className="w-12 h-12 bg-gray-300 rounded-lg flex items-center justify-center text-xs text-gray-500 border-2 border-gray-400">
+                        <div className="w-12 h-12 bg-slate-200 rounded-lg flex items-center justify-center text-xs text-slate-500 border border-slate-300">
                           --
                         </div>
                       )}
@@ -662,8 +652,8 @@ export default function Visualizations() {
                 </div>
                 
                 {/* Manager Summary */}
-                <div className="mt-3 pt-3 border-t border-gray-300">
-                  <div className="flex flex-wrap gap-4 text-xs text-gray-600">
+                <div className="mt-3 pt-3 border-t border-slate-300">
+                  <div className="flex flex-wrap gap-4 text-xs text-slate-600">
                     <span>
                       <strong>Championships:</strong> {manager.data.filter(d => d.position === 1).length}
                     </span>
@@ -682,36 +672,42 @@ export default function Visualizations() {
           </div>
           
           {/* Legend */}
-          <div className="mt-6 p-4 bg-gray-100 rounded-lg">
-            <h4 className="font-semibold text-gray-900 mb-3">Legend:</h4>
+          <div className="mt-6 p-4 bg-white rounded-lg border border-slate-200">
+            <h4 className="font-semibold text-hockey-primary mb-3">Legend:</h4>
             <div className="flex flex-wrap gap-4 text-sm">
               <div className="flex items-center space-x-2">
-                <div className="w-8 h-8 bg-green-500 rounded-lg flex items-center justify-center text-white font-bold border-2 border-green-600">🏆</div>
-                <span>Champion</span>
+                <div className="w-8 h-8 bg-amber-400 rounded-lg flex items-center justify-center text-white font-bold border border-amber-500 ring-2 ring-amber-300">
+                  <Crown className="h-4 w-4 text-white" />
+                </div>
+                <span className="text-slate-700">Champion</span>
               </div>
               <div className="flex items-center space-x-2">
-                <div className="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center text-white font-bold border-2 border-blue-600">2</div>
-                <span>Runner-up</span>
+                <div className="w-8 h-8 bg-indigo-500 rounded-lg flex items-center justify-center text-white font-semibold border border-indigo-600">2</div>
+                <span className="text-slate-700">Runner-up</span>
               </div>
               <div className="flex items-center space-x-2">
-                <div className="w-8 h-8 bg-yellow-500 rounded-lg flex items-center justify-center text-white font-bold border-2 border-yellow-600">3</div>
-                <span>3rd Place</span>
+                <div className="w-8 h-8 bg-emerald-500 rounded-lg flex items-center justify-center text-white font-semibold border border-emerald-600">3</div>
+                <span className="text-slate-700">3rd Place</span>
               </div>
               <div className="flex items-center space-x-2">
-                <div className="w-8 h-8 bg-orange-500 rounded-lg flex items-center justify-center text-white font-bold border-2 border-orange-600">4</div>
-                <span>4th Place</span>
+                <div className="w-8 h-8 bg-sky-400 rounded-lg flex items-center justify-center text-white font-semibold border border-sky-500">4</div>
+                <span className="text-slate-700">4th Place</span>
               </div>
               <div className="flex items-center space-x-2">
-                <div className="w-8 h-8 bg-red-400 rounded-lg flex items-center justify-center text-white font-bold border-2 border-red-500">5</div>
-                <span>5th-6th</span>
+                <div className="w-8 h-8 bg-cyan-400 rounded-lg flex items-center justify-center text-white font-semibold border border-cyan-500">5-6</div>
+                <span className="text-slate-700">5th–6th</span>
               </div>
               <div className="flex items-center space-x-2">
-                <div className="w-8 h-8 bg-red-600 rounded-lg flex items-center justify-center text-white font-bold border-2 border-red-700">7</div>
-                <span>7th+</span>
+                <div className="w-8 h-8 bg-orange-400 rounded-lg flex items-center justify-center text-white font-semibold border border-orange-500">7-8</div>
+                <span className="text-slate-700">7th–8th</span>
               </div>
               <div className="flex items-center space-x-2">
-                <div className="w-8 h-8 bg-gray-300 rounded-lg flex items-center justify-center text-xs text-gray-500 border-2 border-gray-400">--</div>
-                <span>Did not play</span>
+                <div className="w-8 h-8 bg-rose-500 rounded-lg flex items-center justify-center text-white font-semibold border border-rose-600">9+</div>
+                <span className="text-slate-700">9th+</span>
+              </div>
+              <div className="flex items-center space-x-2">
+                <div className="w-8 h-8 bg-slate-200 rounded-lg flex items-center justify-center text-xs text-slate-600 border border-slate-300">--</div>
+                <span className="text-slate-700">Did not play</span>
               </div>
             </div>
           </div>
@@ -758,23 +754,23 @@ export default function Visualizations() {
 
         {/* Regular Season vs Playoff Performance Scatter Plot */}
         <div className="card">
-          <h3 className="text-2xl font-semibold text-gray-900 mb-6 flex items-center">
-            <Zap className="h-8 w-8 mr-3 text-pink-500" />
+          <h3 className="text-2xl font-semibold text-hockey-primary mb-6 flex items-center">
+            <Zap className="h-8 w-8 mr-3 text-hockey-secondary" />
             Regular Season vs Playoff Performance
           </h3>
           
           <div className="relative">
-            <div className="bg-gray-50 p-4 sm:p-8 rounded-lg">
+            <div className="bg-slate-50 p-4 sm:p-8 rounded-lg">
               <div className="relative h-64 sm:h-80 w-full">
                 {/* Axes */}
-                <div className="absolute bottom-0 left-0 w-full h-px bg-gray-400"></div>
-                <div className="absolute bottom-0 left-0 w-px h-full bg-gray-400"></div>
+                <div className="absolute bottom-0 left-0 w-full h-px bg-slate-300"></div>
+                <div className="absolute bottom-0 left-0 w-px h-full bg-slate-300"></div>
                 
                 {/* Labels */}
-                <div className="absolute -bottom-6 left-1/2 transform -translate-x-1/2 text-sm text-gray-600">
+                <div className="absolute -bottom-6 left-1/2 transform -translate-x-1/2 text-sm text-slate-600">
                   Regular Season Win % →
                 </div>
-                <div className="absolute left-0 top-1/2 transform -translate-y-1/2 -rotate-90 text-sm text-gray-600">
+                <div className="absolute left-0 top-1/2 transform -translate-y-1/2 -rotate-90 text-sm text-slate-600">
                   ← Playoff Success Rate %
                 </div>
                 
@@ -804,41 +800,41 @@ export default function Visualizations() {
                   >
                     {/* Data Point */}
                     <div
-                      className={`rounded-full border-2 border-white shadow-lg cursor-pointer hover:scale-110 transition-transform ${
-                        manager.championships > 2 ? 'w-6 h-6 bg-green-500' :
-                        manager.championships > 0 ? 'w-5 h-5 bg-blue-500' :
-                        'w-4 h-4 bg-gray-400'
+                      className={`rounded-full border border-white shadow cursor-pointer hover:scale-110 transition-transform ${
+                        manager.championships > 2 ? 'w-6 h-6 bg-hockey-secondary' :
+                        manager.championships > 0 ? 'w-5 h-5 bg-hockey-accent' :
+                        'w-4 h-4 bg-slate-300'
                       }`}
                       title={`${manager.manager}: ${manager.regularSeasonWinPct.toFixed(1)}% RS Win, ${manager.playoffSuccessRate.toFixed(1)}% Playoff Success, ${manager.championships} Championships`}
                     />
                     {/* Manager Name Label */}
-                    <div className="absolute top-6 sm:top-8 left-1/2 transform -translate-x-1/2 text-xs font-medium text-gray-700 bg-white px-1 sm:px-2 py-1 rounded shadow-sm border whitespace-nowrap">
+                    <div className="absolute top-6 sm:top-8 left-1/2 transform -translate-x-1/2 text-xs font-medium text-slate-700 bg-white px-1 sm:px-2 py-1 rounded shadow-sm border whitespace-nowrap">
                       {manager.manager}
                     </div>
                   </div>
                 ))}
                 
                 {/* Reference Lines */}
-                <div className="absolute left-1/2 top-0 w-px h-full bg-gray-300 opacity-50"></div>
-                <div className="absolute bottom-1/2 left-0 w-full h-px bg-gray-300 opacity-50"></div>
+                <div className="absolute left-1/2 top-0 w-px h-full bg-slate-200 opacity-70"></div>
+                <div className="absolute bottom-1/2 left-0 w-full h-px bg-slate-200 opacity-70"></div>
               </div>
             </div>
             
             {/* Legend */}
-            <div className="mt-4 flex items-center justify-center space-x-6 text-sm">
-              <div className="flex items-center space-x-2">
-                <div className="w-6 h-6 bg-green-500 rounded-full border-2 border-white"></div>
-                <span>3+ Championships</span>
+              <div className="mt-4 flex items-center justify-center space-x-6 text-sm">
+                <div className="flex items-center space-x-2">
+                  <div className="w-6 h-6 bg-hockey-secondary rounded-full border border-white"></div>
+                  <span>3+ Championships</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <div className="w-5 h-5 bg-hockey-accent rounded-full border border-white"></div>
+                  <span>1-2 Championships</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <div className="w-4 h-4 bg-slate-300 rounded-full border border-white"></div>
+                  <span>0 Championships</span>
+                </div>
               </div>
-              <div className="flex items-center space-x-2">
-                <div className="w-5 h-5 bg-blue-500 rounded-full border-2 border-white"></div>
-                <span>1-2 Championships</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <div className="w-4 h-4 bg-gray-400 rounded-full border-2 border-white"></div>
-                <span>0 Championships</span>
-              </div>
-            </div>
           </div>
         </div>
       </div>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rule-Ette - Fantasy Rule Swap Game</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Rule-Ette</h1>
+            <p>Fantasy Rule Swap Game</p>
+        </header>
+
+        <main>
+            <section class="setup-section">
+                <div class="player-setup">
+                    <label for="player-names">Enter team names (one per line):</label>
+                    <textarea id="player-names" placeholder="Team Alpha&#10;Team Beta&#10;Team Charlie&#10;Team Delta&#10;Team Echo&#10;Team Foxtrot&#10;Team Golf&#10;Team Hotel&#10;Team India"></textarea>
+                    <button id="setup-teams">Setup Teams</button>
+                </div>
+                
+                <div class="manual-draft-order" id="manual-draft-order" style="display: none;">
+                    <h3>Assign Draft Positions</h3>
+                    <p>Select which team gets each draft position (1 = first pick, gets final swap opportunity)</p>
+                    <div id="position-assignments"></div>
+                    <button id="start-game-btn" class="start-game-button" style="display: none;">Start Yankee Swap</button>
+                </div>
+            </section>
+
+            <section class="game-section" id="game-section" style="display: none;">
+                <div class="game-state">
+                    <div class="current-player">
+                        <h2>Current Turn: <span id="current-player-name">-</span></h2>
+                        <p class="turn-instruction" id="turn-instruction">Select a rule to submit or swap with an existing rule</p>
+                    </div>
+                    
+                    <div class="available-rules" id="available-rules">
+                        <h3>Available Rules to Choose From:</h3>
+                        <div id="rules-list"></div>
+                    </div>
+                    
+                    <div class="timer">
+                        <div class="timer-display">
+                            <span id="timer-text">02:00</span>
+                            <button id="pause-btn" class="pause-button">Pause</button>
+                        </div>
+                        <div class="timer-bar">
+                            <div class="timer-progress" id="timer-progress"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="rule-input">
+                        <textarea id="rule-input" placeholder="Enter your new rule here..."></textarea>
+                    </div>
+                    
+                    <div class="action-buttons">
+                        <button id="submit-new-btn" class="submit-button">Submit New Rule</button>
+                        <button id="keep-current-btn" class="keep-button" style="display: none;">Keep Current Rule</button>
+                    </div>
+                </div>
+            </section>
+
+            <aside class="sidebar">
+                <div class="draft-order">
+                    <h3>Draft Order</h3>
+                    <ol id="draft-order-list"></ol>
+                </div>
+                
+                <div class="rule-history">
+                    <h3>Rule Selection History</h3>
+                    <div id="rule-history-list"></div>
+                </div>
+            </aside>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

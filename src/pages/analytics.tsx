@@ -194,56 +194,56 @@ export default function Analytics() {
 
   return (
     <Layout title="League Analytics - Fantasy Hockey Dashboard">
-      <div className="space-y-6">
+      <div className="space-y-8">
         {/* Header */}
         <div className="card">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">League Analytics</h2>
+          <h2 className="text-2xl font-semibold text-hockey-primary mb-4">League Analytics</h2>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             <div className="text-center">
-              <Calendar className="h-8 w-8 mx-auto mb-2 text-hockey-primary" />
-              <div className="text-3xl font-bold text-hockey-primary">{analytics.totalSeasons}</div>
-              <div className="text-sm text-gray-600">Total Seasons</div>
+              <Calendar className="h-8 w-8 mx-auto mb-2 text-hockey-secondary" />
+              <div className="text-3xl font-semibold text-hockey-primary">{analytics.totalSeasons}</div>
+              <div className="text-sm text-slate-600">Total Seasons</div>
             </div>
             <div className="text-center">
-              <Users className="h-8 w-8 mx-auto mb-2 text-blue-500" />
-              <div className="text-3xl font-bold text-blue-600">{analytics.totalManagers}</div>
-              <div className="text-sm text-gray-600">Total Managers</div>
+              <Users className="h-8 w-8 mx-auto mb-2 text-hockey-secondary" />
+              <div className="text-3xl font-semibold text-hockey-primary">{analytics.totalManagers}</div>
+              <div className="text-sm text-slate-600">Total Managers</div>
             </div>
             <div className="text-center">
               <Trophy className="h-8 w-8 mx-auto mb-2 text-hockey-secondary" />
-              <div className="text-3xl font-bold text-hockey-secondary">
+              <div className="text-3xl font-semibold text-hockey-primary">
                 {analytics.championshipDistribution.length}
               </div>
-              <div className="text-sm text-gray-600">Different Champions</div>
+              <div className="text-sm text-slate-600">Different Champions</div>
             </div>
             <div className="text-center">
-              <Award className="h-8 w-8 mx-auto mb-2 text-hockey-accent" />
-              <div className="text-3xl font-bold text-yellow-600">
+              <Award className="h-8 w-8 mx-auto mb-2 text-hockey-secondary" />
+              <div className="text-3xl font-semibold text-hockey-primary">
                 {Math.max(...analytics.championshipDistribution.map(c => c.championships))}
               </div>
-              <div className="text-sm text-gray-600">Most Championships</div>
+              <div className="text-sm text-slate-600">Most Championships</div>
             </div>
           </div>
         </div>
 
         {/* Championship Distribution */}
         <div className="card">
-          <h3 className="text-xl font-semibold text-gray-900 mb-4">Championship Distribution</h3>
+          <h3 className="text-xl font-semibold text-hockey-primary mb-4">Championship Distribution</h3>
           <div className="space-y-3">
             {analytics.championshipDistribution.map((champion, index) => (
-              <div key={champion.manager} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+              <div key={champion.manager} className="flex items-center justify-between p-4 bg-slate-50 rounded-lg">
                 <div className="flex items-center space-x-4">
-                  <div className="text-lg font-semibold text-gray-500">#{index + 1}</div>
+                  <div className="text-lg font-semibold text-slate-500">#{index + 1}</div>
                   <div>
                     <div className="font-semibold text-hockey-primary">{champion.manager}</div>
-                    <div className="text-sm text-gray-600">
+                    <div className="text-sm text-slate-600">
                       Championships: {champion.years.join(', ')}
                     </div>
                   </div>
                 </div>
                 <div className="text-right">
-                  <div className="text-2xl font-bold text-hockey-secondary">{champion.championships}</div>
-                  <div className="text-sm text-gray-600">
+                  <div className="text-2xl font-semibold text-hockey-primary">{champion.championships}</div>
+                  <div className="text-sm text-slate-600">
                     {champion.championships === 1 ? 'title' : 'titles'}
                   </div>
                 </div>
@@ -252,9 +252,9 @@ export default function Analytics() {
           </div>
           
           {/* Championship Notes */}
-          <div className="mt-6 p-4 bg-blue-50 rounded-lg border-l-4 border-blue-400">
-            <h4 className="font-semibold text-blue-900 mb-2">Championship Notes</h4>
-            <div className="text-sm text-blue-800 space-y-1">
+          <div className="mt-6 p-4 bg-slate-50 rounded-lg border border-slate-200">
+            <h4 className="font-semibold text-hockey-primary mb-2">Championship Notes</h4>
+            <div className="text-sm text-slate-700 space-y-1">
               <p>• <strong>2013:</strong> Championship ended in a tie, decided by regular season head-to-head record (Dave)</p>
               <p>• <strong>2014:</strong> Championship ended in a tie, decided by regular season head-to-head record (Dave)</p>
             </div>
@@ -263,28 +263,28 @@ export default function Analytics() {
 
         {/* Era Analysis */}
         <div className="card">
-          <h3 className="text-xl font-semibold text-gray-900 mb-4">Era Analysis</h3>
+          <h3 className="text-xl font-semibold text-hockey-primary mb-4">Era Analysis</h3>
           {eras.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {eras.map(era => (
-              <div key={era.name} className="bg-gray-50 p-4 rounded-lg">
+              <div key={era.name} className="bg-slate-50 p-4 rounded-lg">
                 <h4 className="font-semibold text-lg text-hockey-primary mb-2">{era.name}</h4>
                 <div className="space-y-2 text-sm">
                   <div className="flex justify-between">
-                    <span className="text-gray-600">Seasons:</span>
-                    <span className="font-medium text-blue-600">{era.seasons}</span>
+                    <span className="text-slate-600">Seasons:</span>
+                    <span className="font-medium text-slate-900">{era.seasons}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-600">Dominant Manager:</span>
-                    <span className="font-medium text-blue-600">{era.dominantManager}</span>
+                    <span className="text-slate-600">Dominant Manager:</span>
+                    <span className="font-medium text-slate-900">{era.dominantManager}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-600">Championships:</span>
-                    <span className="font-medium text-blue-600">{era.championships}</span>
+                    <span className="text-slate-600">Championships:</span>
+                    <span className="font-medium text-slate-900">{era.championships}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-600">Different Champions:</span>
-                    <span className="font-medium text-blue-600">{era.allChampions}</span>
+                    <span className="text-slate-600">Different Champions:</span>
+                    <span className="font-medium text-slate-900">{era.allChampions}</span>
                   </div>
                 </div>
               </div>
@@ -292,17 +292,17 @@ export default function Analytics() {
             </div>
           ) : (
             <div className="text-center py-8">
-              <p className="text-gray-500">No era data available</p>
+              <p className="text-slate-500">No era data available</p>
             </div>
           )}
         </div>
 
         {/* Best Average Finishes */}
         <div className="card">
-          <h3 className="text-xl font-semibold text-gray-900 mb-4">Best Average Finishes (3+ Seasons)</h3>
+          <h3 className="text-xl font-semibold text-hockey-primary mb-4">Best Average Finishes (3+ Seasons)</h3>
           <div className="overflow-x-auto">
             <table className="table-auto">
-              <thead className="bg-gray-50">
+              <thead className="bg-slate-50">
                 <tr>
                   <th className="table-header">Rank</th>
                   <th className="table-header">Manager</th>
@@ -311,20 +311,18 @@ export default function Analytics() {
                   <th className="table-header">Consistency</th>
                 </tr>
               </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
+              <tbody className="bg-white divide-y divide-slate-200">
                 {analytics.averageFinishRankings.map((manager, index) => (
-                  <tr key={manager.manager} className={index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
-                    <td className="table-cell font-semibold text-hockey-primary">#{index + 1}</td>
+                  <tr key={manager.manager} className={index % 2 === 0 ? 'bg-white' : 'bg-slate-50'}>
+                    <td className="table-cell font-semibold text-slate-900">#{index + 1}</td>
                     <td className="table-cell font-semibold">{manager.manager}</td>
-                    <td className="table-cell text-center font-bold text-green-600">
+                    <td className="table-cell text-center font-semibold text-slate-900">
                       {manager.averageFinish.toFixed(1)}
                     </td>
                     <td className="table-cell text-center">{manager.seasons}</td>
                     <td className="table-cell text-center">
-                      <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                        manager.averageFinish <= 3 ? 'bg-green-100 text-green-800' :
-                        manager.averageFinish <= 4 || manager.manager === 'Gwendi' || manager.manager === 'Vin' ? 'bg-yellow-100 text-yellow-800' :
-                        'bg-red-100 text-red-800'
+                      <span className={`badge ${
+                        manager.averageFinish <= 3 ? 'badge-accent' : ''
                       }`}>
                         {manager.averageFinish <= 3 ? 'Elite' :
                          manager.averageFinish <= 4 || manager.manager === 'Gwendi' || manager.manager === 'Vin' ? 'Strong' : 'Inconsistent'}
@@ -339,10 +337,10 @@ export default function Analytics() {
 
         {/* Most Dominant Regular Seasons */}
         <div className="card">
-          <h3 className="text-xl font-semibold text-gray-900 mb-4">Most Dominant Regular Seasons</h3>
+          <h3 className="text-xl font-semibold text-hockey-primary mb-4">Most Dominant Regular Seasons</h3>
           <div className="overflow-x-auto">
             <table className="table-auto">
-              <thead className="bg-gray-50">
+              <thead className="bg-slate-50">
                 <tr>
                   <th className="table-header">Rank</th>
                   <th className="table-header">Year</th>
@@ -352,16 +350,16 @@ export default function Analytics() {
                   <th className="table-header">Won Championship</th>
                 </tr>
               </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
+              <tbody className="bg-white divide-y divide-slate-200">
                 {analytics.mostDominantSeasons.map((season, index) => (
-                  <tr key={`${season.year}-${season.manager}`} className={index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
-                    <td className="table-cell font-semibold text-hockey-primary">#{index + 1}</td>
+                  <tr key={`${season.year}-${season.manager}`} className={index % 2 === 0 ? 'bg-white' : 'bg-slate-50'}>
+                    <td className="table-cell font-semibold text-slate-900">#{index + 1}</td>
                     <td className="table-cell font-semibold">{season.year}</td>
                     <td className="table-cell font-semibold">{season.manager}</td>
-                    <td className="table-cell text-center font-bold text-green-600">{season.record}</td>
+                    <td className="table-cell text-center font-semibold text-slate-900">{season.record}</td>
                     <td className="table-cell text-center">{season.position}</td>
                     <td className="table-cell text-center">
-                      {season.isChampion ? '🏆' : '❌'}
+                      {season.isChampion ? 'Yes' : 'No'}
                     </td>
                   </tr>
                 ))}
@@ -372,10 +370,10 @@ export default function Analytics() {
 
         {/* Cinderella Stories */}
         <div className="card">
-          <h3 className="text-xl font-semibold text-gray-900 mb-4">Cinderella Stories</h3>
+          <h3 className="text-xl font-semibold text-hockey-primary mb-4">Cinderella Stories</h3>
           <div className="overflow-x-auto">
             <table className="table-auto">
-              <thead className="bg-gray-50">
+              <thead className="bg-slate-50">
                 <tr>
                   <th className="table-header">Rank</th>
                   <th className="table-header">Year</th>
@@ -384,7 +382,7 @@ export default function Analytics() {
                   <th className="table-header">Cinderella Story</th>
                 </tr>
               </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
+              <tbody className="bg-white divide-y divide-slate-200">
                 {analytics.worstChampionRecords.map((champion, index) => {
                   const isWorstRecord = (champion.record === '9-11-1' && champion.manager === 'Sammy') || 
                                        (champion.record === '9-11-0' && champion.manager === 'Colon');
@@ -404,15 +402,15 @@ export default function Analytics() {
                   
                   return (
                     <tr key={`${champion.year}-${champion.manager}`} className={
-                      isWorstRecord ? 'bg-red-50 border-l-4 border-red-500' :
-                      index % 2 === 0 ? 'bg-white' : 'bg-gray-50'
+                      isWorstRecord ? 'bg-slate-50 border-l-4 border-slate-300' :
+                      index % 2 === 0 ? 'bg-white' : 'bg-slate-50'
                     }>
-                      <td className="table-cell font-semibold text-hockey-primary">#{index + 1}</td>
+                      <td className="table-cell font-semibold text-slate-900">#{index + 1}</td>
                       <td className="table-cell font-semibold">{champion.year}</td>
                       <td className="table-cell font-semibold">{champion.manager}</td>
-                      <td className={`table-cell text-center font-bold ${isWorstRecord ? 'text-red-800' : 'text-red-600'}`}>
+                      <td className={`table-cell text-center font-semibold ${isWorstRecord ? 'text-slate-900' : 'text-slate-800'}`}>
                         {champion.record}
-                        {isWorstRecord && <span className="ml-2 text-xs bg-red-600 text-white px-2 py-1 rounded">WORST EVER</span>}
+                        {isWorstRecord && <span className="ml-2 text-xs bg-slate-900 text-white px-2 py-1 rounded">WORST EVER</span>}
                       </td>
                       <td className="table-cell text-sm max-w-xs">
                         {cinderellaStory}

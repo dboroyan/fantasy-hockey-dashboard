@@ -9,10 +9,12 @@ module.exports = {
     extend: {
       colors: {
         hockey: {
-          primary: '#003366',
-          secondary: '#CC0000',
-          accent: '#FFD700',
-          neutral: '#F5F5F5',
+          // Minimal + modern accents
+          primary: '#111827',   // near-black for headings
+          secondary: '#4F46E5', // indigo-600 for brand accents
+          accent: '#14B8A6',    // teal-500 for secondary accents
+          gold: '#D4AF37',      // muted gold for trophies/highlights
+          neutral: '#F8FAFC',   // soft background
         },
       },
       fontFamily: {

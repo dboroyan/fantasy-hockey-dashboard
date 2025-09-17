@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spin the Wheel</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎡 Spin the Wheel</h1>
+        </header>
+
+        <div class="controls-top">
+            <div class="mode-selector">
+                <label for="mode-toggle">Mode:</label>
+                <select id="mode-toggle">
+                    <option value="random">Random</option>
+                    <option value="predetermined">Predetermined</option>
+                </select>
+            </div>
+            
+            <div class="name-input">
+                <input type="text" id="name-input" placeholder="Enter a name">
+                <button id="add-name">Add Name</button>
+            </div>
+        </div>
+
+        <div class="wheel-container">
+            <canvas id="wheel-canvas" width="400" height="400"></canvas>
+            <div class="wheel-pointer"></div>
+        </div>
+
+        <div class="controls-bottom">
+            <button id="spin-button" class="spin-btn">🎯 SPIN</button>
+            <button id="reset-button" class="reset-btn">🔄 Reset</button>
+        </div>
+
+        <div class="names-list">
+            <h3>Names in Queue:</h3>
+            <ul id="names-display"></ul>
+        </div>
+
+        <div class="predetermined-controls" id="predetermined-controls" style="display: none;">
+            <h3>Predetermined Order:</h3>
+            <textarea id="predetermined-order" placeholder="Enter names in order, one per line"></textarea>
+            <button id="load-predetermined">Load Order</button>
+        </div>
+
+        <div class="winner-overlay" id="winner-overlay" style="display: none;">
+            <div class="winner-content">
+                <h2>🎉 Winner! 🎉</h2>
+                <div class="winner-name" id="winner-name"></div>
+                <button id="continue-button">Continue</button>
+            </div>
+        </div>
+
+        <div class="debug-info" id="debug-info" style="display: none;">
+            <h4>Debug Info:</h4>
+            <div id="debug-content"></div>
+        </div>
+    </div>
+
+    <!-- Audio Elements -->
+    <audio id="tick-sound" preload="auto">
+        <source src="assets/tick.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="winner-sound" preload="auto">
+        <source src="assets/winner.mp3" type="audio/mpeg">
+    </audio>
+
+    <script src="script.js"></script>
+</body>
+</html>
