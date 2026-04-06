@@ -1161,7 +1161,7 @@
           "team": "Cant Teach That",
           "regularSeasonPosition": 1,
           "regularSeasonRecord": "14-5-1",
-          "playoffRecord": "5-1",
+          "playoffRecord": "2-0",
           "finalPosition": 1,
           "isChampion": true
         },
@@ -1170,7 +1170,7 @@
           "team": "The Rock's Beachfront Property",
           "regularSeasonPosition": 2,
           "regularSeasonRecord": "9-6-5",
-          "playoffRecord": "3-2",
+          "playoffRecord": "2-1",
           "finalPosition": 2,
           "isChampion": false
         },
@@ -1179,7 +1179,7 @@
           "team": "Doctor of Hooked on Phonics",
           "regularSeasonPosition": 3,
           "regularSeasonRecord": "10-8-2",
-          "playoffRecord": "2-2",
+          "playoffRecord": "1-1",
           "finalPosition": 3,
           "isChampion": false
         },
@@ -1188,7 +1188,7 @@
           "team": "Otis Operandi",
           "regularSeasonPosition": 4,
           "regularSeasonRecord": "11-8-1",
-          "playoffRecord": "1-2",
+          "playoffRecord": "0-1",
           "finalPosition": 4,
           "isChampion": false
         },
@@ -1197,7 +1197,7 @@
           "team": "JBL's ICE Enforcers",
           "regularSeasonPosition": 5,
           "regularSeasonRecord": "10-9-1",
-          "playoffRecord": "1-1",
+          "playoffRecord": "0-1",
           "finalPosition": 5,
           "isChampion": false
         },
@@ -1329,8 +1329,8 @@
         "ties": 14
       },
       "playoffRecord": {
-        "wins": 6,
-        "losses": 9
+        "wins": 5,
+        "losses": 8
       },
       "seasonsPlayed": [
         2014,
@@ -1383,8 +1383,8 @@
         "ties": 9
       },
       "playoffRecord": {
-        "wins": 32,
-        "losses": 6
+        "wins": 29,
+        "losses": 5
       },
       "seasonsPlayed": [
         2011,
@@ -1526,8 +1526,8 @@
         "ties": 21
       },
       "playoffRecord": {
-        "wins": 2,
-        "losses": 4
+        "wins": 1,
+        "losses": 3
       },
       "seasonsPlayed": [
         2020,
@@ -1551,7 +1551,7 @@
         "ties": 14
       },
       "playoffRecord": {
-        "wins": 8,
+        "wins": 7,
         "losses": 10
       },
       "seasonsPlayed": [
@@ -1678,8 +1678,8 @@
         "ties": 25
       },
       "playoffRecord": {
-        "wins": 13,
-        "losses": 9
+        "wins": 12,
+        "losses": 8
       },
       "seasonsPlayed": [
         2012,
