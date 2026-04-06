@@ -1152,20 +1152,126 @@
         "seventhPlace": "Sammy (bill crosby) def. Jack (jackie bedard)",
         "ninthPlace": "Ben (holy girouxsalem) def. Mehmet (bustin hyman)"
       }
+    },
+    {
+      "year": 2025,
+      "managers": [
+        {
+          "manager": "Dave",
+          "team": "Cant Teach That",
+          "regularSeasonPosition": 1,
+          "regularSeasonRecord": "14-5-1",
+          "playoffRecord": "5-1",
+          "finalPosition": 1,
+          "isChampion": true
+        },
+        {
+          "manager": "Vin",
+          "team": "The Rock's Beachfront Property",
+          "regularSeasonPosition": 2,
+          "regularSeasonRecord": "9-6-5",
+          "playoffRecord": "3-2",
+          "finalPosition": 2,
+          "isChampion": false
+        },
+        {
+          "manager": "coach keo",
+          "team": "Doctor of Hooked on Phonics",
+          "regularSeasonPosition": 3,
+          "regularSeasonRecord": "10-8-2",
+          "playoffRecord": "2-2",
+          "finalPosition": 3,
+          "isChampion": false
+        },
+        {
+          "manager": "Ben",
+          "team": "Otis Operandi",
+          "regularSeasonPosition": 4,
+          "regularSeasonRecord": "11-8-1",
+          "playoffRecord": "1-2",
+          "finalPosition": 4,
+          "isChampion": false
+        },
+        {
+          "manager": "Mish",
+          "team": "JBL's ICE Enforcers",
+          "regularSeasonPosition": 5,
+          "regularSeasonRecord": "10-9-1",
+          "playoffRecord": "1-1",
+          "finalPosition": 5,
+          "isChampion": false
+        },
+        {
+          "manager": "MST",
+          "team": "Rio Glacial 619 Guardians",
+          "regularSeasonPosition": 6,
+          "regularSeasonRecord": "9-7-4",
+          "playoffRecord": "0-1",
+          "finalPosition": 6,
+          "isChampion": false
+        },
+        {
+          "manager": "Mehmet",
+          "team": "Big Poppa Pump",
+          "regularSeasonPosition": 7,
+          "regularSeasonRecord": "5-12-3",
+          "finalPosition": 7,
+          "isChampion": false
+        },
+        {
+          "manager": "Al",
+          "team": "619-11",
+          "regularSeasonPosition": 8,
+          "regularSeasonRecord": "8-10-2",
+          "finalPosition": 8,
+          "isChampion": false
+        },
+        {
+          "manager": "Jack",
+          "team": "Chris Benoit Balls",
+          "regularSeasonPosition": 9,
+          "regularSeasonRecord": "3-12-5",
+          "finalPosition": 9,
+          "isChampion": false
+        },
+        {
+          "manager": "Sammy",
+          "team": "Triple Crosby",
+          "regularSeasonPosition": 10,
+          "regularSeasonRecord": "8-10-2",
+          "finalPosition": 10,
+          "isChampion": false
+        }
+      ],
+      "playoffResults": {
+        "quarterfinals": [
+          "Dave (Cant Teach That) (bye)",
+          "coach keo (Doctor of Hooked on Phonics) def. MST (Rio Glacial 619 Guardians) 5-4",
+          "Vin (The Rock's Beachfront Property) def. Mish (JBL's ICE Enforcers) 5-5 (tiebreaker)",
+          "Ben (Otis Operandi) (bye)"
+        ],
+        "semifinals": [
+          "Dave (Cant Teach That) def. coach keo (Doctor of Hooked on Phonics) 5-4",
+          "Vin (The Rock's Beachfront Property) def. Ben (Otis Operandi) 7-3"
+        ],
+        "finals": "**Dave (Cant Teach That)** def. Vin (The Rock's Beachfront Property) 7-3",
+        "thirdPlace": "coach keo (Doctor of Hooked on Phonics) def. Ben (Otis Operandi) 8-2",
+        "fifthPlace": "Mish (JBL's ICE Enforcers) def. MST (Rio Glacial 619 Guardians) 7-2"
+      }
     }
   ],
   "managerStats": [
     {
       "manager": "Al",
-      "totalSeasons": 12,
+      "totalSeasons": 13,
       "championships": 0,
       "runnerUps": 5,
       "playoffAppearances": 11,
-      "averageFinish": 2.5,
+      "averageFinish": 2.923076923076923,
       "regularSeasonRecord": {
-        "wins": 97,
-        "losses": 83,
-        "ties": 16
+        "wins": 105,
+        "losses": 93,
+        "ties": 18
       },
       "playoffRecord": {
         "wins": 12,
@@ -1183,7 +1289,8 @@
         2021,
         2022,
         2023,
-        2024
+        2024,
+        2025
       ]
     },
     {
@@ -1211,19 +1318,19 @@
     },
     {
       "manager": "Ben",
-      "totalSeasons": 9,
+      "totalSeasons": 10,
       "championships": 0,
       "runnerUps": 1,
-      "playoffAppearances": 7,
-      "averageFinish": 4.555555555555555,
+      "playoffAppearances": 8,
+      "averageFinish": 4.5,
       "regularSeasonRecord": {
-        "wins": 89,
-        "losses": 73,
-        "ties": 13
+        "wins": 100,
+        "losses": 81,
+        "ties": 14
       },
       "playoffRecord": {
-        "wins": 5,
-        "losses": 7
+        "wins": 6,
+        "losses": 9
       },
       "seasonsPlayed": [
         2014,
@@ -1234,7 +1341,8 @@
         2021,
         2022,
         2023,
-        2024
+        2024,
+        2025
       ]
     },
     {
@@ -1264,19 +1372,19 @@
     },
     {
       "manager": "Dave",
-      "totalSeasons": 12,
-      "championships": 7,
+      "totalSeasons": 13,
+      "championships": 8,
       "runnerUps": 1,
-      "playoffAppearances": 12,
-      "averageFinish": 1.9166666666666667,
+      "playoffAppearances": 13,
+      "averageFinish": 1.8461538461538463,
       "regularSeasonRecord": {
-        "wins": 132,
-        "losses": 56,
-        "ties": 8
+        "wins": 146,
+        "losses": 61,
+        "ties": 9
       },
       "playoffRecord": {
-        "wins": 27,
-        "losses": 5
+        "wins": 32,
+        "losses": 6
       },
       "seasonsPlayed": [
         2011,
@@ -1290,7 +1398,8 @@
         2021,
         2022,
         2023,
-        2024
+        2024,
+        2025
       ]
     },
     {
@@ -1338,15 +1447,15 @@
     },
     {
       "manager": "Jack",
-      "totalSeasons": 5,
+      "totalSeasons": 6,
       "championships": 0,
       "runnerUps": 0,
       "playoffAppearances": 2,
-      "averageFinish": 7.6,
+      "averageFinish": 7.833333333333333,
       "regularSeasonRecord": {
-        "wins": 31,
-        "losses": 54,
-        "ties": 8
+        "wins": 34,
+        "losses": 66,
+        "ties": 13
       },
       "playoffRecord": {
         "wins": 0,
@@ -1357,7 +1466,29 @@
         2021,
         2022,
         2023,
-        2024
+        2024,
+        2025
+      ]
+    },
+    {
+      "manager": "Mehmet",
+      "totalSeasons": 2,
+      "championships": 0,
+      "runnerUps": 0,
+      "playoffAppearances": 0,
+      "averageFinish": 8.5,
+      "regularSeasonRecord": {
+        "wins": 8,
+        "losses": 27,
+        "ties": 4
+      },
+      "playoffRecord": {
+        "wins": 0,
+        "losses": 0
+      },
+      "seasonsPlayed": [
+        2024,
+        2025
       ]
     },
     {
@@ -1384,43 +1515,44 @@
     },
     {
       "manager": "coach keo",
-      "totalSeasons": 5,
+      "totalSeasons": 6,
       "championships": 0,
       "runnerUps": 0,
-      "playoffAppearances": 2,
-      "averageFinish": 8,
+      "playoffAppearances": 3,
+      "averageFinish": 7.166666666666667,
       "regularSeasonRecord": {
-        "wins": 32,
-        "losses": 42,
-        "ties": 19
+        "wins": 42,
+        "losses": 50,
+        "ties": 21
       },
       "playoffRecord": {
-        "wins": 0,
-        "losses": 2
+        "wins": 2,
+        "losses": 4
       },
       "seasonsPlayed": [
         2020,
         2021,
         2022,
         2023,
-        2024
+        2024,
+        2025
       ]
     },
     {
       "manager": "Mish",
-      "totalSeasons": 9,
+      "totalSeasons": 10,
       "championships": 0,
       "runnerUps": 1,
-      "playoffAppearances": 9,
-      "averageFinish": 3.888888888888889,
+      "playoffAppearances": 10,
+      "averageFinish": 4,
       "regularSeasonRecord": {
-        "wins": 90,
-        "losses": 72,
-        "ties": 13
+        "wins": 100,
+        "losses": 81,
+        "ties": 14
       },
       "playoffRecord": {
-        "wins": 7,
-        "losses": 9
+        "wins": 8,
+        "losses": 10
       },
       "seasonsPlayed": [
         2014,
@@ -1431,24 +1563,25 @@
         2021,
         2022,
         2023,
-        2024
+        2024,
+        2025
       ]
     },
     {
       "manager": "MST",
-      "totalSeasons": 6,
+      "totalSeasons": 7,
       "championships": 0,
       "runnerUps": 2,
-      "playoffAppearances": 3,
-      "averageFinish": 6.666666666666667,
+      "playoffAppearances": 4,
+      "averageFinish": 6.571428571428571,
       "regularSeasonRecord": {
-        "wins": 40,
-        "losses": 55,
-        "ties": 18
+        "wins": 49,
+        "losses": 62,
+        "ties": 22
       },
       "playoffRecord": {
         "wins": 4,
-        "losses": 3
+        "losses": 4
       },
       "seasonsPlayed": [
         2018,
@@ -1456,20 +1589,21 @@
         2021,
         2022,
         2023,
-        2024
+        2024,
+        2025
       ]
     },
     {
       "manager": "Sammy",
-      "totalSeasons": 6,
+      "totalSeasons": 7,
       "championships": 2,
       "runnerUps": 0,
       "playoffAppearances": 4,
-      "averageFinish": 4.333333333333333,
+      "averageFinish": 5.142857142857143,
       "regularSeasonRecord": {
-        "wins": 47,
-        "losses": 57,
-        "ties": 9
+        "wins": 55,
+        "losses": 67,
+        "ties": 11
       },
       "playoffRecord": {
         "wins": 7,
@@ -1481,7 +1615,8 @@
         2021,
         2022,
         2023,
-        2024
+        2024,
+        2025
       ]
     },
     {
@@ -1532,19 +1667,19 @@
     },
     {
       "manager": "Vin",
-      "totalSeasons": 9,
+      "totalSeasons": 10,
       "championships": 1,
-      "runnerUps": 1,
-      "playoffAppearances": 9,
-      "averageFinish": 4,
+      "runnerUps": 2,
+      "playoffAppearances": 10,
+      "averageFinish": 3.8,
       "regularSeasonRecord": {
-        "wins": 83,
-        "losses": 51,
-        "ties": 20
+        "wins": 92,
+        "losses": 57,
+        "ties": 25
       },
       "playoffRecord": {
-        "wins": 10,
-        "losses": 7
+        "wins": 13,
+        "losses": 9
       },
       "seasonsPlayed": [
         2012,
@@ -1555,13 +1690,14 @@
         2021,
         2022,
         2023,
-        2024
+        2024,
+        2025
       ]
     }
   ],
   "metadata": {
-    "totalSeasons": 13,
-    "yearRange": "2011-2024",
-    "generatedAt": "2025-07-11T17:47:20.651Z"
+    "totalSeasons": 14,
+    "yearRange": "2011-2025",
+    "generatedAt": "2026-04-06T00:00:00.000Z"
   }
 }
