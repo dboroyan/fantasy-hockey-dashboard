@@ -1,6 +1,6 @@
 import React from 'react';
 import Head from 'next/head';
-import { Trophy, Users, TrendingUp, Target, BarChart3 } from 'lucide-react';
+import { Trophy, Users, Target, BarChart3 } from 'lucide-react';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -46,8 +46,6 @@ export default function Layout({ children, title = 'Fantasy Hockey Dashboard' }:
             <div className="flex space-x-2 sm:space-x-8 overflow-x-auto scrollbar-hide">
               <NavItem href="/" icon={<Target className="h-4 w-4 sm:h-5 sm:w-5 text-hockey-secondary" />} label="Season Explorer" />
               <NavItem href="/managers" icon={<Users className="h-4 w-4 sm:h-5 sm:w-5 text-hockey-secondary" />} label="Manager Profiles" />
-              <NavItem href="/head-to-head" icon={<TrendingUp className="h-4 w-4 sm:h-5 sm:w-5 text-hockey-secondary" />} label="Head-to-Head" />
-              <NavItem href="/analytics" icon={<Trophy className="h-4 w-4 sm:h-5 sm:w-5 text-hockey-secondary" />} label="League Analytics" />
               <NavItem href="/visualizations" icon={<BarChart3 className="h-4 w-4 sm:h-5 sm:w-5 text-hockey-secondary" />} label="Visualizations" />
             </div>
           </div>
