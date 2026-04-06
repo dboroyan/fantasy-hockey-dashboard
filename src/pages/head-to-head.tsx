@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import Layout from '@/components/Layout';
+import Layout, { formatSeason } from '@/components/Layout';
 import { SeasonData, ManagerSeason } from '@/data/parser';
 import hockeyData from '@/data/hockey-data.json';
 import { Users, Trophy, Target, TrendingUp, ChevronRight } from 'lucide-react';
@@ -16,7 +16,7 @@ interface HeadToHeadRecord {
 export default function HeadToHead() {
   const [manager1, setManager1] = useState<string>('');
   const [manager2, setManager2] = useState<string>('');
-  
+
   const seasons = hockeyData.seasons as SeasonData[];
   const allManagers = Array.from(new Set(
     seasons.flatMap(s => s.managers.map(m => m.manager))
@@ -25,7 +25,7 @@ export default function HeadToHead() {
   // Calculate head-to-head records from playoff meetings only
   const headToHeadData = useMemo(() => {
     const records = new Map<string, HeadToHeadRecord>();
-    
+
     // Initialize records for all manager pairs
     for (let i = 0; i < allManagers.length; i++) {
       for (let j = i + 1; j < allManagers.length; j++) {
@@ -59,21 +59,21 @@ export default function HeadToHead() {
             if (parts.length === 2) {
               const winner = parts[0].split(' (')[0].trim();
               const loser = parts[1].split(' (')[0].trim();
-              
+
               const key = winner < loser ? `${winner}-${loser}` : `${loser}-${winner}`;
-              
+
               if (records.has(key)) {
                 const record = records.get(key)!;
                 record.playoffMeetings++;
-                
+
                 // Track wins
                 if (record.manager1 === winner) {
                   record.manager1Wins++;
                 } else if (record.manager2 === winner) {
                   record.manager2Wins++;
                 }
-                
-                record.matchups.push(`${season.year} Playoffs: ${winner} def. ${loser}`);
+
+                record.matchups.push(`${formatSeason(season.year)} Playoffs: ${winner} def. ${loser}`);
               }
             }
           }
@@ -95,10 +95,10 @@ export default function HeadToHead() {
         record.manager2Wins = 2; // Dave wins: 2018, 2020
       }
       record.matchups = [
-        '2018 Playoffs: Dave def. Sammy',
-        '2020 Playoffs: Dave def. Sammy',
-        '2021 Playoffs: Sammy def. Dave',
-        '2023 Playoffs: Sammy def. Dave'
+        `${formatSeason(2018)} Playoffs: Dave def. Sammy`,
+        `${formatSeason(2020)} Playoffs: Dave def. Sammy`,
+        `${formatSeason(2021)} Playoffs: Sammy def. Dave`,
+        `${formatSeason(2023)} Playoffs: Sammy def. Dave`
       ];
     }
 
@@ -107,7 +107,7 @@ export default function HeadToHead() {
 
   const currentMatchup = useMemo(() => {
     if (!manager1 || !manager2 || manager1 === manager2) return null;
-    
+
     const key = manager1 < manager2 ? `${manager1}-${manager2}` : `${manager2}-${manager1}`;
     return headToHeadData.get(key) || null;
   }, [manager1, manager2, headToHeadData]);
@@ -116,12 +116,12 @@ export default function HeadToHead() {
   const topMatchups = useMemo(() => {
     const allowedRivalries = [
       'Al-Mish',
-      'Dave-Vin', 
+      'Dave-Vin',
       'Mish-Vin',
       'Al-Dave',
       'Dave-MST'
     ];
-    
+
     return Array.from(headToHeadData.values())
       .filter(record => {
         const key = `${record.manager1}-${record.manager2}`;
@@ -135,39 +135,39 @@ export default function HeadToHead() {
       <div className="space-y-8">
         {/* Manager Selectors */}
         <div className="card">
-          <h2 className="text-2xl font-semibold text-hockey-primary mb-4">Head-to-Head Matchups</h2>
+          <h2 className="text-2xl font-semibold text-slate-100 mb-4">Head-to-Head Matchups</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label htmlFor="manager1-select" className="block text-sm font-medium text-slate-700 mb-2">
+              <label htmlFor="manager1-select" className="block text-sm font-medium text-slate-300 mb-2">
                 Manager 1:
               </label>
               <select
                 id="manager1-select"
                 value={manager1}
                 onChange={(e) => setManager1(e.target.value)}
-                className="w-full border border-slate-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-slate-400 text-slate-900 bg-white"
+                className="w-full border border-hockey-border rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-hockey-secondary text-slate-100 bg-hockey-surface"
               >
-                <option value="" className="text-slate-900">-- Select Manager 1 --</option>
+                <option value="">-- Select Manager 1 --</option>
                 {allManagers.map(manager => (
-                  <option key={manager} value={manager} className="text-slate-900">
+                  <option key={manager} value={manager}>
                     {manager}
                   </option>
                 ))}
               </select>
             </div>
             <div>
-              <label htmlFor="manager2-select" className="block text-sm font-medium text-slate-700 mb-2">
+              <label htmlFor="manager2-select" className="block text-sm font-medium text-slate-300 mb-2">
                 Manager 2:
               </label>
               <select
                 id="manager2-select"
                 value={manager2}
                 onChange={(e) => setManager2(e.target.value)}
-                className="w-full border border-slate-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-slate-400 text-slate-900 bg-white"
+                className="w-full border border-hockey-border rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-hockey-secondary text-slate-100 bg-hockey-surface"
               >
-                <option value="" className="text-slate-900">-- Select Manager 2 --</option>
+                <option value="">-- Select Manager 2 --</option>
                 {allManagers.filter(m => m !== manager1).map(manager => (
-                  <option key={manager} value={manager} className="text-slate-900">
+                  <option key={manager} value={manager}>
                     {manager}
                   </option>
                 ))}
@@ -179,44 +179,44 @@ export default function HeadToHead() {
         {/* Current Matchup Stats */}
         {currentMatchup && currentMatchup.playoffMeetings > 0 && (
           <div className="card">
-            <h3 className="text-xl font-semibold text-hockey-primary mb-6">
+            <h3 className="text-xl font-semibold text-slate-100 mb-6">
               {currentMatchup.manager1} vs {currentMatchup.manager2} - Playoff Record
             </h3>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div className="text-center">
                 <Trophy className="h-8 w-8 mx-auto mb-2 text-hockey-secondary" />
-                <div className="text-3xl font-semibold text-hockey-primary">{currentMatchup.playoffMeetings}</div>
-                <div className="text-sm text-slate-600">Playoff Meetings</div>
+                <div className="text-3xl font-semibold text-slate-100">{currentMatchup.playoffMeetings}</div>
+                <div className="text-sm text-slate-400">Playoff Meetings</div>
               </div>
-              
+
               <div className="text-center">
-                <TrendingUp className="h-8 w-8 mx-auto mb-2 text-slate-500" />
-                <div className="text-3xl font-semibold text-slate-900">{currentMatchup.manager1Wins}</div>
-                <div className="text-sm text-slate-600">{currentMatchup.manager1} Wins</div>
+                <TrendingUp className="h-8 w-8 mx-auto mb-2 text-slate-400" />
+                <div className="text-3xl font-semibold text-slate-100">{currentMatchup.manager1Wins}</div>
+                <div className="text-sm text-slate-400">{currentMatchup.manager1} Wins</div>
               </div>
-              
+
               <div className="text-center">
-                <TrendingUp className="h-8 w-8 mx-auto mb-2 text-slate-500" />
-                <div className="text-3xl font-semibold text-slate-900">{currentMatchup.manager2Wins}</div>
-                <div className="text-sm text-slate-600">{currentMatchup.manager2} Wins</div>
+                <TrendingUp className="h-8 w-8 mx-auto mb-2 text-slate-400" />
+                <div className="text-3xl font-semibold text-slate-100">{currentMatchup.manager2Wins}</div>
+                <div className="text-sm text-slate-400">{currentMatchup.manager2} Wins</div>
               </div>
             </div>
-            
+
               <div className="mt-6 text-center">
-              <div className="text-2xl font-semibold text-hockey-primary">
+              <div className="text-2xl font-semibold text-slate-100">
                 {currentMatchup.manager1} is {currentMatchup.manager1Wins}-{currentMatchup.manager2Wins} vs {currentMatchup.manager2} in their {currentMatchup.playoffMeetings} playoff meetings
               </div>
               </div>
 
             {currentMatchup.matchups.length > 0 && (
               <div className="mt-6">
-                <h4 className="text-lg font-semibold text-hockey-primary mb-3">Meeting History</h4>
+                <h4 className="text-lg font-semibold text-slate-100 mb-3">Meeting History</h4>
                 <div className="space-y-2">
                   {currentMatchup.matchups.map((matchup, index) => (
-                    <div key={index} className="flex items-center justify-between py-2 px-3 bg-slate-50 rounded-md">
-                      <span className="text-sm text-slate-700">{matchup}</span>
-                      <ChevronRight className="h-4 w-4 text-slate-400" />
+                    <div key={index} className="flex items-center justify-between py-2 px-3 bg-hockey-primary/50 rounded-md">
+                      <span className="text-sm text-slate-300">{matchup}</span>
+                      <ChevronRight className="h-4 w-4 text-hockey-secondary" />
                     </div>
                   ))}
                 </div>
@@ -224,14 +224,14 @@ export default function HeadToHead() {
             )}
           </div>
         )}
-        
+
         {/* No playoff meetings message */}
         {currentMatchup && currentMatchup.playoffMeetings === 0 && (
           <div className="card">
             <div className="text-center py-8">
-              <Trophy className="h-12 w-12 mx-auto mb-4 text-gray-400" />
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">No Playoff Meetings</h3>
-              <p className="text-gray-600">
+              <Trophy className="h-12 w-12 mx-auto mb-4 text-slate-400" />
+              <h3 className="text-lg font-semibold text-slate-100 mb-2">No Playoff Meetings</h3>
+              <p className="text-slate-400">
                 {currentMatchup.manager1} and {currentMatchup.manager2} have never faced each other in the playoffs.
               </p>
             </div>
@@ -240,23 +240,23 @@ export default function HeadToHead() {
 
         {/* Top Playoff Rivalries */}
         <div className="card">
-          <h3 className="text-xl font-semibold text-hockey-primary mb-4">Top Playoff Rivalries</h3>
+          <h3 className="text-xl font-semibold text-slate-100 mb-4">Top Playoff Rivalries</h3>
           <div className="space-y-3">
             {topMatchups.length > 0 ? topMatchups.map((matchup, index) => (
-              <div key={`${matchup.manager1}-${matchup.manager2}`} 
-                   className="flex items-center justify-between p-4 bg-slate-50 rounded-lg hover:bg-slate-100 transition-colors cursor-pointer"
+              <div key={`${matchup.manager1}-${matchup.manager2}`}
+                   className="flex items-center justify-between p-4 bg-hockey-primary/50 border border-hockey-border rounded-lg hover:border-hockey-secondary transition-colors cursor-pointer"
                    onClick={() => {
                      setManager1(matchup.manager1);
                      setManager2(matchup.manager2);
                    }}>
                 <div className="flex items-center space-x-4">
-                  <div className="text-lg font-semibold text-slate-500">#{index + 1}</div>
+                  <div className="text-lg font-semibold text-slate-400">#{index + 1}</div>
                   <div>
-                    <div className="font-semibold text-hockey-primary">
+                    <div className="font-semibold text-slate-100">
                       {matchup.manager1} vs {matchup.manager2}
                     </div>
-                    <div className="text-sm text-slate-600">
-                      {matchup.manager1Wins > matchup.manager2Wins ? 
+                    <div className="text-sm text-slate-400">
+                      {matchup.manager1Wins > matchup.manager2Wins ?
                         `${matchup.manager1} leads ${matchup.manager1Wins}-${matchup.manager2Wins}` :
                         matchup.manager2Wins > matchup.manager1Wins ?
                         `${matchup.manager2} leads ${matchup.manager2Wins}-${matchup.manager1Wins}` :
@@ -266,14 +266,14 @@ export default function HeadToHead() {
                   </div>
                 </div>
                 <div className="text-right">
-                  <div className="text-2xl font-semibold text-slate-900">{matchup.playoffMeetings}</div>
-                  <div className="text-sm text-slate-600">playoff meetings</div>
+                  <div className="text-2xl font-semibold text-slate-100">{matchup.playoffMeetings}</div>
+                  <div className="text-sm text-slate-400">playoff meetings</div>
                 </div>
               </div>
             )) : (
               <div className="text-center py-8">
                 <Trophy className="h-12 w-12 mx-auto mb-4 text-slate-400" />
-                <p className="text-slate-600">No playoff rivalries found.</p>
+                <p className="text-slate-400">No playoff rivalries found.</p>
               </div>
             )}
           </div>
