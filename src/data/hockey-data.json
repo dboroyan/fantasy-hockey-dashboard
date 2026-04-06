@@ -1264,7 +1264,7 @@
     {
       "manager": "Al",
       "totalSeasons": 13,
-      "championships": 0,
+      "championships": 1,
       "runnerUps": 5,
       "playoffAppearances": 11,
       "averageFinish": 2.923076923076923,
@@ -1668,7 +1668,7 @@
     {
       "manager": "Vin",
       "totalSeasons": 10,
-      "championships": 1,
+      "championships": 2,
       "runnerUps": 2,
       "playoffAppearances": 10,
       "averageFinish": 3.8,
