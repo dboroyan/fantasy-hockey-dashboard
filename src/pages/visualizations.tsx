@@ -1,151 +1,27 @@
 import React, { useState, useMemo } from 'react';
-import Layout from '@/components/Layout';
-import { SeasonData } from '@/data/parser';
+import Layout, { formatSeason } from '@/components/Layout';
+import { SeasonData, ManagerStats } from '@/data/parser';
 import hockeyData from '@/data/hockey-data.json';
-import { Trophy, TrendingUp, Users, Calendar, Zap, Target, Clock, BarChart3, Flame, AlertTriangle, CheckCircle2, Crown } from 'lucide-react';
-
-interface ChampionshipTimelineItem {
-  year: number;
-  champion: string;
-  team: string;
-  regularSeasonRecord: string;
-  playoffRecord: string;
-  isDynasty: boolean;
-  note?: string;
-}
-
-interface DroughtInfo {
-  manager: string;
-  currentDrought: number;
-  longestDrought: number;
-  totalChampionships: number;
-  lastChampionship?: number;
-  isActive: boolean;
-}
+import { Trophy, TrendingUp, Calendar, Target, Clock, BarChart3, Crown, AlertTriangle, Users } from 'lucide-react';
 
 export default function Visualizations() {
-  const [selectedYear, setSelectedYear] = useState<number | null>(null);
-  const [selectedManager1, setSelectedManager1] = useState<string>('');
-  const [selectedManager2, setSelectedManager2] = useState<string>('');
-  const [selectedBracketYear, setSelectedBracketYear] = useState<number>(2024);
-  
   const seasons = hockeyData.seasons as SeasonData[];
-  const managerStats = hockeyData.managerStats;
-  
-  const allManagers = Array.from(new Set(
-    seasons.flatMap(s => s.managers.map(m => m.manager))
-  )).sort();
-  
-  // Get only 2024 managers for drought tracker
-  const current2024Managers = seasons
-    .find(s => s.year === 2024)?.managers
-    .map(m => m.manager) || [];
+  const managerStats = hockeyData.managerStats as ManagerStats[];
 
-  // Championship Timeline Data
-  const championshipTimeline = useMemo((): ChampionshipTimelineItem[] => {
-    const timeline = seasons
-      .filter(s => s.managers.length > 0)
-      .map(season => {
-        const champion = season.managers.find(m => m.isChampion);
-        if (!champion) return null;
-        
-        return {
-          year: season.year,
-          champion: champion.manager,
-          team: champion.team,
-          regularSeasonRecord: champion.regularSeasonRecord,
-          playoffRecord: champion.playoffRecord,
-          isDynasty: false,
-          note: season.year === 2013 || season.year === 2014 ? 'Decided by regular season head-to-head' : undefined
-        };
-      })
-      .filter(Boolean) as ChampionshipTimelineItem[];
+  // ── Section 1: Championship Timeline state ──
+  const [selectedEra, setSelectedEra] = useState<number>(2);
+  const eras = [
+    { name: 'Early Era', years: [2011, 2012, 2013, 2014, 2015, 2017], label: '2011-2018' },
+    { name: 'Middle Era', years: [2018, 2020, 2021, 2022], label: '2018-2023' },
+    { name: 'Modern Era', years: [2023, 2024, 2025], label: '2023-2026' },
+  ];
 
-    // Mark dynasty periods (3+ consecutive championships)
-    for (let i = 0; i < timeline.length - 2; i++) {
-      if (timeline[i].champion === timeline[i+1].champion && 
-          timeline[i+1].champion === timeline[i+2].champion) {
-        timeline[i].isDynasty = true;
-        timeline[i+1].isDynasty = true;
-        timeline[i+2].isDynasty = true;
-      }
-    }
+  // ── Section 4: Playoff Bracket state ──
+  const [selectedBracketYear, setSelectedBracketYear] = useState<number>(2025);
 
-    return timeline;
-  }, [seasons]);
-
-  // Championship Drought Tracker
-  const droughtTracker = useMemo((): DroughtInfo[] => {
-    const currentYear = 2024;
-    const championshipYears = championshipTimeline.reduce((acc, item) => {
-      if (!acc[item.champion]) acc[item.champion] = [];
-      acc[item.champion].push(item.year);
-      return acc;
-    }, {} as Record<string, number[]>);
-
-    return current2024Managers.map(manager => {
-      const championships = championshipYears[manager] || [];
-      const totalChampionships = championships.length;
-      const lastChampionship = championships.length > 0 ? Math.max(...championships) : undefined;
-      const currentDrought = lastChampionship ? currentYear - lastChampionship : currentYear - 2011;
-      
-      // Calculate longest drought between championships
-      let longestDrought = 0;
-      if (championships.length > 1) {
-        const sortedChampionships = championships.sort((a, b) => a - b);
-        for (let i = 1; i < sortedChampionships.length; i++) {
-          const drought = sortedChampionships[i] - sortedChampionships[i-1] - 1;
-          longestDrought = Math.max(longestDrought, drought);
-        }
-      }
-
-      return {
-        manager,
-        currentDrought,
-        longestDrought: Math.max(longestDrought, currentDrought),
-        totalChampionships,
-        lastChampionship,
-        isActive: totalChampionships > 0
-      };
-    }).sort((a, b) => {
-      if (a.totalChampionships !== b.totalChampionships) {
-        return b.totalChampionships - a.totalChampionships;
-      }
-      return b.currentDrought - a.currentDrought;
-    });
-  }, [championshipTimeline, current2024Managers]);
-
-
-  // Manager Performance Radar Data
-  const radarData = useMemo(() => {
-    return managerStats.map(manager => {
-      const championships = manager.championships;
-      const playoffSuccessRate = manager.playoffAppearances / manager.totalSeasons;
-      const regularSeasonWinPct = manager.regularSeasonRecord.wins / 
-        (manager.regularSeasonRecord.wins + manager.regularSeasonRecord.losses);
-      const consistency = 5 - Math.min(4, manager.averageFinish); // Invert so higher is better
-      const longevity = Math.min(5, manager.totalSeasons / 2); // Scale to 5
-
-      return {
-        manager: manager.manager,
-        championships,
-        playoffSuccess: playoffSuccessRate * 5, // Scale to 5
-        regularSeasonWinPct: regularSeasonWinPct * 5, // Scale to 5
-        consistency,
-        longevity
-      };
-    });
-  }, [managerStats]);
-
-  const selectedRadarData = radarData.filter(d => 
-    d.manager === selectedManager1 || d.manager === selectedManager2
-  );
-
-  // Interactive Playoff Bracket Data
   const bracketData = useMemo(() => {
     const season = seasons.find(s => s.year === selectedBracketYear);
     if (!season || !season.playoffResults) return null;
-    
     return {
       year: selectedBracketYear,
       quarterfinals: season.playoffResults.quarterfinals || [],
@@ -154,689 +30,572 @@ export default function Visualizations() {
       thirdPlace: season.playoffResults.thirdPlace || '',
       fifthPlace: season.playoffResults.fifthPlace || '',
       seventhPlace: season.playoffResults.seventhPlace || '',
-      ninthPlace: season.playoffResults.ninthPlace || ''
+      ninthPlace: season.playoffResults.ninthPlace || '',
     };
   }, [selectedBracketYear, seasons]);
 
-  // Manager Consistency Heatmap Data
-  const consistencyHeatmap = useMemo(() => {
-    const managers = managerStats.filter(m => m.totalSeasons >= 5 && m.manager !== 'unknown');
-    const years = Array.from({length: 14}, (_, i) => 2011 + i).filter(y => y !== 2016 && y !== 2019);
-    
-    return managers.map(manager => {
-      const managerData = years.map(year => {
-        const seasonData = seasons.find(s => s.year === year);
-        const managerSeason = seasonData?.managers.find(m => m.manager === manager.manager);
-        return {
-          year,
-          position: managerSeason?.finalPosition || null,
-          participated: !!managerSeason
-        };
-      });
-      
+  const formatMatchupWithBoldWinner = (matchup: string) => {
+    // Bold the winner (text after "def." or "over")
+    let formatted = matchup
+      .replace(/^(.+?)\s+(def\.|over)\s+/i, '<strong>$1</strong> $2 ')
+      .replace(/^(.+?)\s+(\d+-\d+)\s+/i, '<strong>$1</strong> $2 ');
+    return formatted;
+  };
+
+  // ── Section 1 data ──
+  const eraChampions = useMemo(() => {
+    const era = eras[selectedEra];
+    return era.years.map(year => {
+      const season = seasons.find(s => s.year === year);
+      const champ = season?.managers.find(m => m.isChampion);
       return {
-        manager: manager.manager,
-        data: managerData
+        year,
+        manager: champ?.manager || 'Unknown',
+        team: champ?.team || '',
+        record: champ?.regularSeasonRecord || '',
+      };
+    });
+  }, [selectedEra, seasons]);
+
+  // ── Section 2: Manager Archetypes ──
+  const archetypeData = useMemo(() => {
+    const latestSeason = seasons.find(s => s.year === 2025);
+    if (!latestSeason) return [];
+    const managers = latestSeason.managers.map(m => m.manager);
+    const archetypeYears = [2023, 2024, 2025];
+
+    return managers.map(manager => {
+      const positions: (number | null)[] = archetypeYears.map(year => {
+        const season = seasons.find(s => s.year === year);
+        const ms = season?.managers.find(m => m.manager === manager);
+        return ms ? ms.finalPosition : null;
+      });
+
+      const played = positions.filter(p => p !== null) as number[];
+      const championships = played.filter(p => p === 1).length;
+      const playoffAppearances = played.filter(p => p <= 6).length;
+      const maxPosition = Math.max(...played);
+      const bestFinish = Math.min(...played);
+
+      // Check freefall: champion in an earlier season, last place in a later season
+      let isFreefall = false;
+      for (let i = 0; i < positions.length; i++) {
+        if (positions[i] === 1) {
+          for (let j = i + 1; j < positions.length; j++) {
+            const season = seasons.find(s => s.year === archetypeYears[j]);
+            const maxPos = season ? Math.max(...season.managers.map(m => m.finalPosition)) : 0;
+            if (positions[j] === maxPos) {
+              isFreefall = true;
+            }
+          }
+        }
+      }
+
+      let archetype: string;
+      let color: string;
+
+      if (championships >= 2) {
+        archetype = 'DYNASTY';
+        color = '#D4AF37';
+      } else if (isFreefall) {
+        archetype = 'FREEFALL';
+        color = '#ef4444';
+      } else if (playoffAppearances === played.length && played.length > 0 && championships === 0) {
+        archetype = 'CONTENDER';
+        color = '#4ade80';
+      } else if (playoffAppearances >= 2 && bestFinish <= 3 && championships === 0) {
+        archetype = 'CLOSE CALL';
+        color = '#f59e0b';
+      } else if (played.filter(p => p > 6).length >= 2) {
+        archetype = 'REBUILDING';
+        color = '#ef4444';
+      } else {
+        archetype = 'MIDDLE OF THE PACK';
+        color = '#94a3b8';
+      }
+
+      const positionLabels = archetypeYears.map((year, i) => {
+        const shortYear = `'${String(year).slice(2)}-${String(year + 1).slice(2)}`;
+        const pos = positions[i];
+        if (pos === null) return `${shortYear}: --`;
+        const suffix = pos === 1 ? 'st' : pos === 2 ? 'nd' : pos === 3 ? 'rd' : 'th';
+        return `${shortYear}: ${pos}${suffix}`;
+      }).join(' \u2022 ');
+
+      return { manager, archetype, color, positionLabels };
+    });
+  }, [seasons]);
+
+  // ── Section 5: Manager Performance Over Time ──
+  const allYears = [2011, 2012, 2013, 2014, 2015, 2017, 2018, 2020, 2021, 2022, 2023, 2024, 2025];
+
+  const performanceData = useMemo(() => {
+    const qualified = managerStats
+      .filter(m => m.totalSeasons >= 5 && m.manager !== 'unknown')
+      .sort((a, b) => {
+        if (b.championships !== a.championships) return b.championships - a.championships;
+        return a.averageFinish - b.averageFinish;
+      });
+
+    return qualified.map(ms => {
+      const yearPositions = allYears.map(year => {
+        const season = seasons.find(s => s.year === year);
+        const mgr = season?.managers.find(m => m.manager === ms.manager);
+        return mgr ? mgr.finalPosition : null;
+      });
+      return {
+        manager: ms.manager,
+        positions: yearPositions,
+        championships: ms.championships,
       };
     });
   }, [managerStats, seasons]);
 
-  // Era Dominance Stacked Bar Data
-  const eraDominanceData = useMemo(() => {
-    const eras = [
-      { name: 'Early Era', years: [2011, 2012, 2013, 2014, 2015, 2017], color: 'bg-indigo-500' },
-      { name: 'Middle/Covid Era', years: [2018, 2020, 2021, 2022], color: 'bg-teal-500' },
-      { name: 'Modern Era', years: [2023, 2024], color: 'bg-amber-500' }
-    ];
-
+  // ── Section 6: Era Dominance ──
+  const eraDominance = useMemo(() => {
     return eras.map(era => {
-      const eraSeasons = seasons.filter(s => era.years.includes(s.year) && s.managers.length > 0);
-      const champions = eraSeasons.map(s => s.managers.find(m => m.isChampion)?.manager).filter(Boolean);
-      
-      const championCounts = champions.reduce((acc, champion) => {
-        acc[champion!] = (acc[champion!] || 0) + 1;
-        return acc;
-      }, {} as Record<string, number>);
-
-      return {
-        ...era,
-        totalSeasons: eraSeasons.length,
-        champions: championCounts
-      };
+      const champCounts: Record<string, number> = {};
+      era.years.forEach(year => {
+        const season = seasons.find(s => s.year === year);
+        const champ = season?.managers.find(m => m.isChampion);
+        if (champ) {
+          champCounts[champ.manager] = (champCounts[champ.manager] || 0) + 1;
+        }
+      });
+      const sorted = Object.entries(champCounts).sort((a, b) => b[1] - a[1]);
+      return { ...era, champions: sorted, totalSeasons: era.years.length };
     });
   }, [seasons]);
 
-  // Regular Season vs Playoff Performance Scatter Plot
-  const scatterPlotData = useMemo(() => {
-    return managerStats
-      .filter(m => m.totalSeasons >= 5)
-      .map(manager => {
-        const regularSeasonWinPct = manager.regularSeasonRecord.wins / 
-          (manager.regularSeasonRecord.wins + manager.regularSeasonRecord.losses);
-        const playoffSuccessRate = manager.playoffAppearances / manager.totalSeasons;
-        
-        return {
-          manager: manager.manager,
-          regularSeasonWinPct: regularSeasonWinPct * 100,
-          playoffSuccessRate: playoffSuccessRate * 100,
-          championships: manager.championships,
-          totalSeasons: manager.totalSeasons
-        };
-      });
+  // ── Section 7: Tale of the Tape ──
+  const taleOfTheTape = useMemo(() => {
+    const qualified = managerStats.filter(m => m.totalSeasons >= 5 && m.manager !== 'unknown');
+    const withStats = qualified.map(m => {
+      const totalGames = m.regularSeasonRecord.wins + m.regularSeasonRecord.losses;
+      const winPct = totalGames > 0 ? m.regularSeasonRecord.wins / totalGames : 0;
+      return { ...m, winPct };
+    });
+
+    // Rank by winPct desc
+    const byWinPct = [...withStats].sort((a, b) => b.winPct - a.winPct);
+    const byChampionships = [...withStats].sort((a, b) => b.championships - a.championships);
+
+    const withGap = withStats.map(m => {
+      const winPctRank = byWinPct.findIndex(x => x.manager === m.manager) + 1;
+      const champRank = byChampionships.findIndex(x => x.manager === m.manager) + 1;
+      // Positive gap = good RS rank but bad championship rank (overperforms in RS)
+      const gap = champRank - winPctRank;
+      return { ...m, winPctRank, champRank, gap };
+    });
+
+    return withGap.sort((a, b) => b.gap - a.gap).slice(0, 5);
   }, [managerStats]);
 
-  // Helper function to format matchups with bold winners
-  const formatMatchupWithBoldWinner = (matchup: string) => {
-    // Handle already formatted finals (with ** around winner)
-    if (matchup.includes('**')) {
-      return matchup.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-    }
-    
-    // Handle regular matchups with "def." pattern
-    if (matchup.includes(' def. ')) {
-      const parts = matchup.split(' def. ');
-      if (parts.length === 2) {
-        const winner = parts[0].trim();
-        const loser = parts[1].trim();
-        return `<strong>${winner}</strong> def. ${loser}`;
-      }
-    }
-    
-    return matchup;
+  // ── Helper: position square color ──
+  const positionColor = (pos: number | null) => {
+    if (pos === null) return 'bg-slate-800 text-slate-600';
+    if (pos === 1) return 'bg-amber-500 text-white';
+    if (pos <= 3) return 'bg-green-500 text-white';
+    if (pos <= 6) return 'bg-slate-600 text-slate-300';
+    return 'bg-red-500 text-white';
   };
 
   return (
-    <Layout title="League Visualizations - Fantasy Hockey Dashboard">
-      <div className="space-y-8">
-        {/* Page Header */}
-        <div className="card">
-          <h2 className="text-3xl font-semibold text-hockey-primary mb-2">League Visualizations</h2>
-          <p className="text-slate-600">Interactive charts and insights into league history and performance</p>
-        </div>
+    <Layout title="Visualizations - Fantasy Hockey Dashboard">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
 
-        {/* Championship Timeline */}
-        <div className="card">
-          <h3 className="text-2xl font-semibold text-hockey-primary mb-6 flex items-center">
-            <Trophy className="h-8 w-8 mr-3 text-hockey-secondary" />
-            Championship Timeline
-          </h3>
-          
-          <div className="relative">
-            {/* Timeline */}
-            <div className="flex items-center justify-between mb-8 relative">
-              <div className="absolute top-4 left-0 right-0 h-0.5 bg-slate-300"></div>
-              {championshipTimeline.map((item, index) => (
-                <div key={item.year} className="relative flex flex-col items-center">
-                  <div 
-                    className={`w-8 h-8 rounded-full border-4 cursor-pointer transition-all ${
-                      item.isDynasty 
-                        ? 'bg-white border-slate-400 shadow' 
-                        : 'bg-white border-slate-300'
-                    } ${selectedYear === item.year ? 'ring-4 ring-indigo-300' : ''}`}
-                    onClick={() => setSelectedYear(selectedYear === item.year ? null : item.year)}
-                  />
-                  <div className="mt-2 text-xs font-medium text-slate-700">{item.year}</div>
-                  <div className="text-xs text-slate-500 text-center max-w-16 truncate">{item.champion}</div>
-                  {item.isDynasty && (
-                    <Crown className="absolute -top-7 h-4 w-4 text-hockey-gold" />
-                  )}
-                </div>
-              ))}
-            </div>
-
-            {/* Selected Year Details */}
-            {selectedYear && (
-              <div className="bg-slate-50 p-6 rounded-lg border border-slate-200">
-                {(() => {
-                  const yearData = championshipTimeline.find(item => item.year === selectedYear);
-                  if (!yearData) return null;
-                  
-                  return (
-                    <div>
-                      <h4 className="text-xl font-semibold text-hockey-primary mb-4">
-                        {yearData.year} Champion: {yearData.champion}
-                      </h4>
-                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                        <div>
-                          <span className="text-sm text-slate-600">Team Name:</span>
-                          <div className="font-medium text-slate-900">{yearData.team}</div>
-                        </div>
-                        <div>
-                          <span className="text-sm text-slate-600">Regular Season:</span>
-                          <div className="font-medium text-slate-900">{yearData.regularSeasonRecord}</div>
-                        </div>
-                        <div>
-                          <span className="text-sm text-slate-600">Playoff Record:</span>
-                          <div className="font-medium text-slate-900">{yearData.playoffRecord}</div>
-                        </div>
-                      </div>
-                      {yearData.note && (
-                        <div className="mt-4 p-3 bg-white border border-slate-200 rounded-md">
-                          <span className="text-sm font-medium text-slate-800">Note: {yearData.note}</span>
-                        </div>
-                      )}
-                    </div>
-                  );
-                })()}
-              </div>
-            )}
+        {/* ═══════ SECTION 1: Championship Timeline by Era ═══════ */}
+        <div className="bg-hockey-surface border border-hockey-border rounded-xl p-6">
+          <div className="flex items-center gap-3 mb-6">
+            <Trophy className="h-6 w-6 text-hockey-secondary" />
+            <h2 className="text-xl font-semibold text-slate-100">Championship Timeline</h2>
           </div>
-        </div>
 
-        {/* Championship Drought Tracker */}
-        <div className="card">
-          <h3 className="text-2xl font-semibold text-hockey-primary mb-6 flex items-center">
-            <Clock className="h-8 w-8 mr-3 text-hockey-secondary" />
-            Championship Drought Tracker
-          </h3>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {droughtTracker.map((drought, index) => (
-              <div key={drought.manager} className={`p-4 rounded-lg border-l-4 ${
-                drought.currentDrought >= 8 ? 'border-l-rose-400 bg-rose-50' :
-                drought.currentDrought >= 5 ? 'border-l-amber-400 bg-amber-50' :
-                'border-l-emerald-400 bg-emerald-50'
-              }`}>
-                <div className="flex items-center justify-between mb-2">
-                  <h4 className="font-semibold text-slate-900">{drought.manager}</h4>
-                  <div className="text-2xl">
-                    {drought.currentDrought >= 8 ? <Flame className="h-5 w-5 text-slate-600 inline" /> : 
-                     drought.currentDrought >= 5 ? <AlertTriangle className="h-5 w-5 text-slate-600 inline" /> : 
-                     drought.totalChampionships > 0 ? <CheckCircle2 className="h-5 w-5 text-slate-600 inline" /> : '—'}
-                  </div>
-                </div>
-                <div className="space-y-1 text-sm">
-                  <div className="flex justify-between">
-                    <span className="text-slate-600">Current Drought:</span>
-                    <span className={`font-medium text-slate-900`}>{drought.currentDrought} years</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-slate-600">Championships:</span>
-                    <span className="font-medium text-slate-900">{drought.totalChampionships}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-slate-600">Last Title:</span>
-                    <span className="font-medium text-slate-800">
-                      {drought.lastChampionship || 'Never'}
-                    </span>
-                  </div>
-                </div>
+          <div className="flex gap-2 mb-6">
+            {eras.map((era, idx) => (
+              <button
+                key={era.name}
+                onClick={() => setSelectedEra(idx)}
+                className={
+                  selectedEra === idx
+                    ? 'bg-green-900/30 border border-green-800/50 text-hockey-secondary font-medium px-4 py-2 rounded-lg text-sm'
+                    : 'bg-hockey-surface border border-hockey-border text-slate-400 hover:text-slate-200 px-4 py-2 rounded-lg text-sm'
+                }
+              >
+                {era.name} ({era.label})
+              </button>
+            ))}
+          </div>
+
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+            {eraChampions.map(champ => (
+              <div key={champ.year} className="bg-hockey-primary/50 rounded-lg p-4">
+                <Crown className="h-5 w-5 text-hockey-gold mb-2" />
+                <div className="text-slate-100 font-semibold">{champ.manager}</div>
+                <div className="text-slate-500 text-sm">{champ.team}</div>
+                <div className="text-slate-400 text-sm">{champ.record}</div>
+                <div className="text-hockey-secondary text-sm font-medium mt-1">{formatSeason(champ.year)}</div>
               </div>
             ))}
           </div>
         </div>
 
-
-        {/* Manager Performance Radar */}
-        <div className="card">
-          <h3 className="text-2xl font-semibold text-hockey-primary mb-6 flex items-center">
-            <BarChart3 className="h-8 w-8 mr-3 text-hockey-secondary" />
-            Manager Performance Comparison
-          </h3>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-            <div>
-              <label className="block text-sm font-medium text-slate-700 mb-2">
-                Manager 1:
-              </label>
-              <select
-                value={selectedManager1}
-                onChange={(e) => setSelectedManager1(e.target.value)}
-                className="w-full border border-slate-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-slate-400 text-slate-900"
-              >
-                <option value="" className="text-slate-900">-- Select Manager 1 --</option>
-                {allManagers.map(manager => (
-                  <option key={manager} value={manager} className="text-slate-900">{manager}</option>
-                ))}
-              </select>
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-slate-700 mb-2">
-                Manager 2:
-              </label>
-              <select
-                value={selectedManager2}
-                onChange={(e) => setSelectedManager2(e.target.value)}
-                className="w-full border border-slate-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-slate-400 text-slate-900"
-              >
-                <option value="" className="text-slate-900">-- Select Manager 2 --</option>
-                {allManagers.filter(m => m !== selectedManager1).map(manager => (
-                  <option key={manager} value={manager} className="text-slate-900">{manager}</option>
-                ))}
-              </select>
-            </div>
+        {/* ═══════ SECTION 2: Manager Archetypes ═══════ */}
+        <div className="bg-hockey-surface border border-hockey-border rounded-xl p-6">
+          <div className="flex items-center gap-3 mb-1">
+            <Users className="h-6 w-6 text-hockey-secondary" />
+            <h2 className="text-xl font-semibold text-slate-100">Manager Archetypes</h2>
           </div>
+          <p className="text-slate-400 text-sm mb-6 ml-9">Based on last 3 seasons (2023-2026)</p>
 
-          {selectedRadarData.length > 0 && (
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-              {selectedRadarData.map((manager, index) => (
-                <div key={manager.manager} className="bg-slate-50 p-6 rounded-lg">
-                  <h4 className="text-lg font-semibold text-hockey-primary mb-4">{manager.manager}</h4>
-                  
-                  {/* Key Stats Summary */}
-                  <div className="grid grid-cols-2 gap-2 sm:gap-4 mb-4 p-3 bg-white rounded-lg border">
-                    <div className="text-center">
-                      <div className="text-lg sm:text-2xl font-semibold text-slate-900">
-                        {managerStats.find(m => m.manager === manager.manager)?.totalSeasons || 0}
-                      </div>
-                      <div className="text-xs text-slate-600">Total Seasons</div>
-                    </div>
-                    <div className="text-center">
-                      <div className="text-lg sm:text-2xl font-semibold text-slate-900">
-                        {managerStats.find(m => m.manager === manager.manager)?.runnerUps || 0}
-                      </div>
-                      <div className="text-xs text-slate-600">Runner-ups</div>
-                    </div>
-                    <div className="text-center">
-                      <div className="text-lg sm:text-2xl font-semibold text-slate-900">
-                        {managerStats.find(m => m.manager === manager.manager)?.playoffAppearances || 0}
-                      </div>
-                      <div className="text-xs text-slate-600">Playoff Apps</div>
-                    </div>
-                    <div className="text-center">
-                      <div className="text-lg sm:text-2xl font-semibold text-slate-900">
-                        {(managerStats.find(m => m.manager === manager.manager)?.averageFinish || 0).toFixed(1)}
-                      </div>
-                      <div className="text-xs text-slate-600">Avg Finish</div>
-                    </div>
-                  </div>
-                  
-                  <div className="space-y-3">
-                    <div className="flex items-center justify-between">
-                      <span className="text-sm text-slate-600">Championships:</span>
-                      <div className="flex items-center">
-                        <div className="w-32 bg-slate-200 rounded-full h-2 mr-2">
-                          <div 
-                            className="bg-hockey-secondary h-2 rounded-full" 
-                            style={{ width: `${Math.min(100, (manager.championships / 5) * 100)}%` }}
-                          />
-                        </div>
-                        <span className="text-sm font-medium">{manager.championships}</span>
-                      </div>
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <span className="text-sm text-slate-600">Playoff Success:</span>
-                      <div className="flex items-center">
-                        <div className="w-32 bg-slate-200 rounded-full h-2 mr-2">
-                          <div 
-                            className="bg-hockey-accent h-2 rounded-full" 
-                            style={{ width: `${(manager.playoffSuccess / 5) * 100}%` }}
-                          />
-                        </div>
-                        <span className="text-sm font-medium">{(manager.playoffSuccess / 5 * 100).toFixed(0)}%</span>
-                      </div>
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <span className="text-sm text-slate-600">Regular Season Win%:</span>
-                      <div className="flex items-center">
-                        <div className="w-32 bg-slate-200 rounded-full h-2 mr-2">
-                          <div 
-                            className="bg-hockey-secondary h-2 rounded-full" 
-                            style={{ width: `${(manager.regularSeasonWinPct / 5) * 100}%` }}
-                          />
-                        </div>
-                        <span className="text-sm font-medium">{(manager.regularSeasonWinPct / 5 * 100).toFixed(0)}%</span>
-                      </div>
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <span className="text-sm text-slate-600">Consistency:</span>
-                      <div className="flex items-center">
-                        <div className="w-32 bg-slate-200 rounded-full h-2 mr-2">
-                          <div 
-                            className="bg-hockey-accent h-2 rounded-full" 
-                            style={{ width: `${(manager.consistency / 5) * 100}%` }}
-                          />
-                        </div>
-                        <span className="text-sm font-medium">{manager.consistency.toFixed(1)}/5</span>
-                      </div>
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <span className="text-sm text-slate-600">Longevity:</span>
-                      <div className="flex items-center">
-                        <div className="w-32 bg-slate-200 rounded-full h-2 mr-2">
-                          <div 
-                            className="bg-hockey-secondary h-2 rounded-full" 
-                            style={{ width: `${(manager.longevity / 5) * 100}%` }}
-                          />
-                        </div>
-                        <span className="text-sm font-medium">{manager.longevity.toFixed(1)}/5</span>
-                      </div>
-                    </div>
-                  </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            {archetypeData.map(a => (
+              <div
+                key={a.manager}
+                className="bg-hockey-primary border border-hockey-border rounded-lg p-4"
+                style={{ borderLeftWidth: '4px', borderLeftColor: a.color }}
+              >
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-slate-100 font-semibold">{a.manager}</span>
+                  <span
+                    className="px-3 py-1 rounded-full text-xs font-semibold"
+                    style={{
+                      backgroundColor: `${a.color}26`,
+                      color: a.color,
+                    }}
+                  >
+                    {a.archetype}
+                  </span>
                 </div>
-              ))}
-            </div>
-          )}
+                <div className="text-slate-500 text-xs">{a.positionLabels}</div>
+              </div>
+            ))}
+          </div>
         </div>
 
-        {/* Interactive Playoff Bracket Viewer */}
-        <div className="card">
-          <h3 className="text-2xl font-semibold text-hockey-primary mb-6 flex items-center">
-            <Target className="h-8 w-8 mr-3 text-hockey-secondary" />
-            Interactive Playoff Bracket Viewer
-          </h3>
-          
-          <div className="mb-6">
-            <label className="block text-sm font-medium text-slate-700 mb-2">
-              Select Year:
-            </label>
+        {/* ═══════ SECTION 3: Historic Collapse Callout ═══════ */}
+        <div className="bg-gradient-to-br from-hockey-surface to-red-950/30 border-2 border-red-500 rounded-xl p-6">
+          <div className="flex items-center gap-3 mb-2">
+            <AlertTriangle className="h-6 w-6 text-red-500" />
+            <span className="text-red-500 text-xl font-bold tracking-wide">HISTORIC COLLAPSE</span>
+          </div>
+          <h3 className="text-slate-100 text-lg font-semibold mb-1">Sammy&apos;s Unprecedented Fall</h3>
+          <p className="text-slate-400 mb-6">
+            No manager in league history has ever gone from champion to dead last. Sammy did it in just two seasons.
+          </p>
+
+          <div className="flex flex-col sm:flex-row items-stretch gap-2">
+            {/* 2023-2024 */}
+            <div className="flex-1 text-center p-4 rounded-lg bg-amber-500/10 border border-amber-500/30">
+              <div className="text-amber-400 text-3xl font-extrabold">1st</div>
+              <div className="text-amber-400 text-sm font-semibold">CHAMPION</div>
+              <div className="text-slate-500 text-xs mt-1">{formatSeason(2023)}</div>
+            </div>
+
+            <div className="flex items-center justify-center text-slate-600 text-xl">&rarr;</div>
+
+            {/* 2024-2025 */}
+            <div className="flex-1 text-center p-4 rounded-lg bg-amber-500/10 border border-amber-500/30">
+              <div className="text-amber-500 text-3xl font-extrabold">7th</div>
+              <div className="text-amber-500 text-sm font-semibold">MISSED PLAYOFFS</div>
+              <div className="text-slate-500 text-xs">8-10-1</div>
+              <div className="text-slate-500 text-xs mt-1">{formatSeason(2024)}</div>
+            </div>
+
+            <div className="flex items-center justify-center text-slate-600 text-xl">&rarr;</div>
+
+            {/* 2025-2026 */}
+            <div className="flex-1 text-center p-4 rounded-lg bg-red-500/10 border border-red-500/30">
+              <div className="text-red-500 text-3xl font-extrabold">10th</div>
+              <div className="text-red-500 text-sm font-semibold">DEAD LAST</div>
+              <div className="text-slate-500 text-xs">8-10-2</div>
+              <div className="text-slate-500 text-xs mt-1">{formatSeason(2025)}</div>
+            </div>
+          </div>
+        </div>
+
+        {/* ═══════ SECTION 4: Playoff Bracket Viewer ═══════ */}
+        <div className="bg-hockey-surface border border-hockey-border rounded-xl p-6">
+          <div className="flex items-center gap-3 mb-6">
+            <Target className="h-6 w-6 text-hockey-secondary" />
+            <h2 className="text-xl font-semibold text-slate-100">Playoff Bracket Viewer</h2>
             <select
               value={selectedBracketYear}
-              onChange={(e) => setSelectedBracketYear(Number(e.target.value))}
-              className="border border-slate-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-slate-400 text-slate-900"
+              onChange={e => setSelectedBracketYear(Number(e.target.value))}
+              className="ml-auto bg-hockey-surface border border-hockey-border rounded-md px-3 py-2 text-slate-100 focus:ring-hockey-secondary"
             >
-              {seasons.filter(s => s.playoffResults && s.managers.length > 0).map(season => (
-                <option key={season.year} value={season.year} className="text-slate-900">{season.year}</option>
-              ))}
+              {seasons
+                .filter(s => s.playoffResults)
+                .map(s => (
+                  <option key={s.year} value={s.year}>
+                    {formatSeason(s.year)}
+                  </option>
+                ))}
             </select>
           </div>
 
           {bracketData && (
-            <div className="space-y-6">
-              <div className="text-center">
-                <h4 className="text-xl font-semibold text-hockey-primary mb-4">{bracketData.year} Playoff Bracket</h4>
-              </div>
-              
-              {/* Finals */}
-              {bracketData.finals && (
-                <div className="text-center">
-                  <h5 className="text-lg font-semibold text-slate-800 mb-2">Championship</h5>
-                  <div className="bg-slate-50 p-4 rounded-lg border border-slate-200 max-w-md mx-auto">
-                    <div className="font-medium text-slate-900" dangerouslySetInnerHTML={{ __html: formatMatchupWithBoldWinner(bracketData.finals) }}></div>
-                  </div>
-                </div>
-              )}
+            <div>
+              <h3 className="text-slate-100 text-lg font-semibold mb-4">
+                {formatSeason(bracketData.year)} Playoff Bracket
+              </h3>
 
-              {/* Semifinals */}
-              {bracketData.semifinals.length > 0 && (
-                <div className="text-center">
-                  <h5 className="text-lg font-semibold text-slate-800 mb-2">Semifinals</h5>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-4xl mx-auto">
-                    {bracketData.semifinals.map((matchup, index) => (
-                      <div key={index} className="bg-slate-50 p-3 rounded-lg border border-slate-200">
-                        <div className="text-sm font-medium text-slate-900" dangerouslySetInnerHTML={{ __html: formatMatchupWithBoldWinner(matchup) }}></div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
+              <style>{`
+                .bracket-matchup strong { color: #4ade80; }
+              `}</style>
 
-              {/* Quarterfinals */}
-              {bracketData.quarterfinals.length > 0 && (
-                <div className="text-center">
-                  <h5 className="text-lg font-semibold text-slate-800 mb-2">Quarterfinals</h5>
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 max-w-6xl mx-auto">
-                    {bracketData.quarterfinals.map((matchup, index) => (
-                      <div key={index} className="bg-slate-50 p-3 rounded-lg border border-slate-200">
-                        <div className="text-sm font-medium text-slate-900" dangerouslySetInnerHTML={{ __html: formatMatchupWithBoldWinner(matchup) }}></div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {/* Other Placement Games */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
-                {bracketData.thirdPlace && (
-                  <div className="bg-slate-50 p-3 rounded-lg border border-slate-200">
-                    <div className="text-sm font-medium text-slate-700 mb-1">3rd Place</div>
-                    <div className="text-sm text-slate-900" dangerouslySetInnerHTML={{ __html: formatMatchupWithBoldWinner(bracketData.thirdPlace) }}></div>
+              <div className="space-y-6">
+                {/* Quarterfinals */}
+                {bracketData.quarterfinals.length > 0 && (
+                  <div>
+                    <div className="text-slate-400 text-sm font-medium uppercase tracking-wider mb-2">
+                      Quarterfinals
+                    </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                      {bracketData.quarterfinals.map((matchup, i) => (
+                        <div
+                          key={i}
+                          className="bracket-matchup bg-hockey-primary/50 border border-hockey-border rounded-lg p-3 text-slate-300"
+                          dangerouslySetInnerHTML={{ __html: formatMatchupWithBoldWinner(matchup) }}
+                        />
+                      ))}
+                    </div>
                   </div>
                 )}
-                {bracketData.fifthPlace && (
-                  <div className="bg-slate-50 p-3 rounded-lg border border-slate-200">
-                    <div className="text-sm font-medium text-slate-700 mb-1">5th Place</div>
-                    <div className="text-sm text-slate-900" dangerouslySetInnerHTML={{ __html: formatMatchupWithBoldWinner(bracketData.fifthPlace) }}></div>
+
+                {/* Semifinals */}
+                {bracketData.semifinals.length > 0 && (
+                  <div>
+                    <div className="text-slate-400 text-sm font-medium uppercase tracking-wider mb-2">
+                      Semifinals
+                    </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                      {bracketData.semifinals.map((matchup, i) => (
+                        <div
+                          key={i}
+                          className="bracket-matchup bg-hockey-primary/50 border border-hockey-border rounded-lg p-3 text-slate-300"
+                          dangerouslySetInnerHTML={{ __html: formatMatchupWithBoldWinner(matchup) }}
+                        />
+                      ))}
+                    </div>
                   </div>
                 )}
-                {bracketData.seventhPlace && (
-                  <div className="bg-slate-50 p-3 rounded-lg border border-slate-200">
-                    <div className="text-sm font-medium text-slate-700 mb-1">7th Place</div>
-                    <div className="text-sm text-slate-900" dangerouslySetInnerHTML={{ __html: formatMatchupWithBoldWinner(bracketData.seventhPlace) }}></div>
+
+                {/* Finals */}
+                {bracketData.finals && (
+                  <div>
+                    <div className="text-slate-400 text-sm font-medium uppercase tracking-wider mb-2">
+                      Finals
+                    </div>
+                    <div
+                      className="bracket-matchup bg-hockey-primary/50 border border-hockey-border rounded-lg p-4 text-slate-300"
+                      dangerouslySetInnerHTML={{ __html: formatMatchupWithBoldWinner(bracketData.finals) }}
+                    />
                   </div>
                 )}
+
+                {/* Placement Games */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                  {bracketData.thirdPlace && (
+                    <div>
+                      <div className="text-slate-400 text-sm mb-1">3rd Place</div>
+                      <div
+                        className="bracket-matchup bg-hockey-primary/50 border border-hockey-border rounded-lg p-3 text-slate-300"
+                        dangerouslySetInnerHTML={{ __html: formatMatchupWithBoldWinner(bracketData.thirdPlace) }}
+                      />
+                    </div>
+                  )}
+                  {bracketData.fifthPlace && (
+                    <div>
+                      <div className="text-slate-400 text-sm mb-1">5th Place</div>
+                      <div
+                        className="bracket-matchup bg-hockey-primary/50 border border-hockey-border rounded-lg p-3 text-slate-300"
+                        dangerouslySetInnerHTML={{ __html: formatMatchupWithBoldWinner(bracketData.fifthPlace) }}
+                      />
+                    </div>
+                  )}
+                  {bracketData.seventhPlace && (
+                    <div>
+                      <div className="text-slate-400 text-sm mb-1">7th Place</div>
+                      <div
+                        className="bracket-matchup bg-hockey-primary/50 border border-hockey-border rounded-lg p-3 text-slate-300"
+                        dangerouslySetInnerHTML={{ __html: formatMatchupWithBoldWinner(bracketData.seventhPlace) }}
+                      />
+                    </div>
+                  )}
+                  {bracketData.ninthPlace && (
+                    <div>
+                      <div className="text-slate-400 text-sm mb-1">9th Place</div>
+                      <div
+                        className="bracket-matchup bg-hockey-primary/50 border border-hockey-border rounded-lg p-3 text-slate-300"
+                        dangerouslySetInnerHTML={{ __html: formatMatchupWithBoldWinner(bracketData.ninthPlace) }}
+                      />
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
           )}
         </div>
 
-        {/* Manager Consistency Map */}
-        <div className="card">
-          <h3 className="text-2xl font-semibold text-hockey-primary mb-6 flex items-center">
-            <Calendar className="h-8 w-8 mr-3 text-hockey-secondary" />
-            Manager Performance Over Time
-          </h3>
-          
-          <div className="mb-6 p-4 bg-slate-50 rounded-lg border border-slate-200">
-            <h4 className="text-lg font-semibold text-hockey-primary mb-2">What this shows:</h4>
-            <p className="text-sm text-slate-700">
-              This chart displays each manager's finishing position across all seasons they participated in. 
-              Accents indicate notable finishes.
-              Missing years (2016, 2019) were cancelled seasons.
-            </p>
+        {/* ═══════ SECTION 5: Manager Performance Over Time ═══════ */}
+        <div className="bg-hockey-surface border border-hockey-border rounded-xl p-6">
+          <div className="flex items-center gap-3 mb-6">
+            <Calendar className="h-6 w-6 text-hockey-secondary" />
+            <h2 className="text-xl font-semibold text-slate-100">Manager Performance Over Time</h2>
           </div>
-          
-          <div className="space-y-4">
-            {consistencyHeatmap.map(manager => (
-              <div key={manager.manager} className="border rounded-lg p-4 bg-gray-50">
-                <div className="flex items-center justify-between mb-3">
-                  <h4 className="text-lg font-semibold text-gray-900">{manager.manager}</h4>
-                  <div className="text-sm text-gray-600">
-                    {manager.data.filter(d => d.participated).length} seasons played
+
+          <div className="overflow-x-auto">
+            <div className="min-w-[600px]">
+              {performanceData.map(pd => (
+                <div key={pd.manager} className="flex items-center gap-2 py-1.5">
+                  <div className="w-20 text-sm font-medium text-slate-100 flex-shrink-0">{pd.manager}</div>
+                  <div className="flex gap-1.5">
+                    {pd.positions.map((pos, i) => (
+                      <div
+                        key={allYears[i]}
+                        className={`w-7 h-7 rounded flex items-center justify-center text-[10px] font-semibold ${positionColor(pos)}`}
+                      >
+                        {pos === null ? '--' : pos === 1 ? <Crown className="h-3.5 w-3.5" /> : pos}
+                      </div>
+                    ))}
+                  </div>
+                  <div className="text-slate-400 text-xs w-16 text-right flex-shrink-0">
+                    {pd.championships} title{pd.championships !== 1 ? 's' : ''}
                   </div>
                 </div>
-                
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
-                  {manager.data.map((yearData, index) => (
-                    <div key={index} className="text-center">
-                      <div className="text-xs font-medium text-slate-600 mb-1">{yearData.year}</div>
-                      {yearData.participated ? (
-                        <div className={`w-12 h-12 rounded-lg flex items-center justify-center text-sm font-semibold border ${
-                          yearData.position === 1 ? 'bg-amber-400 text-white border-amber-500 ring-2 ring-amber-300' :
-                          yearData.position === 2 ? 'bg-indigo-500 text-white border-indigo-600' :
-                          yearData.position === 3 ? 'bg-emerald-500 text-white border-emerald-600' :
-                          yearData.position === 4 ? 'bg-sky-400 text-white border-sky-500' :
-                          yearData.position && yearData.position <= 6 ? 'bg-cyan-400 text-white border-cyan-500' :
-                          yearData.position && yearData.position <= 8 ? 'bg-orange-400 text-white border-orange-500' :
-                          'bg-rose-500 text-white border-rose-600'
-                        }`}>
-                          {yearData.position === 1 ? <Crown className="h-4 w-4 text-white" aria-hidden /> : yearData.position}
-                        </div>
-                      ) : (
-                        <div className="w-12 h-12 bg-slate-200 rounded-lg flex items-center justify-center text-xs text-slate-500 border border-slate-300">
-                          --
-                        </div>
-                      )}
+              ))}
+
+              {/* Year labels */}
+              <div className="flex items-center gap-2 mt-2">
+                <div className="w-20 flex-shrink-0" />
+                <div className="flex gap-1.5">
+                  {allYears.map(y => (
+                    <div key={y} className="w-7 text-center text-slate-600 text-[9px]">
+                      &apos;{String(y).slice(2)}-{String(y + 1).slice(2)}
                     </div>
                   ))}
                 </div>
-                
-                {/* Manager Summary */}
-                <div className="mt-3 pt-3 border-t border-slate-300">
-                  <div className="flex flex-wrap gap-4 text-xs text-slate-600">
-                    <span>
-                      <strong>Championships:</strong> {manager.data.filter(d => d.position === 1).length}
-                    </span>
-                    <span>
-                      <strong>Runner-ups:</strong> {manager.data.filter(d => d.position === 2).length}
-                    </span>
-                    <span>
-                      <strong>Avg Finish:</strong> {manager.data.filter(d => d.participated).length > 0 ? 
-                        (manager.data.filter(d => d.participated).reduce((sum, d) => sum + (d.position || 0), 0) / 
-                         manager.data.filter(d => d.participated).length).toFixed(1) : 'N/A'}
-                    </span>
-                  </div>
-                </div>
+                <div className="w-16 flex-shrink-0" />
               </div>
-            ))}
+            </div>
           </div>
-          
+
           {/* Legend */}
-          <div className="mt-6 p-4 bg-white rounded-lg border border-slate-200">
-            <h4 className="font-semibold text-hockey-primary mb-3">Legend:</h4>
-            <div className="flex flex-wrap gap-4 text-sm">
-              <div className="flex items-center space-x-2">
-                <div className="w-8 h-8 bg-amber-400 rounded-lg flex items-center justify-center text-white font-bold border border-amber-500 ring-2 ring-amber-300">
-                  <Crown className="h-4 w-4 text-white" />
-                </div>
-                <span className="text-slate-700">Champion</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <div className="w-8 h-8 bg-indigo-500 rounded-lg flex items-center justify-center text-white font-semibold border border-indigo-600">2</div>
-                <span className="text-slate-700">Runner-up</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <div className="w-8 h-8 bg-emerald-500 rounded-lg flex items-center justify-center text-white font-semibold border border-emerald-600">3</div>
-                <span className="text-slate-700">3rd Place</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <div className="w-8 h-8 bg-sky-400 rounded-lg flex items-center justify-center text-white font-semibold border border-sky-500">4</div>
-                <span className="text-slate-700">4th Place</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <div className="w-8 h-8 bg-cyan-400 rounded-lg flex items-center justify-center text-white font-semibold border border-cyan-500">5-6</div>
-                <span className="text-slate-700">5th–6th</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <div className="w-8 h-8 bg-orange-400 rounded-lg flex items-center justify-center text-white font-semibold border border-orange-500">7-8</div>
-                <span className="text-slate-700">7th–8th</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <div className="w-8 h-8 bg-rose-500 rounded-lg flex items-center justify-center text-white font-semibold border border-rose-600">9+</div>
-                <span className="text-slate-700">9th+</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <div className="w-8 h-8 bg-slate-200 rounded-lg flex items-center justify-center text-xs text-slate-600 border border-slate-300">--</div>
-                <span className="text-slate-700">Did not play</span>
-              </div>
+          <div className="flex flex-wrap gap-4 mt-4 text-xs text-slate-400">
+            <div className="flex items-center gap-1.5">
+              <div className="w-4 h-4 rounded bg-amber-500" />
+              <span>Champion</span>
+            </div>
+            <div className="flex items-center gap-1.5">
+              <div className="w-4 h-4 rounded bg-green-500" />
+              <span>2nd-3rd</span>
+            </div>
+            <div className="flex items-center gap-1.5">
+              <div className="w-4 h-4 rounded bg-slate-600" />
+              <span>4th-6th</span>
+            </div>
+            <div className="flex items-center gap-1.5">
+              <div className="w-4 h-4 rounded bg-red-500" />
+              <span>7th+</span>
+            </div>
+            <div className="flex items-center gap-1.5">
+              <div className="w-4 h-4 rounded bg-slate-800" />
+              <span>Did not play</span>
             </div>
           </div>
         </div>
 
-        {/* Era Dominance Stacked Bar Chart */}
-        <div className="card">
-          <h3 className="text-2xl font-semibold text-gray-900 mb-6 flex items-center">
-            <TrendingUp className="h-8 w-8 mr-3 text-indigo-500" />
-            Era Dominance Analysis
-          </h3>
-          
+        {/* ═══════ SECTION 6: Era Dominance Analysis ═══════ */}
+        <div className="bg-hockey-surface border border-hockey-border rounded-xl p-6">
+          <div className="flex items-center gap-3 mb-6">
+            <TrendingUp className="h-6 w-6 text-hockey-secondary" />
+            <h2 className="text-xl font-semibold text-slate-100">Era Dominance Analysis</h2>
+          </div>
+
           <div className="space-y-6">
-            {eraDominanceData.map((era, index) => (
-              <div key={era.name} className="bg-gray-50 p-6 rounded-lg">
-                <h4 className="text-lg font-semibold text-gray-900 mb-4">{era.name} ({era.totalSeasons} seasons)</h4>
-                
+            {eraDominance.map(era => (
+              <div key={era.name} className="bg-hockey-primary/50 rounded-lg p-6 border border-hockey-border">
+                <h3 className="text-slate-100 text-lg font-semibold mb-4">
+                  {era.name} <span className="text-slate-400">({era.totalSeasons} seasons)</span>
+                </h3>
+
                 <div className="space-y-3">
-                  {Object.entries(era.champions)
-                    .sort(([,a], [,b]) => b - a)
-                    .map(([manager, championships]) => (
-                      <div key={manager} className="flex items-center">
-                        <div className="w-32 text-sm font-medium text-gray-900">{manager}</div>
-                        <div className="flex-1 mx-4">
-                          <div className="w-full bg-gray-200 rounded-full h-6">
-                            <div 
-                              className={`h-6 rounded-full flex items-center justify-center text-white text-sm font-medium ${era.color}`}
-                              style={{ width: `${(championships / era.totalSeasons) * 100}%` }}
-                            >
-                              {championships}
-                            </div>
+                  {era.champions.map(([manager, count]) => {
+                    const pct = (count / era.totalSeasons) * 100;
+                    return (
+                      <div key={manager} className="flex items-center gap-3">
+                        <div className="w-20 text-sm font-medium text-slate-100">{manager}</div>
+                        <div className="bg-slate-700 rounded h-6 flex-1 overflow-hidden">
+                          <div
+                            className="bg-gradient-to-r from-green-600 to-green-400 h-6 rounded flex items-center px-2"
+                            style={{ width: `${pct}%` }}
+                          >
+                            {pct >= 20 && (
+                              <span className="text-white text-sm font-medium">{count}</span>
+                            )}
                           </div>
                         </div>
-                        <div className="text-sm text-gray-600">
-                          {((championships / era.totalSeasons) * 100).toFixed(1)}%
+                        <div className="text-slate-400 text-sm w-16 text-right">
+                          {Math.round(pct)}%
                         </div>
                       </div>
-                    ))}
+                    );
+                  })}
                 </div>
               </div>
             ))}
           </div>
         </div>
 
-        {/* Regular Season vs Playoff Performance Scatter Plot */}
-        <div className="card">
-          <h3 className="text-2xl font-semibold text-hockey-primary mb-6 flex items-center">
-            <Zap className="h-8 w-8 mr-3 text-hockey-secondary" />
-            Regular Season vs Playoff Performance
-          </h3>
-          
-          <div className="relative">
-            <div className="bg-slate-50 p-4 sm:p-8 rounded-lg">
-              <div className="relative h-64 sm:h-80 w-full">
-                {/* Axes */}
-                <div className="absolute bottom-0 left-0 w-full h-px bg-slate-300"></div>
-                <div className="absolute bottom-0 left-0 w-px h-full bg-slate-300"></div>
-                
-                {/* Labels */}
-                <div className="absolute -bottom-6 left-1/2 transform -translate-x-1/2 text-sm text-slate-600">
-                  Regular Season Win % →
-                </div>
-                <div className="absolute left-0 top-1/2 transform -translate-y-1/2 -rotate-90 text-sm text-slate-600">
-                  ← Playoff Success Rate %
-                </div>
-                
-                {/* Quadrant Labels */}
-                <div className="absolute top-4 left-4 text-xs text-gray-500 bg-white p-2 rounded border">
-                  Poor Regular Season<br/>High Playoff Success
-                </div>
-                <div className="absolute top-4 right-4 text-xs text-gray-500 bg-white p-2 rounded border">
-                  Good Regular Season<br/>High Playoff Success
-                </div>
-                <div className="absolute bottom-4 left-4 text-xs text-gray-500 bg-white p-2 rounded border">
-                  Poor Regular Season<br/>Low Playoff Success
-                </div>
-                <div className="absolute bottom-4 right-4 text-xs text-gray-500 bg-white p-2 rounded border">
-                  Good Regular Season<br/>Low Playoff Success
-                </div>
-                
-                {/* Data Points with Labels */}
-                {scatterPlotData.map((manager, index) => (
-                  <div
-                    key={manager.manager}
-                    className="absolute transform -translate-x-1/2 -translate-y-1/2"
-                    style={{
-                      left: `${Math.min(95, Math.max(5, (manager.regularSeasonWinPct - 30) * 2))}%`,
-                      bottom: `${Math.min(95, Math.max(5, manager.playoffSuccessRate * 1.2))}%`
-                    }}
-                  >
-                    {/* Data Point */}
-                    <div
-                      className={`rounded-full border border-white shadow cursor-pointer hover:scale-110 transition-transform ${
-                        manager.championships > 2 ? 'w-6 h-6 bg-hockey-secondary' :
-                        manager.championships > 0 ? 'w-5 h-5 bg-hockey-accent' :
-                        'w-4 h-4 bg-slate-300'
-                      }`}
-                      title={`${manager.manager}: ${manager.regularSeasonWinPct.toFixed(1)}% RS Win, ${manager.playoffSuccessRate.toFixed(1)}% Playoff Success, ${manager.championships} Championships`}
-                    />
-                    {/* Manager Name Label */}
-                    <div className="absolute top-6 sm:top-8 left-1/2 transform -translate-x-1/2 text-xs font-medium text-slate-700 bg-white px-1 sm:px-2 py-1 rounded shadow-sm border whitespace-nowrap">
-                      {manager.manager}
+        {/* ═══════ SECTION 7: Tale of the Tape ═══════ */}
+        <div className="bg-hockey-surface border border-hockey-border rounded-xl p-6">
+          <div className="flex items-center gap-3 mb-1">
+            <BarChart3 className="h-6 w-6 text-hockey-secondary" />
+            <h2 className="text-xl font-semibold text-slate-100">Tale of the Tape</h2>
+          </div>
+          <p className="text-slate-400 text-sm mb-6 ml-9">Regular season stars who can&apos;t close in the playoffs</p>
+
+          <div className="space-y-4">
+            {taleOfTheTape.map(m => {
+              const isKing = m.winPctRank <= 3 && m.championships <= 1;
+              return (
+                <div key={m.manager} className="bg-hockey-primary/50 border border-hockey-border rounded-lg p-5">
+                  <div className="flex items-center gap-3 mb-1">
+                    <span className="text-slate-100 text-lg font-semibold">{m.manager}</span>
+                    {isKing && (
+                      <span className="bg-amber-500/15 text-amber-400 px-3 py-1 rounded-full text-xs font-semibold">
+                        REGULAR SEASON KING
+                      </span>
+                    )}
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-3">
+                    <div>
+                      <div className="text-slate-400 text-xs uppercase">Regular Season</div>
+                      <div className="text-hockey-secondary text-3xl font-bold">
+                        {(m.winPct * 100).toFixed(1)}%
+                      </div>
+                      <div className="text-slate-500 text-sm">
+                        Ranked #{m.winPctRank} in win percentage
+                      </div>
+                    </div>
+                    <div>
+                      <div className="text-slate-400 text-xs uppercase">Playoff Outcome</div>
+                      <div className={`text-3xl font-bold ${m.championships === 0 ? 'text-red-400' : 'text-slate-100'}`}>
+                        {m.championships} title{m.championships !== 1 ? 's' : ''}
+                      </div>
+                      <div className="text-slate-500 text-sm">
+                        Avg finish: {m.averageFinish.toFixed(1)}
+                      </div>
                     </div>
                   </div>
-                ))}
-                
-                {/* Reference Lines */}
-                <div className="absolute left-1/2 top-0 w-px h-full bg-slate-200 opacity-70"></div>
-                <div className="absolute bottom-1/2 left-0 w-full h-px bg-slate-200 opacity-70"></div>
-              </div>
-            </div>
-            
-            {/* Legend */}
-              <div className="mt-4 flex items-center justify-center space-x-6 text-sm">
-                <div className="flex items-center space-x-2">
-                  <div className="w-6 h-6 bg-hockey-secondary rounded-full border border-white"></div>
-                  <span>3+ Championships</span>
                 </div>
-                <div className="flex items-center space-x-2">
-                  <div className="w-5 h-5 bg-hockey-accent rounded-full border border-white"></div>
-                  <span>1-2 Championships</span>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <div className="w-4 h-4 bg-slate-300 rounded-full border border-white"></div>
-                  <span>0 Championships</span>
-                </div>
-              </div>
+              );
+            })}
           </div>
         </div>
+
       </div>
     </Layout>
   );
